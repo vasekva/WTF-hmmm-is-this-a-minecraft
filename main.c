@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include <stdio.h>
+#include <math.h>
 #include "./get_next_line/get_next_line.h"
 #include "./mlx/mlx.h"
 
@@ -11,94 +12,94 @@
 int		ft_abs(int num);
 int		create_trgb(int t, int r, int g, int b);
 
+typedef struct  s_data {
+    void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}               t_data;
+
+typedef struct  s_vars {
+    void        *mlx;
+    void        *mlx_win;
+    int         key_code;
+}               t_vars;
+
+typedef struct	s_coord
+{
+	int			world_map[mapWidth][mapHeight];
+	double		posX;
+	double		posY;
+	double		dirX;
+	double		dirY;
+}				t_coords;
+
+
+void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+    char    *dst;
+
+    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+    *(unsigned int*)dst = color;
+}
+
+int             key_hook(int keycode, t_vars *vars)
+{
+    //printf("Hello from key_hook! CODE: %d\n", keycode);
+    vars->key_code = keycode;
+    // 123 <- | 124 -> | 125 -^ | 126 ^
+
+    return (keycode);
+}
+
 int		main(void)
 {
-	//char	world_map[mapWidth][mapHeight];
+    t_data  	img;
+	t_vars		vars;
+	t_coords	coords;
 
-    // int		fd;
-	// int		i;
-	// char	*line;
-    // int		num_of_line;
-    // int		j;
 
-	// num_of_line = 0;
-	// j = 0;
-	// fd = open("map.txt", O_RDONLY);
-	// while ((i = get_next_line(fd, &line)) >= 0)
-	// {
-	// 	j = 0;
-	// 	while (line[j] != '\0')
-	// 	{
-	// 		world_map[num_of_line][j] = line[j];
-	// 		j++;
-	// 	}
-	// 	printf("%s\n", world_map[num_of_line]);
-	// 	num_of_line++;
-	// 	free(line);
-    //     if (i == 0)
-    //         break;
-	// }
-	// if (i < 0)
-	// 	printf("All is good");
+	int 	world_map[mapWidth][mapHeight];
+    int		fd;
+	int		i;
+	char	*line;
+    int		num_of_line;
+    int		j;
 
-	int world_map[mapWidth][mapHeight] =
+
+	num_of_line = 0;
+	j = 0;
+	fd = open("map1.txt", O_RDONLY);
+	while ((i = get_next_line(fd, &line)) >= 0)
 	{
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	};
+		while (line[j] != '\0')
+		{
+			world_map[num_of_line][j] = line[j] - '0';
+			printf("%d", world_map[num_of_line][j]);
+			j++;
+		}
+		printf("\n");
+		j = 0;
+		num_of_line++;
+		if (i == 0)
+			break;
+	}
 
-	double	posX = 22; // стартовая позиция X
-	double	posY = 12; // стартовая позиция Y
-	double	dirX = -1; // начальный вектор направления по X
-	double	dirY = 0; // начальный вектор направления по Y
+	coords.posX = 22; // стартовая позиция X
+	coords.posY = 12; // стартовая позиция Y
+	coords.dirX = -1; // начальный вектор направления по X
+	coords.dirY = 0; // начальный вектор направления по Y
 	double	planeX = 0;
 	double	planeY = 0.66;
 
-	// double	time = 0; // время текущего кадра
-	// double	oldTime = 0; // время предыдущего кадра
+	vars.mlx = mlx_init();
+    vars.mlx_win = mlx_new_window(vars.mlx, w, h, "Hello world!");
+	img.img = mlx_new_image(vars.mlx, w, h);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+                                 &img.endian);
 
-	void    *mlx;
-    void    *mlx_win;
-
-	mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, w, h, "Hello world!");
-	int y = 50;
-	int x;
-	// while (y++ < 200)
-	// {
-	// 	x = 50;
-	// 	while (x < 200)
-	// 	{
-	// 		if (x < 55 || y < 55 || x > 195 || y > 195)
-	// 			mlx_pixel_put(mlx, mlx_win, x, y, 0xFFFFFF);
-	// 		else
-	// 			mlx_pixel_put(mlx, mlx_win, x, y, 0xFFCC99);
-	// 			x++;
-	// 		// x = cos(x) + cos(y);
-	// 	}
-	// }
+    //mlx_key_hook(vars.mlx_win, key_hook, &vars);
 	int		done = 0;
 	while (!done)
 	{
@@ -106,20 +107,20 @@ int		main(void)
 		{
 			// вычисляем положение и направление луча
 			double cameraX = 2 * x / (double)(w) - 1; //x - координата в пространстве камеры
-			double rayDirX = dirX + planeX * cameraX;
-			double rayDirY = dirY + planeY * cameraX;
+			double rayDirX = coords.dirX + planeX * cameraX;
+			double rayDirY = coords.dirY + planeY * cameraX;
 
 			// в каком квадрате карты мы находимся
-			int mapX = (int)(posX);
-			int mapY = (int)(posY);
+			int mapX = (int)(coords.posX);
+			int mapY = (int)(coords.posY);
 
 			// длина луча от текущей позиции до следующей x или y стороны
 			double sideDistX;
 			double sideDistY;
 
 			// длина луча от текущей стороны x или y до следующей стороны x или y
-			// double deltaDistX = ft_abs(1 / rayDirX);
-			// double deltaDistY = ft_abs(1 / rayDirY);
+			// double deltaDistX = ft_abs(1 / raycoords.dirX);
+			// double deltaDistY = ft_abs(1 / raycoords.dirY);
 			double deltaDistX = (rayDirY == 0) ? 0 : ((rayDirX == 0) ? 1 : ft_abs(1 / rayDirX));
 			double deltaDistY = (rayDirX == 0) ? 0 : ((rayDirY == 0) ? 1 : ft_abs(1 / rayDirY));
 			double perpWallDist;
@@ -136,22 +137,22 @@ int		main(void)
 			if (rayDirX < 0)
 			{
 				stepX = -1;
-				sideDistX = (posX - mapX) * deltaDistX;
+				sideDistX = (coords.posX - mapX) * deltaDistX;
 			}
 			else
 			{
 				stepX = 1;
-				sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+				sideDistX = (mapX + 1.0 - coords.posX) * deltaDistX;
 			}
 			if (rayDirY < 0)
 			{
 				stepY = -1;
-				sideDistY = (posY - mapY) * deltaDistY;
+				sideDistY = (coords.posY - mapY) * deltaDistY;
 			}
 			else
 			{
 				stepY = 1;
-				sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+				sideDistY = (mapY + 1.0 - coords.posY) * deltaDistY;
 			}
 
 			// выполняем DDA
@@ -175,9 +176,9 @@ int		main(void)
 			} 
 			// Вычислить расстояние, проецируемое в направлении камеры (евклидово расстояние даст эффект рыбьего глаза !)
 			if (side == 0) 
-				perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
+				perpWallDist = (mapX - coords.posX + (1 - stepX) / 2) / rayDirX;
 			else           
-				perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
+				perpWallDist = (mapY - coords.posY + (1 - stepY) / 2) / rayDirY;
 
 			// Рассчитываем высоту линии для рисования на экране
 			int lineHeight = (int)(h / perpWallDist);
@@ -190,7 +191,7 @@ int		main(void)
 			if (drawEnd >= h)
 				drawEnd = h - 1;
 
-			printf("DS: %d DE: %d\n", drawStart, drawEnd);
+			//printf("DS: %d DE: %d\n", drawStart, drawEnd);
 			int y = drawStart;
 			int x = drawStart;
 
@@ -199,20 +200,84 @@ int		main(void)
 			if (drawStart < 0) drawStart = 0; //clip
 			if (drawEnd >= w) drawEnd = h - 1; //clip
 
+			int color = create_trgb(0, 255, 255, 0);
+			// switch (world_map[mapX][mapY])
+			// {
+			// 	case 1:  color = create_trgb(0, 255, 0, 0);  break; //red
+			// 	case 2:  color = create_trgb(0, 0, 255, 0); break; //green
+			// 	case 3:  color = create_trgb(0, 0, 0, 255);  break; //blue
+			// 	case 4:  color = create_trgb(0, 255, 255, 255);  break; //white
+			// 	default: color = create_trgb(0, 255, 255, 0); break; //yellow
+			// }
+
+			//if (side == 1) {color = color / 2;}
+			
 			for(int x = 0; x <= drawStart; x++)
 				for(int y = drawStart; y <= drawEnd; y++)
 				{
-					mlx_pixel_put(mlx, mlx_win, x, y, 0xFFCC99);
+					//vars.mlx_pixel_put(vars.mlx, vars.mlx_win, x, y, color);
+					my_mlx_pixel_put(&img, x, y, color);
 				}
+
+			double frameTime = 1; //frameTime is the time this frame has taken, in seconds
+
+			double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
+			double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+
+			//move forward if no wall in front of you
+
+
+			mlx_key_hook(vars.mlx_win, key_hook, &vars);
+
+			if (vars.key_code == 13)
+			{
+				if(world_map[(int)(coords.posX + coords.dirX * moveSpeed)][(int)(coords.posY)] == 0) coords.posX += coords.dirX * moveSpeed;
+				if(world_map[(int)(coords.posX)][(int)(coords.posY + coords.dirY * moveSpeed)] == 0) coords.posY += coords.dirY * moveSpeed;
+			}
+
+			// if (keyDown(SDLK_UP))
+			// {
+			// if(world_map[(int)(coords. + coords.dirX * moveSpeed)][(int)(coords.posY)] == 0) coords. += coords.dirX * moveSpeed;
+			// if(world_map[(int)(coords.)][(int)(coords.posY + coords.dirY * moveSpeed)] == 0) coords.posY += coords.dirY * moveSpeed;
+			// }
+			// //move backwards if no wall behind you
+			// if (keyDown(SDLK_DOWN))
+			// {
+			// if(world_map[(int)(coords. - coords.dirX * moveSpeed)][(int)(coords.posY)] == 0) coords. -= coords.dirX * moveSpeed;
+			// if(world_map[(int)(coords.)][(int)(coords.posY - coords.dirY * moveSpeed)] == 0) coords.posY -= coords.dirY * moveSpeed;
+			// }
+			// //rotate to the right
+			// if (keyDown(SDLK_RIGHT))
+			// {
+			// //both camera direction and camera plane must be rotated
+			// double oldcoords.dirX = coords.dirX;
+			// coords.dirX = coords.dirX * cos(-rotSpeed) - coords.dirY * sin(-rotSpeed);
+			// coords.dirY = oldcoords.dirX * sin(-rotSpeed) + coords.dirY * cos(-rotSpeed);
+			// double oldPlaneX = planeX;
+			// planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+			// planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+			// }
+			// //rotate to the left
+			// if (keyDown(SDLK_LEFT))
+			// {
+			// //both camera direction and camera plane must be rotated
+			// double oldcoords.dirX = coords.dirX;
+			// coords.dirX = coords.dirX * cos(rotSpeed) - coords.dirY * sin(rotSpeed);
+			// coords.dirY = oldcoords.dirX * sin(rotSpeed) + coords.dirY * cos(rotSpeed);
+			// double oldPlaneX = planeX;
+			// planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+			// planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+			// }	
 			// while (y++ < drawEnd)
 			// {
 			// 	x = drawStart;
 			// 	while (x++ < drawEnd)
 			// 	{
-			// 		mlx_pixel_put(mlx, mlx_win, x, y, 0xFFCCC9);
+			// 		vars.mlx_pixel_put(vars.mlx, vars.mlx_win, x, y, 0xFFCCC9);
 			// 	}
 			// }
 		}
-		mlx_loop(mlx);
+		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img.img, 0, 0);
+		mlx_loop(vars.mlx);
 	}
 }
