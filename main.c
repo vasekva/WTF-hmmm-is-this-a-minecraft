@@ -2,39 +2,10 @@
 #include <stdio.h>
 #include <math.h>
 #include "./get_next_line/get_next_line.h"
+#include "./libft/libft.h"
 #include "./mlx/mlx.h"
 
-#define mapWidth 24
-#define mapHeight 24
-#define w 1280
-#define h 1024
-
-int		ft_abs(int num);
-int		create_trgb(int t, int r, int g, int b);
-
-typedef struct  s_data {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_data;
-
-typedef struct  s_vars {
-    void        *mlx;
-    void        *mlx_win;
-    int         key_code;
-}               t_vars;
-
-typedef struct	s_coord
-{
-	int			world_map[mapWidth][mapHeight];
-	double		posX;
-	double		posY;
-	double		dirX;
-	double		dirY;
-}				t_coords;
-
+#include "./cub3D.h"
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -60,7 +31,7 @@ int		main(void)
 	t_coords	coords;
 
 
-	int 	world_map[mapWidth][mapHeight];
+	//int 	world_map[mapWidth][mapHeight];
     int		fd;
 	int		i;
 	char	*line;
@@ -75,8 +46,11 @@ int		main(void)
 	{
 		while (line[j] != '\0')
 		{
-			world_map[num_of_line][j] = line[j] - '0';
-			printf("%d", world_map[num_of_line][j]);
+			if (!ft_isdigit(line[j]))
+				coords.world_map[num_of_line][j] = line[j];
+			else
+				coords.world_map[num_of_line][j] = line[j] - '0';
+			printf("%d", coords.world_map[num_of_line][j]);
 			j++;
 		}
 		printf("\n");
@@ -90,8 +64,8 @@ int		main(void)
 	coords.posY = 12; // стартовая позиция Y
 	coords.dirX = -1; // начальный вектор направления по X
 	coords.dirY = 0; // начальный вектор направления по Y
-	double	planeX = 0;
-	double	planeY = 0.66;
+	coords.planeX = 0;
+	coords.planeY = 0.66;
 
 	vars.mlx = mlx_init();
     vars.mlx_win = mlx_new_window(vars.mlx, w, h, "Hello world!");
@@ -107,8 +81,8 @@ int		main(void)
 		{
 			// вычисляем положение и направление луча
 			double cameraX = 2 * x / (double)(w) - 1; //x - координата в пространстве камеры
-			double rayDirX = coords.dirX + planeX * cameraX;
-			double rayDirY = coords.dirY + planeY * cameraX;
+			double rayDirX = coords.dirX + coords.planeX * cameraX;
+			double rayDirY = coords.dirY + coords.planeY * cameraX;
 
 			// в каком квадрате карты мы находимся
 			int mapX = (int)(coords.posX);
@@ -172,7 +146,7 @@ int		main(void)
 					side = 1;
 				}
 				// Проверяем, попал ли луч в стену
-				if (world_map[mapX][mapY] > 0) hit = 1;
+				if (coords.world_map[mapX][mapY] > 0) hit = 1;
 			} 
 			// Вычислить расстояние, проецируемое в направлении камеры (евклидово расстояние даст эффект рыбьего глаза !)
 			if (side == 0) 
@@ -192,8 +166,6 @@ int		main(void)
 				drawEnd = h - 1;
 
 			//printf("DS: %d DE: %d\n", drawStart, drawEnd);
-			int y = drawStart;
-			int x = drawStart;
 
 			if (drawEnd < drawStart) {drawStart += drawEnd; drawEnd = drawStart - drawEnd; drawStart -= drawEnd;} //swap y1 and y2
 			if (drawEnd < 0 || drawStart >= h  || x < 0 || x >= w) return 0; //no single point of the line is on screen
@@ -219,21 +191,65 @@ int		main(void)
 					my_mlx_pixel_put(&img, x, y, color);
 				}
 
-			double frameTime = 1; //frameTime is the time this frame has taken, in seconds
+			coords.frameTime = 1; //frameTime is the time this frame has taken, in seconds
 
-			double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-			double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+			coords.moveSpeed = coords.frameTime * 5.0; //the constant value is in squares/second
+			coords.rotSpeed = coords.frameTime * 3.0; //the constant value is in radians/second
 
 			//move forward if no wall in front of you
 
 
-			mlx_key_hook(vars.mlx_win, key_hook, &vars);
+			mlx_key_hook(vars.mlx_win, key_press, &vars);
 
-			if (vars.key_code == 13)
-			{
-				if(world_map[(int)(coords.posX + coords.dirX * moveSpeed)][(int)(coords.posY)] == 0) coords.posX += coords.dirX * moveSpeed;
-				if(world_map[(int)(coords.posX)][(int)(coords.posY + coords.dirY * moveSpeed)] == 0) coords.posY += coords.dirY * moveSpeed;
-			}
+			// if (vars.key_code == 13)
+			// {
+			// 	if(coords.world_map[(int)(coords.posX + coords.dirX * moveSpeed)][(int)(coords.posY)] == 0) coords.posX += coords.dirX * moveSpeed;
+			// 	if(coords.world_map[(int)(coords.posX)][(int)(coords.posY + coords.dirY * moveSpeed)] == 0) coords.posY += coords.dirY * moveSpeed;
+			// }
+
+			// int	key_press(int key, t_coords *coords)
+			// {
+			// 	if (key == K_W)
+			// 	{
+			// 		if (!worldMap[(int)(coords->posX + coords->dirX * coords->moveSpeed)][(int)(coords->posY)])
+			// 			coords->posX += coords->dirX * coords->moveSpeed;
+			// 		if (!worldMap[(int)(coords->posX)][(int)(coords->posY + coords->dirY * coords->moveSpeed)])
+			// 			coords->posY += coords->dirY * coords->moveSpeed;
+			// 	}
+			// 	//move backwards if no wall behind you
+			// 	if (key == K_S)
+			// 	{
+			// 		if (!worldMap[(int)(coords->posX - coords->dirX * coords->moveSpeed)][(int)(coords->posY)])
+			// 			coords->posX -= coords->dirX * coords->moveSpeed;
+			// 		if (!worldMap[(int)(coords->posX)][(int)(coords->posY - coords->dirY * coords->moveSpeed)])
+			// 			coords->posY -= coords->dirY * coords->moveSpeed;
+			// 	}
+			// 	//rotate to the right
+			// 	if (key == K_D)
+			// 	{
+			// 		//both camera direction and camera plane must be rotated
+			// 		double oldDirX = coords->dirX;
+			// 		coords->dirX = coords->dirX * cos(-coords->rotSpeed) - coords->dirY * sin(-coords->rotSpeed);
+			// 		coords->dirY = oldDirX * sin(-coords->rotSpeed) + coords->dirY * cos(-coords->rotSpeed);
+			// 		double oldPlaneX = coords->planeX;
+			// 		coords->planeX = coords->planeX * cos(-coords->rotSpeed) - coords->planeY * sin(-coords->rotSpeed);
+			// 		coords->planeY = oldPlaneX * sin(-coords->rotSpeed) + coords->planeY * cos(-coords->rotSpeed);
+			// 	}
+			// 	//rotate to the left
+			// 	if (key == K_A)
+			// 	{
+			// 		//both camera direction and camera plane must be rotated
+			// 		double oldDirX = coords->dirX;
+			// 		coords->dirX = coords->dirX * cos(coords->rotSpeed) - coords->dirY * sin(coords->rotSpeed);
+			// 		coords->dirY = oldDirX * sin(coords->rotSpeed) + coords->dirY * cos(coords->rotSpeed);
+			// 		double oldPlaneX = coords->planeX;
+			// 		coords->planeX = coords->planeX * cos(coords->rotSpeed) - coords->planeY * sin(coords->rotSpeed);
+			// 		coords->planeY = oldPlaneX * sin(coords->rotSpeed) + coords->planeY * cos(coords->rotSpeed);
+			// 	}
+			// 	if (key == K_ESC)
+			// 		exit(0);
+			// 	return (0);
+			// }
 
 			// if (keyDown(SDLK_UP))
 			// {
