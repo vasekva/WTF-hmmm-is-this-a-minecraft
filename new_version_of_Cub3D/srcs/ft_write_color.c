@@ -7,7 +7,6 @@ static int ft_check_comma(char *str)
 
 	i = 0;
 	count_comma = 0;
-	printf("STR: %s\n", str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == 44)
