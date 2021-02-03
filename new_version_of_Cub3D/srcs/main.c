@@ -1,4 +1,5 @@
 #include "cub3D.h"
+#include "mlx.h"
 
 static int			check_line_for_map(char *line)
 {
@@ -67,6 +68,27 @@ static void			init_array(t_cub3D *cub3D)
 	read_and_copy_in_array(fd, cub3D);
 }
 
+t_env       *init_env(t_env *env, t_cub3D *cub3D)
+{
+    env = malloc(sizeof(t_env));
+    env->win = NULL;
+	env->mlx = NULL;
+    // env->mlx = mlx_init();
+    // env->win = mlx_new_window(env->mlx, cub3D->screen->w, cub3D->screen->h, "cub3D");
+    return (env);
+}
+
+t_mlx		*init_mlx_img(t_mlx *mlx_img)
+{
+	mlx_img = malloc(sizeof(t_mlx));
+	mlx_img->img = NULL;
+	mlx_img->addr = NULL;
+	mlx_img->bits_per_pixel = 0;
+	mlx_img->line_length = 0;
+	mlx_img->endian = 0;
+	return (mlx_img);
+}
+
 static void    		init_cub3D(t_cub3D *cub3D, char *path)
 {
 	cub3D->file_path = path;
@@ -75,6 +97,9 @@ static void    		init_cub3D(t_cub3D *cub3D, char *path)
     cub3D->floor = init_floor(NULL);
     cub3D->ceiling = init_ceiling(NULL);
     cub3D->parser = init_parser(NULL);
+
+	cub3D->env = init_env(NULL, cub3D);
+	cub3D->mlx_img = init_mlx_img(NULL);
 }
 
 int     			main(int argc, char **argv)
@@ -88,6 +113,7 @@ int     			main(int argc, char **argv)
             init_cub3D(&cub3D, argv[1]);
             ft_parse(&cub3D); //TODO проверка наличия файла, откуда идет чтение
 			init_array(&cub3D);
+			ft_start_game(&cub3D);
         }
     }
 	ft_print_structs(&cub3D);

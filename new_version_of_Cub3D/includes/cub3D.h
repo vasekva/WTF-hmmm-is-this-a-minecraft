@@ -57,6 +57,22 @@ typedef struct  s_floor
     int         b;
 }               t_floor;
 
+typedef struct	s_mlx
+{
+	void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}				t_mlx;
+
+typedef struct  	s_env
+{
+	void			*mlx;
+	void			*win;
+	void			*img;
+}					t_env;
+
 typedef struct  s_cub3D
 {
 	char		*file_path;
@@ -67,6 +83,8 @@ typedef struct  s_cub3D
 	t_parser	*parser;
 	char		*cub;
 	char		**array;
+    t_env       *env;
+	t_mlx		*mlx_img;
 }               t_cub3D;
 
 /*
@@ -81,6 +99,8 @@ int 	ft_write_color(char *str, char flag, t_cub3D *cub3D);
 int		ft_parse_int(char *str);
 
 int     ft_isidentifier(char *str);
+
+void	ft_start_game(t_cub3D *cub3D);
 
 /*
 * ft_init_structs.c

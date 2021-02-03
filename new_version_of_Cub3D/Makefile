@@ -6,6 +6,7 @@ SRC =	ft_print_structs.c main.c ft_parse.c ft_parse_int.c \
 		get_next_line.c \
 		ft_isidentifier.c \
 		ft_init_structs.c \
+		ft_start_game.c \
 
 INCLUDES = -I ./includes/ -I ./mlx/
 
