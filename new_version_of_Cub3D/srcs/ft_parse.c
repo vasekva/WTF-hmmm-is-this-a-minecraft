@@ -1,7 +1,7 @@
 #include "cub3D.h"
 #include "libft.h"
 
-void	ft_read_map(char *line, t_cub3D *cub3D)
+static void	ft_read_map(char *line, t_cub3D *cub3D)
 {
 	if (cub3D->parser->c_screen_size != 1 || cub3D->parser->c_color_floor != 1
 		|| cub3D->parser->c_color_ceiling != 1 || cub3D->parser->c_north != 1
@@ -22,7 +22,7 @@ void	ft_read_map(char *line, t_cub3D *cub3D)
 	}	
 }
 
-int 	check_line(char *str, t_cub3D *cub3D)
+static int 	check_line(char *str, t_cub3D *cub3D)
 {
 	int i;
 
@@ -47,7 +47,7 @@ int 	check_line(char *str, t_cub3D *cub3D)
 	return (0);
 }
 
-int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
+static int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
 {
 	int len;
 	int i;
@@ -83,7 +83,7 @@ int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
 	return (0);
 }
 
-int 	ft_read_path(char *str, t_cub3D *cub3D, char *flag)
+static int 	ft_read_path(char *str, t_cub3D *cub3D, char *flag)
 {
 	t_map map;
 	int i;

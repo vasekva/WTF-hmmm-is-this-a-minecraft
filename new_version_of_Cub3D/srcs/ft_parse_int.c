@@ -1,19 +1,5 @@
 #include "cub3D.h"
 
-//static int		ft_strlen(char *str)
-//{
-//	int len;
-//
-//	if (!str)
-//		return (0);
-//	len = 0;
-//	while (str[len] != '\0')
-//	{
-//		 len++;
-//	}
-//	return (len);
-//}
-
 static int	ft_pow(int num, int i)
 {
 	int count;

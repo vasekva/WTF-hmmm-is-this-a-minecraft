@@ -28,6 +28,9 @@ int 	ft_write_color(char *str, char flag, t_cub3D *cub3D)
 
 	i = 0;
 	len = 0;
+
+	//TODO распределить код по функциям
+
 	//printf("CHECK_COLOR: %s\n", str);
 	if (flag != 'C' && flag != 'F')
 		printf("ERROR\n"); //TODO сделать вывод ошибок

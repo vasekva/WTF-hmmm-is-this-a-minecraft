@@ -82,4 +82,13 @@ int		ft_parse_int(char *str);
 
 int     ft_isidentifier(char *str);
 
+/*
+* ft_init_structs.c
+*/
+t_parser 	*init_parser(t_parser *parser);
+t_ceiling    *init_ceiling(t_ceiling *ceiling);
+t_floor    *init_floor(t_floor *floor);
+t_screen    *init_screen(t_screen *screen);
+t_map       *init_map(t_map *map);
+
 #endif
