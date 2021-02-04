@@ -102,6 +102,8 @@ int     ft_isidentifier(char *str);
 
 void	ft_start_game(t_cub3D *cub3D);
 
+void	ft_draw_cub_from_cubs(t_cub3D *cub3D);
+
 /*
 * ft_init_structs.c
 */
