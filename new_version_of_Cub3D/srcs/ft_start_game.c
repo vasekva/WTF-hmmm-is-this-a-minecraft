@@ -20,7 +20,7 @@ void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D)
 	{
 		while (posX < posXFinal - 1)
 		{
-			my_mlx_pixel_put(cub3D->mlx_img, posY, posX, color_of_wall_minimap);
+			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, color_of_wall_minimap);
 			posX++;
 		}
 		posX = x * SIZE_OF_CUB;

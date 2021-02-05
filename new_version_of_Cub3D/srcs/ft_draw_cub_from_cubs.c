@@ -32,7 +32,7 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 			{
 				while (x + posY < (size_of_block + posY) - 1)
 				{
-					my_mlx_pixel_put(cub3D->mlx_img, y + posY, x + posX, 0x00FF0000);
+					my_mlx_pixel_put(cub3D->mlx_img, x + posX, y + posY, 0x00FF0000);
 					x++;
 				}
 				x = 0;
