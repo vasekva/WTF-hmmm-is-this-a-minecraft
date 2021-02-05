@@ -12,6 +12,13 @@
 # define WIDTH 0
 # define HEIGHT 0
 
+# define UP		13
+# define DOWN	1
+# define RIGHT	2
+# define LEFT	0
+# define ESC	53
+
+# define SIZE_OF_PLAYER 40
 
 typedef struct  s_map
 {
@@ -41,6 +48,8 @@ typedef struct  s_screen
 {
     int         w;
     int         h;
+    int         center_w;
+    int         center_h;
 }               t_screen;
 
 typedef struct  s_ceiling
@@ -73,6 +82,14 @@ typedef struct  	s_env
 	void			*img;
 }					t_env;
 
+typedef struct      s_player
+{
+    int			    posX;
+	int			    posY;
+    int             mv_h_bool;
+    int             mv_v_bool;
+}                   t_player;
+
 typedef struct  s_cub3D
 {
 	char		*file_path;
@@ -81,10 +98,11 @@ typedef struct  s_cub3D
     t_floor     *floor;
     t_ceiling   *ceiling;
 	t_parser	*parser;
-	char		*cub;
+	//char		*cub;
 	char		**array;
     t_env       *env;
 	t_mlx		*mlx_img;
+	t_player	*player;
 }               t_cub3D;
 
 /*
@@ -100,17 +118,25 @@ int		ft_parse_int(char *str);
 
 int     ft_isidentifier(char *str);
 
-void	ft_start_game(t_cub3D *cub3D);
+// void	ft_start_game(t_cub3D *cub3D);
+int	    ft_start_game(void	*param);
 
-void	ft_draw_cub_from_cubs(t_cub3D *cub3D);
+
+//void	ft_draw_cub_from_cubs(t_cub3D *cub3D);
 
 /*
 * ft_init_structs.c
 */
 t_parser 	*init_parser(t_parser *parser);
-t_ceiling    *init_ceiling(t_ceiling *ceiling);
-t_floor    *init_floor(t_floor *floor);
+t_ceiling   *init_ceiling(t_ceiling *ceiling);
+t_floor     *init_floor(t_floor *floor);
 t_screen    *init_screen(t_screen *screen);
 t_map       *init_map(t_map *map);
+
+/*
+* ft_event_handle
+*/
+//void        keyrelease_hook(int key, void *param);
+int        keypress_hook(int key, void *param);
 
 #endif

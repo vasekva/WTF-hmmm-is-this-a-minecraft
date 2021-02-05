@@ -70,6 +70,7 @@ static int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
 			i++;
 		}
 		cub3D->screen->w = ft_parse_int(ft_substr(str, i - len, len));
+		cub3D->screen->center_w = cub3D->screen->w / 2;
 		len = 0;
 		while (!ft_isdigit(str[i]))
 			i++;
@@ -79,6 +80,7 @@ static int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
 			i++;
 		}
 		cub3D->screen->h = ft_parse_int(ft_substr(str, i - len, len));
+		cub3D->screen->center_h = cub3D->screen->h / 2;
 	}
 	return (0);
 }
