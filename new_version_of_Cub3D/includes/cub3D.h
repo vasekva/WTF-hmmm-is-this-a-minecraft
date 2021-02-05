@@ -19,6 +19,9 @@
 # define ESC	53
 
 # define SIZE_OF_PLAYER 40
+# define SIZE_OF_CUB 30
+// # define color_of_wall_minimap 0x00808080
+# define color_of_wall_minimap 0x00FF9933
 
 typedef struct  s_map
 {
@@ -86,8 +89,10 @@ typedef struct      s_player
 {
     int			    posX;
 	int			    posY;
-    int             mv_h_bool;
-    int             mv_v_bool;
+    int             bool_up;
+	int				bool_down;
+	int				bool_left;
+	int				bool_right;
 }                   t_player;
 
 typedef struct  s_cub3D
@@ -118,8 +123,8 @@ int		ft_parse_int(char *str);
 
 int     ft_isidentifier(char *str);
 
-// void	ft_start_game(t_cub3D *cub3D);
-int	    ft_start_game(void	*param);
+void	ft_start_game(t_cub3D *cub3D);
+// int	    ft_start_game(void	*param);
 
 
 //void	ft_draw_cub_from_cubs(t_cub3D *cub3D);
@@ -136,7 +141,11 @@ t_map       *init_map(t_map *map);
 /*
 * ft_event_handle
 */
-//void        keyrelease_hook(int key, void *param);
+int        keyrelease_hook(int key, void *param);
 int        keypress_hook(int key, void *param);
+
+
+void					ft_draw_user(t_cub3D *cub3D);
+
 
 #endif
