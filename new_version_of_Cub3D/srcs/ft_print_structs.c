@@ -2,16 +2,20 @@
 
 void	ft_print_structs(t_cub3D *cub3D)
 {
-	printf("\n============================STRUCTURE===============================\n");
+	printf("\n============================STRUCTURES===============================\n\n");
+	printf("SCREEN: \n");
 	printf("SCREEN W: %d\n", cub3D->screen->w);
+	printf("SCREEN CENTER W: %d\n", cub3D->screen->center_w);
 	printf("SCREEN H: %d\n", cub3D->screen->h);
+	printf("SCREEN CENETR H: %d\n", cub3D->screen->center_h);
+
 	printf("\n");
+
+	printf("COLORS: \n");
 	printf("FLOOR R: %d\n", cub3D->floor->r);
 	printf("FLOOR G: %d\n", cub3D->floor->g);
 	printf("FLOOR B: %d\n", cub3D->floor->b);
-
 	printf("\n");
-
 	printf("CEILING R: %d\n", cub3D->ceiling->r);
 	printf("CEILING G: %d\n", cub3D->ceiling->g);
 	printf("CEILING B: %d\n", cub3D->ceiling->b);
@@ -26,10 +30,6 @@ void	ft_print_structs(t_cub3D *cub3D)
 	printf("Count of SO: %d\n", cub3D->parser->c_south);
 	printf("Count of WE: %d\n", cub3D->parser->c_west);
 	printf("Count of EA: %d\n", cub3D->parser->c_east);
-	printf("Count of ALL VALUES: %d\n", cub3D->parser->count_of_recorded_values);
-	printf("\n");
-	printf("Count of lines in map: %d\n", cub3D->parser->count_of_map_lines);
-	printf("    Max strlen in map: %d\n", cub3D->parser->max_strlen_of_map);
 
 	printf("\n");
 
@@ -55,6 +55,11 @@ void	ft_print_structs(t_cub3D *cub3D)
 
 	printf("COUNT_OF_VALUES: %d\n", cub3D->parser->count_of_recorded_values);
 
+	printf("\n");
+
+	printf("\n");
+	printf("Count of lines in map: %d\n", cub3D->parser->count_of_map_lines);
+	printf("    Max strlen in map: %d\n", cub3D->parser->max_strlen_of_map);
 	printf("\n");
 
 	printf("MAP: \n");

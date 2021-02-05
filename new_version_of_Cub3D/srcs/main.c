@@ -94,12 +94,8 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 	player = malloc(sizeof(t_player));
 	player->posX = 0;
 	player->posY = 0;
-	player->posX = cub3D->screen->center_h - SIZE_OF_PLAYER;
-	player->posY = cub3D->screen->center_w - SIZE_OF_PLAYER;
-	player->bool_up = 0;
-	player->bool_down = 0;
-	player->bool_left = 0;
-	player->bool_right = 0;
+	player->posX = cub3D->screen->center_h;
+	player->posY = cub3D->screen->center_w;
 	return (player);
 }
 
@@ -141,13 +137,12 @@ int     			main(int argc, char **argv)
         if (argc == 2)
         {
             init_cub3D(&cub3D, argv[1]);
-			mlx_key_hook(cub3D.env->win, keyrelease_hook, &cub3D);
+			//mlx_key_hook(cub3D.env->win, keyrelease_hook, &cub3D);
 			mlx_hook(cub3D.env->win, 2, 1L<<0, keypress_hook, &cub3D);
-			// ft_start_game(&cub3D);
 			mlx_loop_hook(cub3D.env->mlx, loop_hook, &cub3D);
 			mlx_loop(cub3D.env->mlx);
         }
     }
-	ft_print_structs(&cub3D);
+	//ft_print_structs(&cub3D);
     return (0);
 }

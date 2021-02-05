@@ -56,15 +56,11 @@ void					ft_draw_user(t_cub3D *cub3D)
 	int	posX = cub3D->player->posX;
 	int posY = cub3D->player->posY;
 
-
-	if (cub3D->player->bool_left == 1)
-		cub3D->player->posX -= 5;
-
 	for (int x = 0; x < SIZE_OF_PLAYER; x++)
 	{
 		for (int y = 0; y < SIZE_OF_PLAYER; y++)
 		{
-			my_mlx_pixel_put(cub3D->mlx_img, posY, posX, 0x00FFFF00);
+			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, 0x00FFFF00);
 			posY++;
 		}
 		posY = cub3D->player->posY;
@@ -97,13 +93,8 @@ void					ft_draw_user(t_cub3D *cub3D)
 
 void					ft_start_game(t_cub3D *cub3D)
 {
-	printf("fuck ");
-    void    *mlx;
-    void    *mlx_win;
-    t_mlx  img;
+	ft_print_structs(cub3D);
 
-	// cub3D->env->mlx = mlx_init();
-    // cub3D->env->win = mlx_new_window(cub3D->env->mlx, cub3D->screen->w, cub3D->screen->h, "cub3D");
 	cub3D->env->img = mlx_new_image(cub3D->env->mlx, cub3D->screen->w, cub3D->screen->h);
 	cub3D->mlx_img->addr = mlx_get_data_addr(cub3D->env->img, &cub3D->mlx_img->bits_per_pixel, &cub3D->mlx_img->line_length,
                                 &cub3D->mlx_img->endian);
@@ -113,6 +104,4 @@ void					ft_start_game(t_cub3D *cub3D)
 	ft_draw_cub_from_cubs(cub3D);	//рисует карту и массив в консоль		
 
 	mlx_put_image_to_window(cub3D->env->mlx, cub3D->env->win, cub3D->env->img, 0, 0);
-	mlx_destroy_image(cub3D->env->mlx, cub3D->env->img);
-	mlx_loop(cub3D->env->mlx);
 }
