@@ -2,12 +2,15 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "stdio.h"
-# include "fcntl.h"
-# include "stdlib.h"
-# include "unistd.h"
+# include <stdio.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <math.h>
 
 #include "libft.h"
+
+# define PI 3.1415926535
 
 # define WIDTH 0
 # define HEIGHT 0
@@ -20,6 +23,8 @@
 
 # define SIZE_OF_CUB 80
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
+# define MOVESPEED 15
+
 // # define color_of_wall_minimap 0x00808080
 # define color_of_wall_minimap 0x00FF9933
 
@@ -87,8 +92,11 @@ typedef struct  	s_env
 
 typedef struct      s_player
 {
-    int			    posX;
-	int			    posY;
+    double			posX;
+	double			posY;
+    double			posDirX;
+    double			posDirY;
+    double			posA;
 }                   t_player;
 
 typedef struct  s_cub3D
@@ -142,6 +150,8 @@ int        keypress_hook(int key, void *param);
 
 
 void					ft_draw_user(t_cub3D *cub3D);
+
+void	print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D);
 
 
 #endif

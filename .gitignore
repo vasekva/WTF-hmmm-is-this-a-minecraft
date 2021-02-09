@@ -2,3 +2,7 @@
 .DS_Store
 .vscode
 *dSYM
+*.o
+Cub3D
+libft.a
+libmlx.a

@@ -96,6 +96,11 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 	player->posY = 0;
 	player->posX = cub3D->screen->center_h;
 	player->posY = cub3D->screen->center_w;
+	player->posA = 0;
+	player->posDirX = 0;
+	player->posDirY = 0;
+	player->posDirX = cos(player->posA) * 5;
+	player->posDirY = sin(player->posA) * 5;
 	return (player);
 }
 

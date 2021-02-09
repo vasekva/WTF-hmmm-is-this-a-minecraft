@@ -66,34 +66,16 @@ void					ft_draw_user(t_cub3D *cub3D)
 		posY = cub3D->player->posY;
 		posX++;
 	}
+
+	int userCenterPosX = posX - SIZE_OF_PLAYER / 2;
+	int	userCenterPosY = posY + SIZE_OF_PLAYER / 2;
+
+	print_DDALine(userCenterPosX, userCenterPosY, userCenterPosX + cub3D->player->posDirX * 20, userCenterPosY + cub3D->player->posDirY * 20, cub3D);
 }
-
-// int					ft_start_game(void *param)
-// {
-// 	printf("FUuUUUUUUUUUUUUUUUU ");
-
-// 	t_cub3D   *cub3D;
-
-// 	if (param)
-// 	{
-// 		cub3D = (t_cub3D *)param;
-// 		cub3D->env->img = mlx_new_image(cub3D->env->mlx, cub3D->screen->w, cub3D->screen->h);
-// 		cub3D->mlx_img->addr = mlx_get_data_addr(cub3D->env->img, &cub3D->mlx_img->bits_per_pixel, &cub3D->mlx_img->line_length,
-//     	                            &cub3D->mlx_img->endian);
-
-// 		ft_draw_user(cub3D);
-
-// 		//ft_draw_cub_from_cubs(cub3D);	//рисует карту и массив в консоль		
-
-// 		mlx_put_image_to_window(cub3D->env->mlx, cub3D->env->win, cub3D->env->img, 0, 0);
-// 		mlx_loop(cub3D->env->mlx);
-// 	}
-// 	return (1);
-// }
 
 void					ft_start_game(t_cub3D *cub3D)
 {
-	ft_print_structs(cub3D);
+	//ft_print_structs(cub3D);
 
 	cub3D->env->img = mlx_new_image(cub3D->env->mlx, cub3D->screen->w, cub3D->screen->h);
 	cub3D->mlx_img->addr = mlx_get_data_addr(cub3D->env->img, &cub3D->mlx_img->bits_per_pixel, &cub3D->mlx_img->line_length,

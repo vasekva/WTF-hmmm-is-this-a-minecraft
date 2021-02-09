@@ -39,20 +39,37 @@ int	keypress_hook(int key, void *param)
             exit(0);
 		if (key == LEFT)
 		{
-			cub3D->player->posX -= 5;
+			//cub3D->player->posX -= MOVESPEED;
+			cub3D->player->posA -= 0.1;
+			if (cub3D->player->posA < 0)
+			{
+				cub3D->player->posA += 2 * PI;
+			}
+			cub3D->player->posDirX = cos(cub3D->player->posA) * 5;
+			cub3D->player->posDirY = sin(cub3D->player->posA) * 5;
 		}
 		if (key == RIGHT)
 		{
-
-			cub3D->player->posX += 5;
+			//cub3D->player->posX += MOVESPEED;
+			cub3D->player->posA += 0.1;
+			if (cub3D->player->posA > 2 * PI)
+			{
+				cub3D->player->posA -= 2 *PI;
+			}
+			cub3D->player->posDirX = cos(cub3D->player->posA) * 5;
+			cub3D->player->posDirY = sin(cub3D->player->posA) * 5;
 		}
 		if (key == UP)
 		{
-			cub3D->player->posY -= 5;
+			//cub3D->player->posY -= MOVESPEED;
+			cub3D->player->posX += cub3D->player->posDirX;
+			cub3D->player->posY += cub3D->player->posDirY;
 		}
 		if (key == DOWN)
 		{
-			cub3D->player->posY += 5;
+			//cub3D->player->posY += MOVESPEED;
+			cub3D->player->posX -= cub3D->player->posDirX;
+			cub3D->player->posY -= cub3D->player->posDirY;
 		}
 	}
 	return (1);
