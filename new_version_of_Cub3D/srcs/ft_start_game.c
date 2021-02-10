@@ -82,8 +82,6 @@ void					ft_fill_background(t_cub3D *cub3D)
 
 	x = 0;
 	y = 0;
-	printf("%d\n", cub3D->screen->w);
-	printf("%d\n", cub3D->screen->h);
 	while (x < cub3D->screen->w)
 	{
 		while (y < cub3D->screen->h)
