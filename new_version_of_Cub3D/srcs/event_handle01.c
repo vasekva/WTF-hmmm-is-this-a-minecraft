@@ -42,8 +42,8 @@ int	keypress_hook(int key, void *param)
 			//cub3D->player->posX -= MOVESPEED;
 			cub3D->player->posA -= 0.1;
 			cub3D->player->degree = cub3D->player->posA * (180 / PI);
-			printf("A: %f\n", cub3D->player->posA);
-			printf("Degree: %f\n", cub3D->player->degree);
+			// printf("A: %f\n", cub3D->player->posA);
+			// printf("Degree: %f\n", cub3D->player->degree);
 			if (cub3D->player->posA < 0)
 			{
 				cub3D->player->posA += 2 * PI;
@@ -56,8 +56,8 @@ int	keypress_hook(int key, void *param)
 			//cub3D->player->posX += MOVESPEED;
 			cub3D->player->posA += 0.1;
 			cub3D->player->degree = cub3D->player->posA * (180 / PI);
-			printf("A: %f\n", cub3D->player->posA);
-			printf("Degree: %f\n", cub3D->player->degree);
+			// printf("A: %f\n", cub3D->player->posA);
+			// printf("Degree: %f\n", cub3D->player->degree);
 			if (cub3D->player->posA > 2 * PI)
 			{
 				cub3D->player->posA -= 2 *PI;

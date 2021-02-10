@@ -23,7 +23,7 @@
 
 # define SIZE_OF_CUB 80
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
-# define MOVESPEED 15
+# define MOVESPEED 35
 
 // # define color_of_wall_minimap 0x00808080
 # define color_of_wall_minimap  0x00FF9933

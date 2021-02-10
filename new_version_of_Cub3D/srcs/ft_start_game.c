@@ -53,6 +53,21 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 	}
 }
 
+// void					ft_draw_ray(t_cub3D *cub3D)
+// {
+// 	int Xa = SIZE_OF_CUB / tan(cub3D->player->degree);
+
+// 	int userCenterPosX = posX - SIZE_OF_PLAYER / 2;
+// 	int	userCenterPosY = posY + SIZE_OF_PLAYER / 2;
+
+// 	for (int i = 0; i < 5; i++)
+// 	{
+// 		int Xend = userCenterPosX + cub3D->player->posDirX * 20;
+// 		int Yend = userCenterPosY + cub3D->player->posDirY * 20;
+// 		print_DDALine(userCenterPosX, userCenterPosY, Xend, Yend, cub3D);
+// 	}
+// }
+
 void					ft_draw_user(t_cub3D *cub3D)
 {
 	int	posX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
@@ -71,7 +86,18 @@ void					ft_draw_user(t_cub3D *cub3D)
 	int userCenterPosX = posX - SIZE_OF_PLAYER / 2;
 	int	userCenterPosY = posY + SIZE_OF_PLAYER / 2;
 
-	print_DDALine(userCenterPosX, userCenterPosY, userCenterPosX + cub3D->player->posDirX * 20, userCenterPosY + cub3D->player->posDirY * 20, cub3D);
+
+	// int Xa = SIZE_OF_CUB / tan(cub3D->player->degree);
+	// printf("XA %d\n", Xa);
+	int Xend = userCenterPosX + cub3D->player->posDirX * 20;
+	int Yend = userCenterPosY + cub3D->player->posDirY * 20;
+	// for (int i = 0; i < 2; i++)
+	// {
+	// 	Xend += Xa;
+	// 	Yend += SIZE_OF_CUB;
+	// }
+	print_DDALine(userCenterPosX, userCenterPosY, Xend, Yend, cub3D);
+	//print_DDALine(userCenterPosX, userCenterPosY, userCenterPosX + cub3D->player->posDirX * 20, userCenterPosY + cub3D->player->posDirY * 20, cub3D);
 }
 
 void					ft_fill_background(t_cub3D *cub3D)
