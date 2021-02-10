@@ -96,6 +96,7 @@ typedef struct      s_player
 {
     int             arrayX;
     int             arrayY;
+    double			degree;
     double			posX;
 	double			posY;
     double			posDirX;

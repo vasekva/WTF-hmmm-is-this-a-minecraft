@@ -118,6 +118,7 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 	player = malloc(sizeof(t_player));
 	player->arrayX = 0;
     player->arrayY = 0;
+	player->degree = 0;
 	player->posX = 0;
 	player->posY = 0;
 	player->posA = 0;
