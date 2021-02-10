@@ -68,7 +68,6 @@ void					ft_draw_user(t_cub3D *cub3D)
 		posY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
 		posX++;
 	}
-
 	int userCenterPosX = posX - SIZE_OF_PLAYER / 2;
 	int	userCenterPosY = posY + SIZE_OF_PLAYER / 2;
 
@@ -103,9 +102,11 @@ void					ft_start_game(t_cub3D *cub3D)
                                 &cub3D->mlx_img->endian);
 	ft_fill_background(cub3D);
 
-
 	ft_draw_cub_from_cubs(cub3D);	//рисует карту и массив в консоль		
 	ft_draw_user(cub3D);
 
 	mlx_put_image_to_window(cub3D->env->mlx, cub3D->env->win, cub3D->env->img, 0, 0);
+	mlx_string_put(cub3D->env->mlx, cub3D->env->win, cub3D->player->posX + (SIZE_OF_PLAYER / 2 + 5), cub3D->player->posY + (SIZE_OF_PLAYER / 2 + 10), 0x00FF0000, ft_itoa(cub3D->player->posX));
+	mlx_string_put(cub3D->env->mlx, cub3D->env->win, cub3D->player->posX + (SIZE_OF_PLAYER / 2 + 35), cub3D->player->posY + (SIZE_OF_PLAYER / 2 + 10), 0x00FF0000, ft_itoa(cub3D->player->posY));
+
 }

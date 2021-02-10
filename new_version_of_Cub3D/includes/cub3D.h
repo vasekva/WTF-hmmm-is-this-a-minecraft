@@ -21,7 +21,7 @@
 # define LEFT	0
 # define ESC	53
 
-# define SIZE_OF_CUB 40
+# define SIZE_OF_CUB 80
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
 # define MOVESPEED 15
 
