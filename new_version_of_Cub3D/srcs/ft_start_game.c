@@ -55,8 +55,8 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 
 void					ft_draw_user(t_cub3D *cub3D)
 {
-	int	posX = cub3D->player->posX;
-	int posY = cub3D->player->posY;
+	int	posX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
+	int posY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
 
 	for (int x = 0; x < SIZE_OF_PLAYER; x++)
 	{
@@ -65,7 +65,7 @@ void					ft_draw_user(t_cub3D *cub3D)
 			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, 0x00FFFF00);
 			posY++;
 		}
-		posY = cub3D->player->posY;
+		posY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
 		posX++;
 	}
 

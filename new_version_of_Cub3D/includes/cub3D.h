@@ -21,7 +21,7 @@
 # define LEFT	0
 # define ESC	53
 
-# define SIZE_OF_CUB 80
+# define SIZE_OF_CUB 40
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
 # define MOVESPEED 15
 
@@ -94,6 +94,8 @@ typedef struct  	s_env
 
 typedef struct      s_player
 {
+    int             arrayX;
+    int             arrayY;
     double			posX;
 	double			posY;
     double			posDirX;
@@ -151,9 +153,10 @@ int        keyrelease_hook(int key, void *param);
 int        keypress_hook(int key, void *param);
 
 
-void					ft_draw_user(t_cub3D *cub3D);
+void		ft_draw_user(t_cub3D *cub3D);
 
-void	print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D);
+void	    print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D);
 
+void		ft_found_player_in_array(t_cub3D *cub3D);
 
 #endif

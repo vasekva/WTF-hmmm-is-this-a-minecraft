@@ -116,10 +116,10 @@ t_mlx		*init_mlx_img(t_mlx *mlx_img)
 t_player	*init_player(t_player *player, t_cub3D *cub3D)
 {
 	player = malloc(sizeof(t_player));
+	player->arrayX = 0;
+    player->arrayY = 0;
 	player->posX = 0;
 	player->posY = 0;
-	player->posX = cub3D->screen->center_h;
-	player->posY = cub3D->screen->center_w;
 	player->posA = 0;
 	player->posDirX = 0;
 	player->posDirY = 0;
@@ -157,6 +157,32 @@ int     loop_hook(void *param)
     return (0);
 }
 
+void				ft_found_player_in_array(t_cub3D *cub3D)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < cub3D->parser->count_of_map_lines)
+	{
+		while (j < cub3D->parser->max_strlen_of_map)
+		{
+			if (cub3D->array[i][j] == 'N' || cub3D->array[i][j] == 'S' ||
+			 	cub3D->array[i][j] == 'W' || cub3D->array[i][j] == 'E')
+			{
+				cub3D->player->arrayY = i;
+				cub3D->player->arrayX = j;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	cub3D->player->posY = (double)(cub3D->player->arrayY + 1) * SIZE_OF_CUB - (SIZE_OF_CUB / 2); //TODO УБРАТЬ + 1
+	cub3D->player->posX = (double)(cub3D->player->arrayX + 1) * SIZE_OF_CUB - (SIZE_OF_CUB / 2); //TODO УБРАТЬ + 1
+}
+
 int     			main(int argc, char **argv)
 {
     t_cub3D cub3D;
@@ -167,6 +193,9 @@ int     			main(int argc, char **argv)
         {
             init_cub3D(&cub3D, argv[1]);
 			//mlx_key_hook(cub3D.env->win, keyrelease_hook, &cub3D);
+			ft_found_player_in_array(&cub3D);
+			printf("ArrayX: %d\n", cub3D.player->arrayX);
+			printf("ArrayY: %d\n", cub3D.player->arrayY);
 			mlx_hook(cub3D.env->win, 2, 1L<<0, keypress_hook, &cub3D);
 			mlx_loop_hook(cub3D.env->mlx, loop_hook, &cub3D);
 			mlx_loop(cub3D.env->mlx);
