@@ -26,7 +26,9 @@
 # define MOVESPEED 15
 
 // # define color_of_wall_minimap 0x00808080
-# define color_of_wall_minimap 0x00FF9933
+# define color_of_wall_minimap  0x00FF9933
+# define color_of_field_minimap 0x00000000
+# define color_of_background    0x00696969
 
 typedef struct  s_map
 {

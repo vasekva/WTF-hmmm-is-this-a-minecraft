@@ -20,7 +20,10 @@ void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D)
 	{
 		while (posX < posXFinal - 1)
 		{
-			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, color_of_wall_minimap);
+			if (cub3D->array[y][x] == '1')
+				my_mlx_pixel_put(cub3D->mlx_img, posX, posY, color_of_wall_minimap);
+			else
+				my_mlx_pixel_put(cub3D->mlx_img, posX, posY, color_of_field_minimap);
 			posX++;
 		}
 		posX = x * SIZE_OF_CUB;
@@ -42,8 +45,7 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 	{
 		while (x < count_of_block_in_array_x)
 		{
-			if (cub3D->array[y][x] == '1')
-				draw_cub_in_pixel(y, x, cub3D);
+			draw_cub_in_pixel(y, x, cub3D);
 			x++;
 		}
 		x = 0;
@@ -73,6 +75,27 @@ void					ft_draw_user(t_cub3D *cub3D)
 	print_DDALine(userCenterPosX, userCenterPosY, userCenterPosX + cub3D->player->posDirX * 20, userCenterPosY + cub3D->player->posDirY * 20, cub3D);
 }
 
+void					ft_fill_background(t_cub3D *cub3D)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	printf("%d\n", cub3D->screen->w);
+	printf("%d\n", cub3D->screen->h);
+	while (x < cub3D->screen->w)
+	{
+		while (y < cub3D->screen->h)
+		{
+			my_mlx_pixel_put(cub3D->mlx_img, x, y, 0x00696969);
+			y++;
+		}
+		y = 0;
+		x++;
+	}
+}
+
 void					ft_start_game(t_cub3D *cub3D)
 {
 	//ft_print_structs(cub3D);
@@ -80,10 +103,11 @@ void					ft_start_game(t_cub3D *cub3D)
 	cub3D->env->img = mlx_new_image(cub3D->env->mlx, cub3D->screen->w, cub3D->screen->h);
 	cub3D->mlx_img->addr = mlx_get_data_addr(cub3D->env->img, &cub3D->mlx_img->bits_per_pixel, &cub3D->mlx_img->line_length,
                                 &cub3D->mlx_img->endian);
+	ft_fill_background(cub3D);
 
-	ft_draw_user(cub3D);
 
 	ft_draw_cub_from_cubs(cub3D);	//рисует карту и массив в консоль		
+	ft_draw_user(cub3D);
 
 	mlx_put_image_to_window(cub3D->env->mlx, cub3D->env->win, cub3D->env->img, 0, 0);
 }
