@@ -11,6 +11,8 @@
 #include "libft.h"
 
 # define PI 3.1415926535
+# define PI2 (PI / 2)
+# define PI3 ((3 * PI) / 2) 
 
 # define WIDTH 0
 # define HEIGHT 0
@@ -21,9 +23,11 @@
 # define LEFT	0
 # define ESC	53
 
-# define SIZE_OF_CUB 80
+# define SIZE_OF_CUB 64
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
 # define MOVESPEED 35
+# define LONG_VIEW 8
+
 
 // # define color_of_wall_minimap 0x00808080
 # define color_of_wall_minimap  0x00FF9933
@@ -156,8 +160,10 @@ int        keypress_hook(int key, void *param);
 
 void		ft_draw_user(t_cub3D *cub3D);
 
-void	    print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D);
+void	    print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D, int color);
 
 void		ft_found_player_in_array(t_cub3D *cub3D);
+
+void		ft_draw_rays(t_cub3D *cub3D);
 
 #endif

@@ -20,7 +20,7 @@ int		abs(int num)
 	return (num > 0 ? num : -num);
 }
 
-void	print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D)
+void	print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D, int color)
 {
 	// (1) Целочисленные значения координат начала и конца отрезка,
 	// округленные до ближайшего целого
@@ -41,7 +41,7 @@ void	print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D)
 	// особый случай, на экране закрашивается ровно один пиксель
     if (length == 0)
     {
-		my_mlx_pixel_put(cub3D->mlx_img, iX1, iY1, 0x00FF0000);
+		my_mlx_pixel_put(cub3D->mlx_img, iX1, iY1, color);
         return;
     }
     // (4) Вычисляем приращения на каждом шаге по осям абсцисс и ординат
@@ -58,6 +58,6 @@ void	print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D)
 	{
 		x += dX;
 		y += dY;
-		my_mlx_pixel_put(cub3D->mlx_img, roundf(x), roundf(y), 0x00FF0000);
+		my_mlx_pixel_put(cub3D->mlx_img, roundf(x), roundf(y), color);
 	}
 }

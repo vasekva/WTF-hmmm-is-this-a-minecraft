@@ -9,6 +9,7 @@ SRC =	ft_print_structs.c main.c ft_parse.c ft_parse_int.c \
 		ft_start_game.c \
 		event_handle01.c \
 		print_DDALine.c \
+#		ft_draw_rays.c \
 #		ft_draw_cub_from_cubs.c \
 
 INCLUDES = -I ./includes/ -I ./mlx/

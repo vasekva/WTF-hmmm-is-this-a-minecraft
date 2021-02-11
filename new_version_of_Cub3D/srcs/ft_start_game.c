@@ -96,7 +96,8 @@ void					ft_draw_user(t_cub3D *cub3D)
 	// 	Xend += Xa;
 	// 	Yend += SIZE_OF_CUB;
 	// }
-	print_DDALine(userCenterPosX, userCenterPosY, Xend, Yend, cub3D);
+	print_DDALine(userCenterPosX, userCenterPosY, Xend, Yend, cub3D, 0x00FF0000);
+	ft_draw_rays(cub3D);
 	//print_DDALine(userCenterPosX, userCenterPosY, userCenterPosX + cub3D->player->posDirX * 20, userCenterPosY + cub3D->player->posDirY * 20, cub3D);
 }
 
@@ -132,7 +133,7 @@ void					ft_start_game(t_cub3D *cub3D)
 	ft_draw_user(cub3D);
 
 	mlx_put_image_to_window(cub3D->env->mlx, cub3D->env->win, cub3D->env->img, 0, 0);
-
+ 
 	//Degree
 	mlx_string_put(cub3D->env->mlx, cub3D->env->win, cub3D->player->posX - (SIZE_OF_PLAYER / 2 - 5), cub3D->player->posY + (SIZE_OF_PLAYER / 2 + 10), 0x00FF0000, ft_itoa(cub3D->player->degree));
 	//X
