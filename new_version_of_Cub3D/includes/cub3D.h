@@ -96,9 +96,20 @@ typedef struct  	s_env
 	void			*img;
 }					t_env;
 
+typedef struct      s_player2D
+{
+    int             color_minicubeRU;
+    int             color_minicubeRD;
+    int             color_minicubeLU;
+    int             color_minicubeLD;
+    int             color_of_player;
+    // int             color_of_hit;
+}                   t_player2D;
+
 typedef struct      s_player
 {
-    int             color_minicubes;
+    //int             color_minicubeRU;
+    t_player2D      *player2D;
     int             arrayX;
     int             arrayY;
     double			degree;

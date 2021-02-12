@@ -118,7 +118,7 @@ void					ft_draw_user(t_cub3D *cub3D)
 	{
 		for (int y = 0; y < SIZE_OF_PLAYER; y++)
 		{
-			my_mlx_pixel_put(cub3D->mlx_img, startDrawX, startDrawY, 0x00FFFF00);
+			my_mlx_pixel_put(cub3D->mlx_img, startDrawX, startDrawY, cub3D->player->player2D->color_of_player);
 			startDrawY++;
 		}
 		startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
@@ -129,11 +129,11 @@ void					ft_draw_user(t_cub3D *cub3D)
 	int Yend = cub3D->player->posY + cub3D->player->posDirY * 20;
 
 	print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
-	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->color_minicubes);
-	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->color_minicubes);
-	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->color_minicubes);
-	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->color_minicubes);
-	ft_draw_rays(cub3D);
+	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
+	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
+	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
+	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
+	// ft_draw_rays(cub3D);
 }
 
 void					ft_fill_background(t_cub3D *cub3D)
