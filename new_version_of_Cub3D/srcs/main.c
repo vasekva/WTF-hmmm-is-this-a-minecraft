@@ -160,18 +160,15 @@ void				ft_draw_rays(t_cub3D *cub3D)
 {
 	printf("PI: %f\n", PI);
 	printf("PI2: %f\n", PI2);
-	printf("PI3: %f\n", PI3);
+	printf("PI3: %f\n\n", PI3);
 
 	double rad = cub3D->player->posA;
-	int Ya, Xa, arrayY, arrayX;
-
-
-	// if (rad > PI)
-	// {
-	// 	printf("HELLLL\n");
-	// 	Ya = -SIZE_OF_CUB - cub3D->player->posA;
-	// 	Xa = SIZE_OF_CUB / -tan(rad);
-	// }
+	int Ya = 0;
+	int Xa = 0;
+	int arrayY = 0;
+	int	arrayX = 0;
+	int IndexOfArrayY = 0;
+	int IndexOfArrayX = 0;
 
 	/*
 	* если вверх, то Ay = (Py / 64) * 64 - 1;
@@ -181,44 +178,60 @@ void				ft_draw_rays(t_cub3D *cub3D)
 	//верх
 	if (cub3D->player->degree > 225 && cub3D->player->degree < 315)
 	{
-		// Xa = SIZE_OF_CUB / tan(rad);
-		// Ya = -SIZE_OF_CUB;
+		Xa = -SIZE_OF_CUB / tan(cub3D->player->posA);
+		Ya = -SIZE_OF_CUB;
 		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
-		//int IndexOfArrayY = arrayY / SIZE_OF_CUB;
 		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
-		//int IndexOfArrayX = arrayX / SIZE_OF_CUB;
+		// IndexOfArrayY = arrayY / SIZE_OF_CUB;
+		// IndexOfArrayX = arrayX / SIZE_OF_CUB;
 	}
 	//низ
 	if (cub3D->player->degree > 45 && cub3D->player->degree < 135)
 	{
-		// Xa = SIZE_OF_CUB / tan(rad);
-		// Ya = SIZE_OF_CUB;
+		Xa = SIZE_OF_CUB / tan(cub3D->player->posA);
+		Ya = SIZE_OF_CUB;
 		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB + 64;
-		//int IndexOfArrayY = arrayY / SIZE_OF_CUB;
 		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA));
-		//int IndexOfArrayX = arrayX / SIZE_OF_CUB;
+		// IndexOfArrayY = arrayY / SIZE_OF_CUB;
+		// IndexOfArrayX = arrayX / SIZE_OF_CUB;
 	}	
 
 	/* 
 	* если влево, то Ay = (Py / 64) * 64 - 1;
 	* если вправо, то Ay = (Py / 64) * 64 + 64;
 	*/
+
 	//лево
 	if (cub3D->player->degree < 225 && cub3D->player->degree > 135)
 	{
+		Xa = -64;
+		Ya = -64 * tan(cub3D->player->posA);
 		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
 		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
 	}
 	//право
 	if (cub3D->player->degree > 315 || cub3D->player->degree < 45)
 	{
+		Xa = 64;
+		Ya = 64 * tan(cub3D->player->posA);
 		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB + 64;
 		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
 	}
-	printf("ArrayY: %d ArrayX: %d\n", arrayY, arrayX);
+	int skipBlocks = 0;
+
+	int rx = arrayX + Xa + Xa;
+	int ry = arrayY + Ya + Ya;
+	int count = 0;
+
+
+	print_DDALine(cub3D->player->posX, cub3D->player->posY, rx + Xa, ry + Ya, cub3D, 0x00FFFF00);
+
+	// Xa = SIZE_OF_CUB / -tan(cub3D->player->posA);
+	printf("TG: %f\n", tan(3.1547));
+	printf("ArrayX: %d ArrayY: %d\n", arrayX, arrayY);
+	printf("Ya: %d Xa: %d\n", Ya, Xa);
 	// printf("rad %f degree %f\n", rad, cub3D->player->degree);
 	// printf("Ya: %d Xa: %d\n", Ya, Xa);
-	print_DDALine(cub3D->player->posX, cub3D->player->posY, arrayX, arrayY, cub3D, 0x00FFFF00);
 }
 
 void				ft_found_player_in_array(t_cub3D *cub3D)
