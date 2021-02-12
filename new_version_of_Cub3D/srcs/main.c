@@ -167,8 +167,6 @@ void				ft_draw_rays(t_cub3D *cub3D)
 	int Xa = 0;
 	int arrayY = 0;
 	int	arrayX = 0;
-	int IndexOfArrayY = 0;
-	int IndexOfArrayX = 0;
 
 	/*
 	* если вверх, то Ay = (Py / 64) * 64 - 1;
@@ -182,8 +180,6 @@ void				ft_draw_rays(t_cub3D *cub3D)
 		Ya = -SIZE_OF_CUB;
 		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
 		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
-		// IndexOfArrayY = arrayY / SIZE_OF_CUB;
-		// IndexOfArrayX = arrayX / SIZE_OF_CUB;
 	}
 	//низ
 	if (cub3D->player->degree > 45 && cub3D->player->degree < 135)
@@ -192,8 +188,6 @@ void				ft_draw_rays(t_cub3D *cub3D)
 		Ya = SIZE_OF_CUB;
 		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB + 64;
 		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA));
-		// IndexOfArrayY = arrayY / SIZE_OF_CUB;
-		// IndexOfArrayX = arrayX / SIZE_OF_CUB;
 	}	
 
 	/* 

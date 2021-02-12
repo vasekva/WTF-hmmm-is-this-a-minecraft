@@ -53,52 +53,83 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 	}
 }
 
-// void					ft_draw_ray(t_cub3D *cub3D)
-// {
-// 	int Xa = SIZE_OF_CUB / tan(cub3D->player->degree);
+void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color)
+{
+	int startDrawX = 0;
+	int startDrawY = 0;
+	int endDrawX = 0;
+	int endDrawY = 0;
+	int	size_of_cube = 7;
 
-// 	int userCenterPosX = posX - SIZE_OF_PLAYER / 2;
-// 	int	userCenterPosY = posY + SIZE_OF_PLAYER / 2;
-
-// 	for (int i = 0; i < 5; i++)
-// 	{
-// 		int Xend = userCenterPosX + cub3D->player->posDirX * 20;
-// 		int Yend = userCenterPosY + cub3D->player->posDirY * 20;
-// 		print_DDALine(userCenterPosX, userCenterPosY, Xend, Yend, cub3D);
-// 	}
-// }
+	if (hor_flag == 'L')
+	{
+		if (vert_flag == 'U')
+		{
+			startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
+			startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
+		}
+		else
+		{
+			startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
+			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - size_of_cube;
+		}
+	}
+	if (hor_flag == 'R')
+	{
+		if (vert_flag == 'U')
+		{
+			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - size_of_cube;
+			startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
+		}
+		else
+		{
+			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - size_of_cube;
+			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - size_of_cube;
+		}
+	}
+	int x = startDrawX;
+	int y = startDrawY;
+	int i = 0;
+	int j = 0;
+	while (i < size_of_cube)
+	{
+		while (j < size_of_cube)
+		{
+			my_mlx_pixel_put(cub3D->mlx_img, x, y, color);
+			j++;
+			y++;
+		}
+		y = startDrawY;
+		j = 0;
+		i++;
+		x++;
+	}
+}
 
 void					ft_draw_user(t_cub3D *cub3D)
 {
-	int	posX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
-	int posY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
+	int startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
+	int startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
 
 	for (int x = 0; x < SIZE_OF_PLAYER; x++)
 	{
 		for (int y = 0; y < SIZE_OF_PLAYER; y++)
 		{
-			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, 0x00FFFF00);
-			posY++;
+			my_mlx_pixel_put(cub3D->mlx_img, startDrawX, startDrawY, 0x00FFFF00);
+			startDrawY++;
 		}
-		posY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
-		posX++;
+		startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
+		startDrawX++;
 	}
-	int userCenterPosX = posX - SIZE_OF_PLAYER / 2;
-	int	userCenterPosY = posY + SIZE_OF_PLAYER / 2;
 
+	int Xend = cub3D->player->posX + cub3D->player->posDirX * 20;
+	int Yend = cub3D->player->posY + cub3D->player->posDirY * 20;
 
-	// int Xa = SIZE_OF_CUB / tan(cub3D->player->degree);
-	// printf("XA %d\n", Xa);
-	int Xend = userCenterPosX + cub3D->player->posDirX * 20;
-	int Yend = userCenterPosY + cub3D->player->posDirY * 20;
-	// for (int i = 0; i < 2; i++)
-	// {
-	// 	Xend += Xa;
-	// 	Yend += SIZE_OF_CUB;
-	// }
-	print_DDALine(userCenterPosX, userCenterPosY, Xend, Yend, cub3D, 0x00FF0000);
-	ft_draw_rays(cub3D);
-	//print_DDALine(userCenterPosX, userCenterPosY, userCenterPosX + cub3D->player->posDirX * 20, userCenterPosY + cub3D->player->posDirY * 20, cub3D);
+	print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
+	ft_draw_corner_cubes(cub3D, 'L', 'U', 0x00FF0000);
+	ft_draw_corner_cubes(cub3D, 'L', 'D', 0x00FF0000);
+	ft_draw_corner_cubes(cub3D, 'R', 'U', 0x00FF0000);
+	ft_draw_corner_cubes(cub3D, 'R', 'D', 0x00FF0000);
 }
 
 void					ft_fill_background(t_cub3D *cub3D)
