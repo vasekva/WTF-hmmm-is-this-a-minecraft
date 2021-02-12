@@ -52,6 +52,80 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 		y++;
 	}
 }
+
+void		draw_cub_in_pixel2D(int y, int x, t_cub3D *cub3D)
+{
+	int size = 16;
+	int posX = x;
+	int posY = y;
+
+	int posXFinal = posX + size;
+	int posYFinal = posY + size;
+	while (posY < posYFinal - 1)
+	{
+		while (posX < posXFinal - 1)
+		{
+			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, 0x00FF0000);
+			// mlx_pixel_put(mlx, mlx_win, posX, posY, 0x00FF0000);
+			posX++;
+		}
+		posX = x;
+		posY++;
+	}
+}
+
+void		ft_draw_cub_from_cubs2D(t_cub3D *cub3D)
+{
+	int count_of_cubs = 5;
+
+	int x;
+	int y;
+	int countX = 0;
+	int countY = 0;
+	int i;
+
+	// x = 100; // координата x центра отрисовки
+	// y = 100;
+	// x = 609; // координата x центра отрисовки
+	// y = 714;
+	x = cub3D->player->posX; // координата x центра отрисовки
+	y = cub3D->player->posY;
+
+	int drawStartX = x - count_of_cubs / 2;
+	// drawStartX -= (count_of_cubs / 2 + 0.5) * 10;
+	drawStartX -= (count_of_cubs / 2 + 0.5) * SIZE_OF_BLOCK_IN_PLAYER;
+	int drawStartY = y - count_of_cubs / 2;
+	// drawStartY -= (count_of_cubs / 2 + 0.5) * 10;
+	drawStartY -= (count_of_cubs / 2 + 0.5) * SIZE_OF_BLOCK_IN_PLAYER;
+	int count_of_block_in_array_y = count_of_cubs;
+	int	count_of_block_in_array_x = count_of_cubs;
+	while (countX < count_of_block_in_array_x && countY < count_of_block_in_array_y)
+	{
+		draw_cub_in_pixel2D(drawStartY, drawStartX, cub3D);
+		countX++;
+		// drawStartX+=10;
+		drawStartX+=SIZE_OF_BLOCK_IN_PLAYER;
+		countY++;
+		// drawStartY+=10;
+		drawStartY+=SIZE_OF_BLOCK_IN_PLAYER;
+	}
+	printf("X %d Y %d\n", drawStartX, drawStartY);
+	i = count_of_block_in_array_y;
+	// drawStartY = drawStartY - countY * 10;
+	drawStartY = drawStartY - countY * SIZE_OF_BLOCK_IN_PLAYER;
+	// drawStartX-=10;
+	drawStartX-=SIZE_OF_BLOCK_IN_PLAYER;
+	while (i > 0)
+	{
+		draw_cub_in_pixel2D(drawStartY, drawStartX, cub3D);
+		// drawStartX-=10;
+		drawStartX-=SIZE_OF_BLOCK_IN_PLAYER;
+		// drawStartY+=10;
+		drawStartY+=SIZE_OF_BLOCK_IN_PLAYER;
+		i--;
+	}
+}
+
 /*
 * Рисует кубик размером 1/5 SIZE_OF_PLAYER в одном из четырех углов
 * в зависимости от входных параметров hor_flag & ver_flag цветом int color
@@ -128,12 +202,14 @@ void					ft_draw_user(t_cub3D *cub3D)
 	int Xend = cub3D->player->posX + cub3D->player->posDirX * 20;
 	int Yend = cub3D->player->posY + cub3D->player->posDirY * 20;
 
+	printf("208 PosX %d PosY %d\n", cub3D->player->posX, cub3D->player->posY);
 	print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
 	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
 	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
 	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
 	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
-	// ft_draw_rays(cub3D);
+	ft_draw_rays(cub3D);
+	ft_draw_cub_from_cubs2D(cub3D);
 }
 
 void					ft_fill_background(t_cub3D *cub3D)
