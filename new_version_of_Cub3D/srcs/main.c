@@ -116,6 +116,7 @@ t_mlx		*init_mlx_img(t_mlx *mlx_img)
 t_player	*init_player(t_player *player, t_cub3D *cub3D)
 {
 	player = malloc(sizeof(t_player));
+	player->color_minicubes = 0x0000FF00;
 	player->arrayX = 0;
     player->arrayY = 0;
 	player->degree = 0;
@@ -186,7 +187,7 @@ void				ft_draw_rays(t_cub3D *cub3D)
 	{
 		Xa = SIZE_OF_CUB / tan(cub3D->player->posA);
 		Ya = SIZE_OF_CUB;
-		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB + 64;
+		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB + SIZE_OF_CUB;
 		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA));
 	}	
 
@@ -198,17 +199,17 @@ void				ft_draw_rays(t_cub3D *cub3D)
 	//лево
 	if (cub3D->player->degree < 225 && cub3D->player->degree > 135)
 	{
-		Xa = -64;
-		Ya = -64 * tan(cub3D->player->posA);
+		Xa = -SIZE_OF_CUB;
+		Ya = -SIZE_OF_CUB * tan(cub3D->player->posA);
 		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
 		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
 	}
 	//право
 	if (cub3D->player->degree > 315 || cub3D->player->degree < 45)
 	{
-		Xa = 64;
-		Ya = 64 * tan(cub3D->player->posA);
-		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB + 64;
+		Xa = SIZE_OF_CUB;
+		Ya = SIZE_OF_CUB * tan(cub3D->player->posA);
+		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB + SIZE_OF_CUB;
 		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
 	}
 	int skipBlocks = 0;

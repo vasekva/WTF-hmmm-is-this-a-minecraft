@@ -23,9 +23,9 @@
 # define LEFT	0
 # define ESC	53
 
-# define SIZE_OF_CUB 64
+# define SIZE_OF_CUB 110
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
-# define MOVESPEED 35
+// # define MOVESPEED 35
 # define LONG_VIEW 8
 
 
@@ -98,6 +98,7 @@ typedef struct  	s_env
 
 typedef struct      s_player
 {
+    int             color_minicubes;
     int             arrayX;
     int             arrayY;
     double			degree;
@@ -165,5 +166,6 @@ void	    print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D, i
 void		ft_found_player_in_array(t_cub3D *cub3D);
 
 void		ft_draw_rays(t_cub3D *cub3D);
+void		ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color);
 
 #endif

@@ -52,14 +52,17 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 		y++;
 	}
 }
-
+/*
+* Рисует кубик размером 1/5 SIZE_OF_PLAYER в одном из четырех углов
+* в зависимости от входных параметров hor_flag & ver_flag цветом int color
+*/
 void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color)
 {
 	int startDrawX = 0;
 	int startDrawY = 0;
 	int endDrawX = 0;
 	int endDrawY = 0;
-	int	size_of_cube = 7;
+	int	size_of_cube = SIZE_OF_PLAYER / 5;
 
 	if (hor_flag == 'L')
 	{
@@ -71,20 +74,20 @@ void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int
 		else
 		{
 			startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
-			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - size_of_cube;
+			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
 		}
 	}
 	if (hor_flag == 'R')
 	{
 		if (vert_flag == 'U')
 		{
-			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - size_of_cube;
+			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
 			startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
 		}
 		else
 		{
-			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - size_of_cube;
-			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - size_of_cube;
+			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
+			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
 		}
 	}
 	int x = startDrawX;
@@ -126,10 +129,11 @@ void					ft_draw_user(t_cub3D *cub3D)
 	int Yend = cub3D->player->posY + cub3D->player->posDirY * 20;
 
 	print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
-	ft_draw_corner_cubes(cub3D, 'L', 'U', 0x00FF0000);
-	ft_draw_corner_cubes(cub3D, 'L', 'D', 0x00FF0000);
-	ft_draw_corner_cubes(cub3D, 'R', 'U', 0x00FF0000);
-	ft_draw_corner_cubes(cub3D, 'R', 'D', 0x00FF0000);
+	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->color_minicubes);
+	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->color_minicubes);
+	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->color_minicubes);
+	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->color_minicubes);
+	ft_draw_rays(cub3D);
 }
 
 void					ft_fill_background(t_cub3D *cub3D)
