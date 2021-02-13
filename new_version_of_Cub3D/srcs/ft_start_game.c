@@ -87,12 +87,13 @@ void		ft_draw_cub_from_cubs2D(t_cub3D *cub3D)
 	int startDrawX = x - SIZE_OF_PLAYER / 2;
 	int startDrawY = y - SIZE_OF_PLAYER / 2;
 
-	while (startDrawY < y + SIZE_OF_PLAYER / 2)
+	while (startDrawY < y + SIZE_OF_PLAYER / 2 - SIZE)
 	{
-		while (startDrawX < x + SIZE_OF_PLAYER / 2)
+		while (startDrawX < x + SIZE_OF_PLAYER / 2 - SIZE)
 		{
 			if (startDrawY == (y - SIZE_OF_PLAYER / 2) || startDrawX == x - SIZE_OF_PLAYER / 2
-				|| startDrawY == (y + SIZE_OF_PLAYER / 2) - 1 || startDrawX == x + SIZE_OF_PLAYER / 2 - 1)
+			|| startDrawY == (y + SIZE_OF_PLAYER / 2 - SIZE) - 1
+			|| startDrawX == (x + SIZE_OF_PLAYER / 2 - SIZE) - 1)
 			{
 				draw_cub_in_pixel2D(startDrawX, startDrawY, SIZE, cub3D);
 			}
@@ -102,14 +103,21 @@ void		ft_draw_cub_from_cubs2D(t_cub3D *cub3D)
 		startDrawY++;
 	}
 	
-	draw_cub_in_pixel2D(x, y, SIZE, cub3D);
+	int SIZ = SIZE / 2;
+	draw_cub_in_pixel2D(x - SIZ, y - SIZ, SIZE, cub3D);
+	// draw_cub_in_pixel2D(x - SIZ * 3, y - SIZ * 3, SIZE, cub3D);
+	// draw_cub_in_pixel2D(x - SIZ * 5, y - SIZ * 5, SIZE, cub3D);
+	// draw_cub_in_pixel2D(x - SIZ * 7, y - SIZ * 7, SIZE, cub3D);
 
-	for (int i = 1; i <= 4; i++)
+	// draw_cub_in_pixel2D(x - SIZE * 2, y - SIZE * 2, SIZE, cub3D);
+
+	for (int i = 3; i <= 7; i+=2)
 	{
-		draw_cub_in_pixel2D(x - SIZE * i, y - SIZE * i, SIZE, cub3D);
-		draw_cub_in_pixel2D(x - SIZE * i, y + SIZE * i, SIZE, cub3D);
-		draw_cub_in_pixel2D(x + SIZE * i, y - SIZE * i, SIZE, cub3D);
-		draw_cub_in_pixel2D(x + SIZE * i, y + SIZE * i, SIZE, cub3D);
+		draw_cub_in_pixel2D(x - SIZ * i, y - SIZ * i, SIZE, cub3D);
+		draw_cub_in_pixel2D(x + SIZ * (i - 2), y + SIZ * (i - 2), SIZE, cub3D);
+		draw_cub_in_pixel2D(x - SIZ * i, y + SIZ * (i - 2), SIZE, cub3D);
+		draw_cub_in_pixel2D(x + SIZ * (i - 2), y - SIZ * i, SIZE, cub3D);
+		// draw_cub_in_pixel2D(x + SIZ * i, y + SIZ * i, SIZE, cub3D);
 	}
 
 }
@@ -182,12 +190,13 @@ void					ft_draw_user(t_cub3D *cub3D)
 	int startDrawX = x - SIZE_OF_PLAYER / 2;
 	int startDrawY = y - SIZE_OF_PLAYER / 2;
 
-	while (startDrawY < y + SIZE_OF_PLAYER / 2)
+	while (startDrawY < y + SIZE_OF_PLAYER / 2 - SIZE)
 	{
-		while (startDrawX < x + SIZE_OF_PLAYER / 2)
+		while (startDrawX < x + SIZE_OF_PLAYER / 2 - SIZE)
 		{
 			if (startDrawY == (y - SIZE_OF_PLAYER / 2) || startDrawX == x - SIZE_OF_PLAYER / 2
-				|| startDrawY == (y + SIZE_OF_PLAYER / 2) - 1 || startDrawX == x + SIZE_OF_PLAYER / 2 - 1)
+			|| startDrawY == (y + SIZE_OF_PLAYER / 2 - SIZE) - 1
+			|| startDrawX == (x + SIZE_OF_PLAYER / 2 - SIZE) - 1)
 			{
 				draw_cub_in_pixel2D(startDrawX, startDrawY, SIZE, cub3D);
 			}
@@ -197,13 +206,13 @@ void					ft_draw_user(t_cub3D *cub3D)
 		startDrawY++;
 	}
 	
-	draw_cub_in_pixel2D(x, y, SIZE, cub3D);
-
+	draw_cub_in_pixel2D(x - SIZE / 2, y - SIZE / 2, SIZE, cub3D);
+ 
 	// print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
-	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
-	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
-	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
-	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
+	// ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
+	// ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
+	// ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
+	// ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
 	ft_draw_rays(cub3D);
 	ft_draw_cub_from_cubs2D(cub3D);
 
