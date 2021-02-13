@@ -1,7 +1,11 @@
 #include "cub3D.h"
 #include "libft.h"
 
-static void	ft_read_map(char *line, t_cub3D *cub3D)
+/*
+* Инкрементирует переменные отвечающие 
+* за размер выделяемой памяти для массива
+*/
+static void	ft_count_mapsize(char *line, t_cub3D *cub3D)
 {
 	if (cub3D->parser->c_screen_size != 1 || cub3D->parser->c_color_floor != 1
 		|| cub3D->parser->c_color_ceiling != 1 || cub3D->parser->c_north != 1
@@ -22,6 +26,9 @@ static void	ft_read_map(char *line, t_cub3D *cub3D)
 	}	
 }
 
+/*
+* Проверка строки с пробелами для карты
+*/
 static int 	check_line(char *str, t_cub3D *cub3D)
 {
 	int i;
@@ -33,7 +40,7 @@ static int 	check_line(char *str, t_cub3D *cub3D)
 		{
 			if (str[i] == '1')
 			{
-				ft_read_map(str, cub3D);
+				ft_count_mapsize(str, cub3D);
 				return (0);
 			}
 			else
@@ -47,6 +54,9 @@ static int 	check_line(char *str, t_cub3D *cub3D)
 	return (0);
 }
 
+/*
+* Парсинг строки с размерами окна
+*/
 static int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
 {
 	int len;
@@ -85,6 +95,10 @@ static int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
 	return (0);
 }
 
+/*
+* В зависимости от найденного символа
+* записывает путь к текстуре в конкретную переменную
+*/
 static int 	ft_read_path(char *str, t_cub3D *cub3D, char *flag)
 {
 	t_map map;
@@ -111,8 +125,12 @@ static int 	ft_read_path(char *str, t_cub3D *cub3D, char *flag)
 	return (0);
 }
 
-
-int 	check_identifier(char *str, t_cub3D *cub3D)
+/*
+* Вызывает вспомогательные функции в зависимости
+* от найденного символа-идентификатора и
+* считает их кол-во для дальнейшей проверки
+*/
+static int 	check_identifier(char *str, t_cub3D *cub3D)
 {
 	int		i;
 
@@ -184,6 +202,11 @@ int 	check_identifier(char *str, t_cub3D *cub3D)
 	return (0);
 }
 
+/*
+* Считывает строки и в зависимости
+* от первого символа вызывает вспомогательные
+* функции
+*/
 int     ft_parse(t_cub3D *cub3D)
 {
     if (cub3D->file_path)
@@ -206,7 +229,7 @@ int     ft_parse(t_cub3D *cub3D)
 				check_line(line, cub3D);
 			if (line[0] == '1')
 			{	
-				ft_read_map(line, cub3D);
+				ft_count_mapsize(line, cub3D);
 			}
 			if (line[0] != '1' && line[0] != '0' && !ft_isidentifier(line))
 				printf("ERROR\n"); //TODO вывод ошибок

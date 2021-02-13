@@ -8,6 +8,7 @@
 # include <unistd.h>
 # include <math.h>
 
+#include "mlx.h"
 #include "libft.h"
 
 # define PI 3.1415926535
@@ -27,7 +28,6 @@
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
 // # define MOVESPEED 35
 # define LONG_VIEW 8
-
 
 // # define color_of_wall_minimap 0x00808080
 # define color_of_wall_minimap  0x00FF9933
@@ -104,13 +104,11 @@ typedef struct      s_player2D
     int             color_minicubeLD;
     int             color_of_player;
     int             color_of_cross;
-    // int             color_of_hit;
 }                   t_player2D;
 
 typedef struct      s_player
 {
-    //int             color_minicubeRU;
-    t_player2D      *player2D;
+      t_player2D      *player2D;
     int             arrayX;
     int             arrayY;
     double			degree;
@@ -129,7 +127,6 @@ typedef struct  s_cub3D
     t_floor     *floor;
     t_ceiling   *ceiling;
 	t_parser	*parser;
-	//char		*cub;
 	char		**array;
     t_env       *env;
 	t_mlx		*mlx_img;
@@ -140,44 +137,81 @@ typedef struct  s_cub3D
 * Убрать
 */
 void    ft_print_structs(t_cub3D *cub3D);
-
-int     ft_parse(t_cub3D *cub3D);
 int		get_next_line(int fd, char **line);
-int 	ft_write_color(char *str, char flag, t_cub3D *cub3D);
+void	print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D, int color);
 
-int		ft_parse_int(char *str);
-
-int     ft_isidentifier(char *str);
-
-void	ft_start_game(t_cub3D *cub3D);
-// int	    ft_start_game(void	*param);
-
-
-//void	ft_draw_cub_from_cubs(t_cub3D *cub3D);
+void	ft_draw_rays(t_cub3D *cub3D);
 
 /*
-* ft_init_structs.c
+* event_handle01.c
 */
-t_parser 	*init_parser(t_parser *parser);
-t_ceiling   *init_ceiling(t_ceiling *ceiling);
-t_floor     *init_floor(t_floor *floor);
-t_screen    *init_screen(t_screen *screen);
-t_map       *init_map(t_map *map);
+    int	keyrelease_hook(int key, void *param);
+    int	keypress_hook(int key, void *param);
 
 /*
-* ft_event_handle
+* ft_parse.c
 */
-int        keyrelease_hook(int key, void *param);
-int        keypress_hook(int key, void *param);
+    int     ft_parse(t_cub3D *cub3D);
+/*
+* static int 	check_identifier(char *str, t_cub3D *cub3D)
+* static int 	ft_read_path(char *str, t_cub3D *cub3D, char *flag)
+* static int 	ft_parse_screen_size(char *str, t_cub3D *cub3D)
+* static int 	check_line(char *str, t_cub3D *cub3D)
+* static void	ft_count_mapsize
+*/
 
 
-void		ft_draw_user(t_cub3D *cub3D);
+/*
+* ft_start_game.c
+*/
+    void	ft_start_game(t_cub3D *cub3D);
+/*
+* static void		ft_fill_background(t_cub3D *cub3D)
+* static void		ft_draw_user(t_cub3D *cub3D)
+* static void		ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color)
+* static void		ft_draw_cross2D(t_cub3D *cub3D)
+* static void		draw_cub_in_pixel2D(int x, int y, int size, int color, t_cub3D *cub3D)
+* static void		ft_draw_cub_from_cubs(t_cub3D *cub3D) // вызывается в ft_start_game
+* static void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D) // TODO сменить у и x местами
+* static void		my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
+*/
 
-void	    print_DDALine(float x1, float y1, float x2, float y2, t_cub3D *cub3D, int color);
+/*
+* ft_utils.c
+*/
+    int		    ft_isidentifier(char *str);
+    int		    ft_parse_int(char *str);
 
-void		ft_found_player_in_array(t_cub3D *cub3D);
+/*
+* ft_write_color.c
+*/
+	int 	ft_write_color(char *str, char flag, t_cub3D *cub3D);
 
-void		ft_draw_rays(t_cub3D *cub3D);
-void		ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color);
+/*
+* init_array.c
+*/
+    void		init_array(t_cub3D *cub3D);
+/*
+* static void	read_and_copy_in_array(t_cub3D *cub3D)
+* static int	ft_check_line_map(char *line, int number_of_line, t_cub3D *cub3D)
+* static int	check_line_for_map(char *line)
+*/
+
+/*
+* init_structs01.c
+*/
+    t_screen    *init_screen(t_screen *screen);
+    t_map       *init_map(t_map *map);
+    t_floor     *init_floor(t_floor *floor);
+    t_ceiling   *init_ceiling(t_ceiling *ceiling);
+    t_parser 	*init_parser(t_parser *parser);
+
+/*
+* init_structs02.c
+*/
+    t_env       *init_env(t_env *env, t_cub3D *cub3D);
+    t_player	*init_player(t_player *player, t_cub3D *cub3D);
+    t_mlx		*init_mlx_img(t_mlx *mlx_img);
+    t_player	*init_player(t_player *player, t_cub3D *cub3D);
 
 #endif

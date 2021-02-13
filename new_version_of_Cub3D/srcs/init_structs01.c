@@ -1,5 +1,14 @@
 #include "cub3D.h"
 
+t_screen    	*init_screen(t_screen *screen)
+{
+    if (!screen)
+        screen = (t_screen *)malloc(sizeof(t_screen));
+    screen->w = 0;
+    screen->h = 0;
+    return (screen);
+}
+
 t_map       	*init_map(t_map *map)
 {
     if (!map)
@@ -11,15 +20,6 @@ t_map       	*init_map(t_map *map)
     map->sprite = 0;
     return (map);
 }  
-
-t_screen    	*init_screen(t_screen *screen)
-{
-    if (!screen)
-        screen = (t_screen *)malloc(sizeof(t_screen));
-    screen->w = 0;
-    screen->h = 0;
-    return (screen);
-}
 
 t_floor			*init_floor(t_floor *floor)
 {

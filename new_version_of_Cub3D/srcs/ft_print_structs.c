@@ -1,5 +1,8 @@
 #include "cub3D.h"
 
+/*
+* Выводит содержимое структур в консоль
+*/
 void	ft_print_structs(t_cub3D *cub3D)
 {
 	printf("\n============================STRUCTURES===============================\n\n");

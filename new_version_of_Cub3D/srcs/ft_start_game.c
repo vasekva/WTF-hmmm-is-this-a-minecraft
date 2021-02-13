@@ -1,7 +1,6 @@
 #include "cub3D.h"
-#include "mlx.h"
 
-static void            my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
+static void		my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
 {
     char    *dst;
 
@@ -10,7 +9,11 @@ static void            my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
 }
 
 // void		draw_cub_in_pixel(int x, int y, t_cub3D *cub3D)
-void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D) // TODO сменить у и x местами
+
+/*
+* Требуется переписывание
+*/
+static void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D) // TODO сменить у и x местами
 {
 	int posX = x * SIZE_OF_CUB;
 	int posY = y * SIZE_OF_CUB;
@@ -32,8 +35,12 @@ void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D) // TODO сменить у 
 	}
 }
 
-// вызывается на 274 строчке в ft_start_game
-void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
+/*
+* Схожая с предыдущей функцией, используется
+* для отрисовки массива(двумерной карты)
+* вызывая draw_cub_in_pixel c нужными коор-ми
+*/
+static void		ft_draw_cub_from_cubs(t_cub3D *cub3D) // вызывается в ft_start_game
 {
 	int x;
 	int y;
@@ -55,7 +62,11 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 	}
 }
 
-void		draw_cub_in_pixel2D(int x, int y, int size, int color, t_cub3D *cub3D)
+
+/*
+* Рисует куб размером size по координатам, которые принимает в параметрах
+*/
+static void		draw_cub_in_pixel2D(int x, int y, int size, int color, t_cub3D *cub3D)
 {
 	//int size =;
 
@@ -76,7 +87,11 @@ void		draw_cub_in_pixel2D(int x, int y, int size, int color, t_cub3D *cub3D)
 	}
 }
 
-void		ft_draw_cub_from_cubs2D(t_cub3D *cub3D)
+/*
+* Вычисление координат для отрисовки креста и 
+* дальнейший вызов draw_cub_in_pixel с координатами
+*/
+static void		ft_draw_cross2D(t_cub3D *cub3D)
 {
 	int color = cub3D->player->player2D->color_of_cross;
 	int SIZE = SIZE_OF_PLAYER / 7;
@@ -99,7 +114,7 @@ void		ft_draw_cub_from_cubs2D(t_cub3D *cub3D)
 * Рисует кубик размером 1/5 SIZE_OF_PLAYER в одном из четырех углов
 * в зависимости от входных параметров hor_flag & ver_flag цветом int color
 */
-void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color)
+static void		ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color)
 {
 	int startDrawX = 0;
 	int startDrawY = 0;
@@ -152,9 +167,13 @@ void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int
 	}
 }
 
-void					ft_draw_user(t_cub3D *cub3D)
+/*
+* отрисовка квадрата игрока,
+* вызовы функций отрисовки угловых кубов,
+* креста и лучей
+*/
+static void		ft_draw_user(t_cub3D *cub3D)
 {
-		// int SIZE_OF_PLAYER = 50;
 	int color = cub3D->player->player2D->color_of_player;
 	int SIZE = SIZE_OF_PLAYER / 10;
 
@@ -181,12 +200,17 @@ void					ft_draw_user(t_cub3D *cub3D)
 	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
 	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
 	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
-	ft_draw_cub_from_cubs2D(cub3D);
-	ft_draw_rays(cub3D);
+
+	ft_draw_cross2D(cub3D); // отрисовка креста
+
+	ft_draw_rays(cub3D); // отрисовка лучей
 
 }
 
-void					ft_fill_background(t_cub3D *cub3D)
+/*
+* Заливка фона
+*/
+static void		ft_fill_background(t_cub3D *cub3D)
 {
 	int x;
 	int y;
@@ -205,7 +229,7 @@ void					ft_fill_background(t_cub3D *cub3D)
 	}
 }
 
-void					ft_start_game(t_cub3D *cub3D)
+void			ft_start_game(t_cub3D *cub3D)
 {
 	//ft_print_structs(cub3D);
 

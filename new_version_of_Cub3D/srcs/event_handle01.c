@@ -108,20 +108,17 @@ int	keypress_hook(int key, void *param)
 				{
 					cub3D->player->player2D->color_minicubeLU = 0x00FF0000;
 					cub3D->player->player2D->color_minicubeRU = 0x00FF0000;
-					// cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// вправо вверх
 				if (cub3D->player->degree > 271 && cub3D->player->degree < 359)
 				{
 					cub3D->player->player2D->color_minicubeRU = 0x00FF0000;
-					// cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// вправо
 				if (cub3D->player->degree > 359 || cub3D->player->degree < 0) // TODO ПОЧЕМУ встречается МЕНЬШЕ 0???
 				{
 					cub3D->player->player2D->color_minicubeRU = 0x00FF0000;
 					cub3D->player->player2D->color_minicubeRD = 0x00FF0000;
-					// cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// вправо вниз
 				if (cub3D->player->degree > 1 && cub3D->player->degree < 89)

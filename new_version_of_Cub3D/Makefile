@@ -1,14 +1,16 @@
 
 NAME = Cub3D
 
-SRC =	ft_print_structs.c main.c ft_parse.c ft_parse_int.c \
+SRC =	ft_print_structs.c main.c ft_parse.c \
 		ft_write_color.c \
 		get_next_line.c \
-		ft_isidentifier.c \
-		ft_init_structs.c \
+		init_structs01.c \
+		init_structs02.c \
+		init_array.c \
 		ft_start_game.c \
 		event_handle01.c \
 		print_DDALine.c \
+		ft_utils.c \
 #		ft_draw_rays.c \
 #		ft_draw_cub_from_cubs.c \
 
