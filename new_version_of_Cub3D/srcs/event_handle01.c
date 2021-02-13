@@ -108,55 +108,50 @@ int	keypress_hook(int key, void *param)
 				{
 					cub3D->player->player2D->color_minicubeLU = 0x00FF0000;
 					cub3D->player->player2D->color_minicubeRU = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
+					// cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// вправо вверх
 				if (cub3D->player->degree > 271 && cub3D->player->degree < 359)
 				{
 					cub3D->player->player2D->color_minicubeRU = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
+					// cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// вправо
-				if (cub3D->player->degree > 359)
+				if (cub3D->player->degree > 359 || cub3D->player->degree < 0) // TODO ПОЧЕМУ встречается МЕНЬШЕ 0???
 				{
 					cub3D->player->player2D->color_minicubeRU = 0x00FF0000;
 					cub3D->player->player2D->color_minicubeRD = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
+					// cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// вправо вниз
 				if (cub3D->player->degree > 1 && cub3D->player->degree < 89)
 				{
 					cub3D->player->player2D->color_minicubeRD = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// вниз
 				if (cub3D->player->degree > 89 && cub3D->player->degree < 91)
 				{
 					cub3D->player->player2D->color_minicubeRD = 0x00FF0000;
 					cub3D->player->player2D->color_minicubeLD = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// влево вниз
 				if (cub3D->player->degree > 91 && cub3D->player->degree < 179)
 				{
 					cub3D->player->player2D->color_minicubeLD = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// влево
 				if (cub3D->player->degree > 179 && cub3D->player->degree < 181)
 				{
 					cub3D->player->player2D->color_minicubeLD = 0x00FF0000;
 					cub3D->player->player2D->color_minicubeLU = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
 				}
 				// влево вверх
 				if (cub3D->player->degree > 181 && cub3D->player->degree < 269)
 				{
 					cub3D->player->player2D->color_minicubeLU = 0x00FF0000;
-					cub3D->player->player2D->color_of_player = 0x00000000;
 				}
-				//cub3D->player->color_minicubes = 0x00FF0000;
-				// ft_draw_corner_cubes(cub3D, 'R', 'D', 0x00FF0000);
+				cub3D->player->player2D->color_of_player = 0x00000000;
+				cub3D->player->player2D->color_of_cross = 0x00FF0000;
 			}
 			else
 			{
@@ -169,7 +164,10 @@ int	keypress_hook(int key, void *param)
 				if (cub3D->player->player2D->color_minicubeLD == 0x00FF0000)
 					cub3D->player->player2D->color_minicubeLD = 0x0000FF00;
 				if (cub3D->player->player2D->color_of_player == 0x00000000)
-				cub3D->player->player2D->color_of_player = 0x009932CC;
+					cub3D->player->player2D->color_of_player = 0x009932CC;
+
+				if (cub3D->player->player2D->color_of_cross == 0x00FF0000)
+					cub3D->player->player2D->color_of_cross = cub3D->player->player2D->color_of_player;
 			}
 			cub3D->player->posX += cub3D->player->posDirX;
 			cub3D->player->posY += cub3D->player->posDirY;
@@ -186,11 +184,13 @@ int	keypress_hook(int key, void *param)
 				cub3D->player->player2D->color_minicubeLD = 0x0000FF00;
 			if (cub3D->player->player2D->color_of_player == 0x00000000)
 				cub3D->player->player2D->color_of_player = 0x009932CC;
+
+			if (cub3D->player->player2D->color_of_cross == 0x00FF0000)
+				cub3D->player->player2D->color_of_cross = cub3D->player->player2D->color_of_player;
+
 			cub3D->player->posX -= cub3D->player->posDirX;
 			cub3D->player->posY -= cub3D->player->posDirY;
 		}
-		// if (cub3D->player->color_minicubes == 0x00FF0000)
-		// 	cub3D->player->color_minicubes = 0x0000FF00;
 	}
 	return (1);
 }

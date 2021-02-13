@@ -121,6 +121,7 @@ t_player2D	*init_player2D(t_player2D *player2D, t_player *player)
 	player2D->color_minicubeLU = 0x0000FF00;
 	player2D->color_minicubeLD = 0x0000FF00;
 	player2D->color_of_player = 0x009932CC;
+	player2D->color_of_cross = player2D->color_of_player;
 	// player2D->color_of_hit = 0x00000000;
 	return (player2D);
 }
@@ -129,10 +130,6 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 {
 	player = malloc(sizeof(t_player));
 	player->player2D = init_player2D(NULL, player);
-	// player->color_minicubeRU = 0x0000FF00;
-    // player->color_minicubeRD = 0x0000FF00;
-    // player->color_minicubeLU = 0x0000FF00;
-    // player->color_minicubeLD = 0x0000FF00;
 	player->arrayX = 0;
     player->arrayY = 0;
 	player->degree = 0;

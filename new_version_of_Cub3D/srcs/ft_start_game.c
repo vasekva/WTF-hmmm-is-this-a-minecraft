@@ -10,7 +10,7 @@ static void            my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
 }
 
 // void		draw_cub_in_pixel(int x, int y, t_cub3D *cub3D)
-void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D)
+void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D) // TODO сменить у и x местами
 {
 	int posX = x * SIZE_OF_CUB;
 	int posY = y * SIZE_OF_CUB;
@@ -32,6 +32,7 @@ void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D)
 	}
 }
 
+// вызывается на 274 строчке в ft_start_game
 void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 {
 	int x;
@@ -54,7 +55,7 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 	}
 }
 
-void		draw_cub_in_pixel2D(int x, int y, int size, t_cub3D *cub3D)
+void		draw_cub_in_pixel2D(int x, int y, int size, int color, t_cub3D *cub3D)
 {
 	//int size =;
 
@@ -67,8 +68,7 @@ void		draw_cub_in_pixel2D(int x, int y, int size, t_cub3D *cub3D)
 	{
 		while (posX < posXFinal)
 		{
-			// mlx_pixel_put(mlx, mlx_win, posX, posY, 0x00FF0000);
-			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, 0x00FF0000);
+			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, color);
 			posX++;
 		}
 		posX = x;
@@ -78,48 +78,21 @@ void		draw_cub_in_pixel2D(int x, int y, int size, t_cub3D *cub3D)
 
 void		ft_draw_cub_from_cubs2D(t_cub3D *cub3D)
 {
-	// int SIZE_OF_PLAYER = 50;
-	int SIZE = SIZE_OF_PLAYER / 10;
-
+	int color = cub3D->player->player2D->color_of_cross;
+	int SIZE = SIZE_OF_PLAYER / 7;
 	int x = cub3D->player->posX;
 	int y = cub3D->player->posY;
-
 	int startDrawX = x - SIZE_OF_PLAYER / 2;
 	int startDrawY = y - SIZE_OF_PLAYER / 2;
-
-	while (startDrawY < y + SIZE_OF_PLAYER / 2 - SIZE)
-	{
-		while (startDrawX < x + SIZE_OF_PLAYER / 2 - SIZE)
-		{
-			if (startDrawY == (y - SIZE_OF_PLAYER / 2) || startDrawX == x - SIZE_OF_PLAYER / 2
-			|| startDrawY == (y + SIZE_OF_PLAYER / 2 - SIZE) - 1
-			|| startDrawX == (x + SIZE_OF_PLAYER / 2 - SIZE) - 1)
-			{
-				draw_cub_in_pixel2D(startDrawX, startDrawY, SIZE, cub3D);
-			}
-			startDrawX++;
-		}
-		startDrawX = x - SIZE_OF_PLAYER / 2;
-		startDrawY++;
-	}
-	
-	int SIZ = SIZE / 2;
-	draw_cub_in_pixel2D(x - SIZ, y - SIZ, SIZE, cub3D);
-	// draw_cub_in_pixel2D(x - SIZ * 3, y - SIZ * 3, SIZE, cub3D);
-	// draw_cub_in_pixel2D(x - SIZ * 5, y - SIZ * 5, SIZE, cub3D);
-	// draw_cub_in_pixel2D(x - SIZ * 7, y - SIZ * 7, SIZE, cub3D);
-
-	// draw_cub_in_pixel2D(x - SIZE * 2, y - SIZE * 2, SIZE, cub3D);
+	int block_size = SIZE / 2;
 
 	for (int i = 3; i <= 7; i+=2)
 	{
-		draw_cub_in_pixel2D(x - SIZ * i, y - SIZ * i, SIZE, cub3D);
-		draw_cub_in_pixel2D(x + SIZ * (i - 2), y + SIZ * (i - 2), SIZE, cub3D);
-		draw_cub_in_pixel2D(x - SIZ * i, y + SIZ * (i - 2), SIZE, cub3D);
-		draw_cub_in_pixel2D(x + SIZ * (i - 2), y - SIZ * i, SIZE, cub3D);
-		// draw_cub_in_pixel2D(x + SIZ * i, y + SIZ * i, SIZE, cub3D);
+		draw_cub_in_pixel2D(x - block_size * i, y - block_size * i, SIZE, color, cub3D);
+		draw_cub_in_pixel2D(x - block_size * i, y + block_size * (i - 2), SIZE, color, cub3D);
+		draw_cub_in_pixel2D(x + block_size * (i - 2), y - block_size * i, SIZE, color, cub3D);
+		draw_cub_in_pixel2D(x + block_size * (i - 2), y + block_size * (i - 2), SIZE, color, cub3D);
 	}
-
 }
 
 /*
@@ -182,6 +155,7 @@ void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int
 void					ft_draw_user(t_cub3D *cub3D)
 {
 		// int SIZE_OF_PLAYER = 50;
+	int color = cub3D->player->player2D->color_of_player;
 	int SIZE = SIZE_OF_PLAYER / 10;
 
 	int x = cub3D->player->posX;
@@ -194,58 +168,23 @@ void					ft_draw_user(t_cub3D *cub3D)
 	{
 		while (startDrawX < x + SIZE_OF_PLAYER / 2 - SIZE)
 		{
-			if (startDrawY == (y - SIZE_OF_PLAYER / 2) || startDrawX == x - SIZE_OF_PLAYER / 2
-			|| startDrawY == (y + SIZE_OF_PLAYER / 2 - SIZE) - 1
-			|| startDrawX == (x + SIZE_OF_PLAYER / 2 - SIZE) - 1)
-			{
-				draw_cub_in_pixel2D(startDrawX, startDrawY, SIZE, cub3D);
-			}
+			draw_cub_in_pixel2D(startDrawX, startDrawY, SIZE, color, cub3D);
 			startDrawX++;
 		}
 		startDrawX = x - SIZE_OF_PLAYER / 2;
 		startDrawY++;
 	}
 	
-	draw_cub_in_pixel2D(x - SIZE / 2, y - SIZE / 2, SIZE, cub3D);
+	draw_cub_in_pixel2D(x - SIZE / 2, y - SIZE / 2, SIZE, 0x00FF0000, cub3D);
  
-	// print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
-	// ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
-	// ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
-	// ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
-	// ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
-	ft_draw_rays(cub3D);
+	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
+	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
+	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
+	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
 	ft_draw_cub_from_cubs2D(cub3D);
+	ft_draw_rays(cub3D);
 
 }
-
-// void					ft_draw_user(t_cub3D *cub3D)
-// {
-// 	int startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
-// 	int startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
-
-// 	for (int x = 0; x < SIZE_OF_PLAYER; x++)
-// 	{
-// 		for (int y = 0; y < SIZE_OF_PLAYER; y++)
-// 		{
-// 			my_mlx_pixel_put(cub3D->mlx_img, startDrawX, startDrawY, cub3D->player->player2D->color_of_player);
-// 			startDrawY++;
-// 		}
-// 		startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
-// 		startDrawX++;
-// 	}
-
-// 	int Xend = cub3D->player->posX + cub3D->player->posDirX * 20;
-// 	int Yend = cub3D->player->posY + cub3D->player->posDirY * 20;
-
-// 	printf("208 PosX %d PosY %d\n", cub3D->player->posX, cub3D->player->posY);
-// 	print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
-// 	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
-// 	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
-// 	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
-// 	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
-// 	ft_draw_rays(cub3D);
-// 	ft_draw_cub_from_cubs2D(cub3D);
-// }
 
 void					ft_fill_background(t_cub3D *cub3D)
 {

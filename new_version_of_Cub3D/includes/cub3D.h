@@ -24,11 +24,7 @@
 # define ESC	53
 
 # define SIZE_OF_CUB 100
-// # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
-# define SIZE_OF_PLAYER SIZE_OF_CUB
-// # define SIZE_OF_BLOCK_IN_PLAYER SIZE_OF_PLAYER / 5
-// # define SIZE_OF_BLOCK_IN_PLAYER SIZE_OF_PLAYER / 4
-# define SIZE_OF_BLOCK_IN_PLAYER SIZE_OF_CUB / 11
+# define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
 // # define MOVESPEED 35
 # define LONG_VIEW 8
 
@@ -107,6 +103,7 @@ typedef struct      s_player2D
     int             color_minicubeLU;
     int             color_minicubeLD;
     int             color_of_player;
+    int             color_of_cross;
     // int             color_of_hit;
 }                   t_player2D;
 
