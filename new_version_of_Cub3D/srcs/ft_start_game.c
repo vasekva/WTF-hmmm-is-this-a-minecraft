@@ -9,6 +9,7 @@ static void            my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
+// void		draw_cub_in_pixel(int x, int y, t_cub3D *cub3D)
 void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D)
 {
 	int posX = x * SIZE_OF_CUB;
@@ -53,20 +54,21 @@ void		ft_draw_cub_from_cubs(t_cub3D *cub3D)
 	}
 }
 
-void		draw_cub_in_pixel2D(int y, int x, t_cub3D *cub3D)
+void		draw_cub_in_pixel2D(int x, int y, int size, t_cub3D *cub3D)
 {
-	int size = 16;
+	//int size =;
+
 	int posX = x;
 	int posY = y;
 
 	int posXFinal = posX + size;
 	int posYFinal = posY + size;
-	while (posY < posYFinal - 1)
+	while (posY < posYFinal)
 	{
-		while (posX < posXFinal - 1)
+		while (posX < posXFinal)
 		{
-			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, 0x00FF0000);
 			// mlx_pixel_put(mlx, mlx_win, posX, posY, 0x00FF0000);
+			my_mlx_pixel_put(cub3D->mlx_img, posX, posY, 0x00FF0000);
 			posX++;
 		}
 		posX = x;
@@ -76,54 +78,40 @@ void		draw_cub_in_pixel2D(int y, int x, t_cub3D *cub3D)
 
 void		ft_draw_cub_from_cubs2D(t_cub3D *cub3D)
 {
-	int count_of_cubs = 5;
+	// int SIZE_OF_PLAYER = 50;
+	int SIZE = SIZE_OF_PLAYER / 10;
 
-	int x;
-	int y;
-	int countX = 0;
-	int countY = 0;
-	int i;
+	int x = cub3D->player->posX;
+	int y = cub3D->player->posY;
 
-	// x = 100; // координата x центра отрисовки
-	// y = 100;
-	// x = 609; // координата x центра отрисовки
-	// y = 714;
-	x = cub3D->player->posX; // координата x центра отрисовки
-	y = cub3D->player->posY;
+	int startDrawX = x - SIZE_OF_PLAYER / 2;
+	int startDrawY = y - SIZE_OF_PLAYER / 2;
 
-	int drawStartX = x - count_of_cubs / 2;
-	// drawStartX -= (count_of_cubs / 2 + 0.5) * 10;
-	drawStartX -= (count_of_cubs / 2 + 0.5) * SIZE_OF_BLOCK_IN_PLAYER;
-	int drawStartY = y - count_of_cubs / 2;
-	// drawStartY -= (count_of_cubs / 2 + 0.5) * 10;
-	drawStartY -= (count_of_cubs / 2 + 0.5) * SIZE_OF_BLOCK_IN_PLAYER;
-	int count_of_block_in_array_y = count_of_cubs;
-	int	count_of_block_in_array_x = count_of_cubs;
-	while (countX < count_of_block_in_array_x && countY < count_of_block_in_array_y)
+	while (startDrawY < y + SIZE_OF_PLAYER / 2)
 	{
-		draw_cub_in_pixel2D(drawStartY, drawStartX, cub3D);
-		countX++;
-		// drawStartX+=10;
-		drawStartX+=SIZE_OF_BLOCK_IN_PLAYER;
-		countY++;
-		// drawStartY+=10;
-		drawStartY+=SIZE_OF_BLOCK_IN_PLAYER;
+		while (startDrawX < x + SIZE_OF_PLAYER / 2)
+		{
+			if (startDrawY == (y - SIZE_OF_PLAYER / 2) || startDrawX == x - SIZE_OF_PLAYER / 2
+				|| startDrawY == (y + SIZE_OF_PLAYER / 2) - 1 || startDrawX == x + SIZE_OF_PLAYER / 2 - 1)
+			{
+				draw_cub_in_pixel2D(startDrawX, startDrawY, SIZE, cub3D);
+			}
+			startDrawX++;
+		}
+		startDrawX = x - SIZE_OF_PLAYER / 2;
+		startDrawY++;
 	}
-	printf("X %d Y %d\n", drawStartX, drawStartY);
-	i = count_of_block_in_array_y;
-	// drawStartY = drawStartY - countY * 10;
-	drawStartY = drawStartY - countY * SIZE_OF_BLOCK_IN_PLAYER;
-	// drawStartX-=10;
-	drawStartX-=SIZE_OF_BLOCK_IN_PLAYER;
-	while (i > 0)
+	
+	draw_cub_in_pixel2D(x, y, SIZE, cub3D);
+
+	for (int i = 1; i <= 4; i++)
 	{
-		draw_cub_in_pixel2D(drawStartY, drawStartX, cub3D);
-		// drawStartX-=10;
-		drawStartX-=SIZE_OF_BLOCK_IN_PLAYER;
-		// drawStartY+=10;
-		drawStartY+=SIZE_OF_BLOCK_IN_PLAYER;
-		i--;
+		draw_cub_in_pixel2D(x - SIZE * i, y - SIZE * i, SIZE, cub3D);
+		draw_cub_in_pixel2D(x - SIZE * i, y + SIZE * i, SIZE, cub3D);
+		draw_cub_in_pixel2D(x + SIZE * i, y - SIZE * i, SIZE, cub3D);
+		draw_cub_in_pixel2D(x + SIZE * i, y + SIZE * i, SIZE, cub3D);
 	}
+
 }
 
 /*
@@ -148,24 +136,24 @@ void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int
 		else
 		{
 			startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
-			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
+			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2;
 		}
 	}
 	if (hor_flag == 'R')
 	{
 		if (vert_flag == 'U')
 		{
-			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
+			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2;
 			startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
 		}
 		else
 		{
-			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
-			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2 - (size_of_cube - 1);
+			startDrawX = cub3D->player->posX + SIZE_OF_PLAYER / 2;
+			startDrawY = cub3D->player->posY + SIZE_OF_PLAYER / 2;
 		}
 	}
-	int x = startDrawX;
-	int y = startDrawY;
+	int x = startDrawX - size_of_cube / 2;
+	int y = startDrawY - size_of_cube / 2;
 	int i = 0;
 	int j = 0;
 	while (i < size_of_cube)
@@ -176,7 +164,7 @@ void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int
 			j++;
 			y++;
 		}
-		y = startDrawY;
+		y = startDrawY - size_of_cube / 2;
 		j = 0;
 		i++;
 		x++;
@@ -185,32 +173,70 @@ void					ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int
 
 void					ft_draw_user(t_cub3D *cub3D)
 {
-	int startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
-	int startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
+		// int SIZE_OF_PLAYER = 50;
+	int SIZE = SIZE_OF_PLAYER / 10;
 
-	for (int x = 0; x < SIZE_OF_PLAYER; x++)
+	int x = cub3D->player->posX;
+	int y = cub3D->player->posY;
+
+	int startDrawX = x - SIZE_OF_PLAYER / 2;
+	int startDrawY = y - SIZE_OF_PLAYER / 2;
+
+	while (startDrawY < y + SIZE_OF_PLAYER / 2)
 	{
-		for (int y = 0; y < SIZE_OF_PLAYER; y++)
+		while (startDrawX < x + SIZE_OF_PLAYER / 2)
 		{
-			my_mlx_pixel_put(cub3D->mlx_img, startDrawX, startDrawY, cub3D->player->player2D->color_of_player);
-			startDrawY++;
+			if (startDrawY == (y - SIZE_OF_PLAYER / 2) || startDrawX == x - SIZE_OF_PLAYER / 2
+				|| startDrawY == (y + SIZE_OF_PLAYER / 2) - 1 || startDrawX == x + SIZE_OF_PLAYER / 2 - 1)
+			{
+				draw_cub_in_pixel2D(startDrawX, startDrawY, SIZE, cub3D);
+			}
+			startDrawX++;
 		}
-		startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
-		startDrawX++;
+		startDrawX = x - SIZE_OF_PLAYER / 2;
+		startDrawY++;
 	}
+	
+	draw_cub_in_pixel2D(x, y, SIZE, cub3D);
 
-	int Xend = cub3D->player->posX + cub3D->player->posDirX * 20;
-	int Yend = cub3D->player->posY + cub3D->player->posDirY * 20;
-
-	printf("208 PosX %d PosY %d\n", cub3D->player->posX, cub3D->player->posY);
-	print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
+	// print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
 	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
 	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
 	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
 	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
 	ft_draw_rays(cub3D);
 	ft_draw_cub_from_cubs2D(cub3D);
+
 }
+
+// void					ft_draw_user(t_cub3D *cub3D)
+// {
+// 	int startDrawX = cub3D->player->posX - SIZE_OF_PLAYER / 2;
+// 	int startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
+
+// 	for (int x = 0; x < SIZE_OF_PLAYER; x++)
+// 	{
+// 		for (int y = 0; y < SIZE_OF_PLAYER; y++)
+// 		{
+// 			my_mlx_pixel_put(cub3D->mlx_img, startDrawX, startDrawY, cub3D->player->player2D->color_of_player);
+// 			startDrawY++;
+// 		}
+// 		startDrawY = cub3D->player->posY - SIZE_OF_PLAYER / 2;
+// 		startDrawX++;
+// 	}
+
+// 	int Xend = cub3D->player->posX + cub3D->player->posDirX * 20;
+// 	int Yend = cub3D->player->posY + cub3D->player->posDirY * 20;
+
+// 	printf("208 PosX %d PosY %d\n", cub3D->player->posX, cub3D->player->posY);
+// 	print_DDALine(cub3D->player->posX, cub3D->player->posY, Xend, Yend, cub3D, 0x00FF0000);
+// 	ft_draw_corner_cubes(cub3D, 'L', 'U', cub3D->player->player2D->color_minicubeLU);
+// 	ft_draw_corner_cubes(cub3D, 'L', 'D', cub3D->player->player2D->color_minicubeLD);
+// 	ft_draw_corner_cubes(cub3D, 'R', 'U', cub3D->player->player2D->color_minicubeRU);
+// 	ft_draw_corner_cubes(cub3D, 'R', 'D', cub3D->player->player2D->color_minicubeRD);
+// 	ft_draw_rays(cub3D);
+// 	ft_draw_cub_from_cubs2D(cub3D);
+// }
 
 void					ft_fill_background(t_cub3D *cub3D)
 {
