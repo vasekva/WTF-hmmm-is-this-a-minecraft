@@ -44,6 +44,9 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 	player->upKey = 0;
 	player->downKey = 0;
 	player->escKey = 0;
+	player->rightDKey = 0;
+	player->leftAKey = 0;
+
 	player->degree = 0;
 	player->posX = 0;
 	player->posY = 0;

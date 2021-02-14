@@ -7,6 +7,14 @@ int     keyrelease_hook(int key, void *param)
 	if (param)
 	{
 		cub3D = (t_cub3D *)param;
+		if (key == LEFT_A)
+		{
+			cub3D->player->leftAKey = 0;
+		}
+		if (key == RIGHT_D)
+		{
+			cub3D->player->rightDKey = 0;
+		}
 		if (key == LEFT)
 		{
 			printf("LEFT\n");
@@ -42,9 +50,27 @@ static int	ft_calculate_pos(t_cub3D *cub3D)
 	int Xa = 0;
 	int Ya = 0;
 
+
+	if (cub3D->player->leftKey == 1)
+	{
+		cub3D->player->posDirX = cos(cub3D->player->posA - 1.5839) * 5;
+		cub3D->player->posDirY = sin(cub3D->player->posA - 1.5839) * 5;
+		cub3D->player->posX += cub3D->player->posDirX;
+		cub3D->player->posY += cub3D->player->posDirY;
+		// cub3D->player->posX -= 5;
+	}
+	if (cub3D->player->rightKey == 1)
+	{
+		cub3D->player->posDirX = cos(cub3D->player->posA - 1.5839) * 5;
+		cub3D->player->posDirY = sin(cub3D->player->posA - 1.5839) * 5;
+		cub3D->player->posX -= cub3D->player->posDirX;
+		cub3D->player->posY -= cub3D->player->posDirY;
+		// cub3D->player->posX += 5;
+	}
+
 	if (cub3D->player->escKey == 1)
         exit(0);
-	if (cub3D->player->leftKey == 1)
+	if (cub3D->player->leftAKey == 1)
 	{
 		cub3D->player->posA -= 0.1;
 		cub3D->player->degree = cub3D->player->posA * (180 / PI);
@@ -55,7 +81,7 @@ static int	ft_calculate_pos(t_cub3D *cub3D)
 		cub3D->player->posDirX = cos(cub3D->player->posA) * 5;
 		cub3D->player->posDirY = sin(cub3D->player->posA) * 5;
 	}
-	if (cub3D->player->rightKey == 1)
+	if (cub3D->player->rightDKey == 1)
 	{
 		cub3D->player->posA += 0.1;
 		cub3D->player->degree = cub3D->player->posA * (180 / PI);
@@ -198,20 +224,30 @@ int	keypress_hook(int key, void *param)
 	if (param)
 	{
 		cub3D = (t_cub3D *)param;
-		if (key == ESC)
-		{
-			cub3D->player->escKey = 1;
-		}
+
 		if (key == LEFT)
 		{
-			printf("LEFT\n");
 			cub3D->player->leftKey = 1;
 		}
 		if (key == RIGHT)
 		{
+			cub3D->player->rightKey = 1;
+		}
+
+		if (key == ESC)
+		{
+			cub3D->player->escKey = 1;
+		}
+		if (key == LEFT_A)
+		{
+			printf("LEFT\n");
+			cub3D->player->leftAKey = 1;
+		}
+		if (key == RIGHT_D)
+		{
 
 			printf("RIGHT\n");
-			cub3D->player->rightKey = 1;
+			cub3D->player->rightDKey = 1;
 		}
 		if (key == UP)
 		{
