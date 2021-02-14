@@ -160,7 +160,8 @@ int     		main(int argc, char **argv)
         if (argc == 2)
         {
             init_cub3D(&cub3D, argv[1]);
-			//mlx_key_hook(cub3D.env->win, keyrelease_hook, &cub3D);
+			// mlx_key_hook(cub3D.env->win, keyrelease_hook, &cub3D);
+			mlx_hook(cub3D.env->win, 3, 1L<<0, keyrelease_hook, &cub3D);
 			ft_found_player_in_array(&cub3D);
 			mlx_hook(cub3D.env->win, 2, 1L<<0, keypress_hook, &cub3D);
 			mlx_loop_hook(cub3D.env->mlx, loop_hook, &cub3D);

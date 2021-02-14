@@ -20,11 +20,13 @@
 
 # define UP		13
 # define DOWN	1
-# define RIGHT	2
-# define LEFT	0
+// # define RIGHT	2
+# define RIGHT	124
+// # define LEFT	0
+# define LEFT	123
 # define ESC	53
 
-# define SIZE_OF_CUB 100
+# define SIZE_OF_CUB 50
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
 // # define MOVESPEED 35
 # define LONG_VIEW 8
@@ -108,9 +110,14 @@ typedef struct      s_player2D
 
 typedef struct      s_player
 {
-      t_player2D      *player2D;
+    t_player2D      *player2D;
     int             arrayX;
     int             arrayY;
+    int             leftKey;
+    int             rightKey;
+    int             upKey;
+    int             downKey;
+    int             escKey;
     double			degree;
     double			posX;
 	double			posY;

@@ -10,67 +10,70 @@ int     keyrelease_hook(int key, void *param)
 		if (key == LEFT)
 		{
 			printf("LEFT\n");
+			cub3D->player->leftKey = 0;
 		}
 		if (key == RIGHT)
 		{
 
 			printf("RIGHT\n");
+			cub3D->player->rightKey = 0;
 		}
 		if (key == UP)
 		{
 			printf("UP\n");
+			cub3D->player->upKey = 0;
 		}
 		if (key == DOWN)
 		{
 			printf("DOWN\n");
+			cub3D->player->downKey = 0;
 		}
 	}
 	return (1);
 }
 
-int	keypress_hook(int key, void *param)
+/*
+* Выполняет необходимые действия в зависимости от координат //TODO переделать описание!
+*/
+static int	ft_calculate_pos(t_cub3D *cub3D)
 {
-	t_cub3D *cub3D;
 	int arrayY = 0;
 	int arrayX = 0;
 	int Xa = 0;
 	int Ya = 0;
 
-	if (param)
+	if (cub3D->player->escKey == 1)
+        exit(0);
+	if (cub3D->player->leftKey == 1)
 	{
-		cub3D = (t_cub3D *)param;
-		if (key == ESC)
-            exit(0);
-		if (key == LEFT)
+		cub3D->player->posA -= 0.1;
+		cub3D->player->degree = cub3D->player->posA * (180 / PI);
+		if (cub3D->player->posA < 0)
 		{
-			cub3D->player->posA -= 0.1;
-			cub3D->player->degree = cub3D->player->posA * (180 / PI);
-			if (cub3D->player->posA < 0)
-			{
-				cub3D->player->posA += 2 * PI;
-			}
-			cub3D->player->posDirX = cos(cub3D->player->posA) * 5;
-			cub3D->player->posDirY = sin(cub3D->player->posA) * 5;
+			cub3D->player->posA += 2 * PI;
 		}
-		if (key == RIGHT)
+		cub3D->player->posDirX = cos(cub3D->player->posA) * 5;
+		cub3D->player->posDirY = sin(cub3D->player->posA) * 5;
+	}
+	if (cub3D->player->rightKey == 1)
+	{
+		cub3D->player->posA += 0.1;
+		cub3D->player->degree = cub3D->player->posA * (180 / PI);
+		if (cub3D->player->posA > 2 * PI)
 		{
-			cub3D->player->posA += 0.1;
-			cub3D->player->degree = cub3D->player->posA * (180 / PI);
-			if (cub3D->player->posA > 2 * PI)
-			{
-				cub3D->player->posA -= 2 *PI;
-			}
-			cub3D->player->posDirX = cos(cub3D->player->posA) * 5;
-			cub3D->player->posDirY = sin(cub3D->player->posA) * 5;
+			cub3D->player->posA -= 2 *PI;
 		}
-		if (key == UP)
+		cub3D->player->posDirX = cos(cub3D->player->posA) * 5;
+		cub3D->player->posDirY = sin(cub3D->player->posA) * 5;
+	}
+	if (cub3D->player->upKey == 1)
+	{
+		//верх
+		if (cub3D->player->degree > 225 && cub3D->player->degree < 315)
 		{
-			//верх
-			if (cub3D->player->degree > 225 && cub3D->player->degree < 315)
-			{
-				Xa = -SIZE_OF_CUB / tan(cub3D->player->posA);
-				Ya = -SIZE_OF_CUB;
-				arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
+			Xa = -SIZE_OF_CUB / tan(cub3D->player->posA);
+			Ya = -SIZE_OF_CUB;
+			arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
 				arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
 			}
 			//низ
@@ -162,32 +165,65 @@ int	keypress_hook(int key, void *param)
 					cub3D->player->player2D->color_minicubeLD = 0x0000FF00;
 				if (cub3D->player->player2D->color_of_player == 0x00000000)
 					cub3D->player->player2D->color_of_player = 0x009932CC;
-
 				if (cub3D->player->player2D->color_of_cross == 0x00FF0000)
 					cub3D->player->player2D->color_of_cross = cub3D->player->player2D->color_of_player;
 			}
 			cub3D->player->posX += cub3D->player->posDirX;
 			cub3D->player->posY += cub3D->player->posDirY;
 		}
-		if (key == DOWN)
-		{	
-			if (cub3D->player->player2D->color_minicubeRU == 0x00FF0000)
-				cub3D->player->player2D->color_minicubeRU = 0x0000FF00;
-			if (cub3D->player->player2D->color_minicubeRD == 0x00FF0000)
-				cub3D->player->player2D->color_minicubeRD = 0x0000FF00;
-			if (cub3D->player->player2D->color_minicubeLU == 0x00FF0000)
-				cub3D->player->player2D->color_minicubeLU = 0x0000FF00;
-			if (cub3D->player->player2D->color_minicubeLD == 0x00FF0000)
-				cub3D->player->player2D->color_minicubeLD = 0x0000FF00;
-			if (cub3D->player->player2D->color_of_player == 0x00000000)
-				cub3D->player->player2D->color_of_player = 0x009932CC;
+	if (cub3D->player->downKey == 1)
+	{	
+		if (cub3D->player->player2D->color_minicubeRU == 0x00FF0000)
+			cub3D->player->player2D->color_minicubeRU = 0x0000FF00;
+		if (cub3D->player->player2D->color_minicubeRD == 0x00FF0000)
+			cub3D->player->player2D->color_minicubeRD = 0x0000FF00;
+		if (cub3D->player->player2D->color_minicubeLU == 0x00FF0000)
+			cub3D->player->player2D->color_minicubeLU = 0x0000FF00;
+		if (cub3D->player->player2D->color_minicubeLD == 0x00FF0000)
+			cub3D->player->player2D->color_minicubeLD = 0x0000FF00;
+		if (cub3D->player->player2D->color_of_player == 0x00000000)
+			cub3D->player->player2D->color_of_player = 0x009932CC;
+		if (cub3D->player->player2D->color_of_cross == 0x00FF0000)
+			cub3D->player->player2D->color_of_cross = cub3D->player->player2D->color_of_player;
+		cub3D->player->posX -= cub3D->player->posDirX;
+		cub3D->player->posY -= cub3D->player->posDirY;
+	}
+	return (0);
+}
 
-			if (cub3D->player->player2D->color_of_cross == 0x00FF0000)
-				cub3D->player->player2D->color_of_cross = cub3D->player->player2D->color_of_player;
+int	keypress_hook(int key, void *param)
+{
+	t_cub3D *cub3D;
 
-			cub3D->player->posX -= cub3D->player->posDirX;
-			cub3D->player->posY -= cub3D->player->posDirY;
+	if (param)
+	{
+		cub3D = (t_cub3D *)param;
+		if (key == ESC)
+		{
+			cub3D->player->escKey = 1;
 		}
+		if (key == LEFT)
+		{
+			printf("LEFT\n");
+			cub3D->player->leftKey = 1;
+		}
+		if (key == RIGHT)
+		{
+
+			printf("RIGHT\n");
+			cub3D->player->rightKey = 1;
+		}
+		if (key == UP)
+		{
+			printf("UP\n");
+			cub3D->player->upKey = 1;
+		}
+		if (key == DOWN)
+		{
+			printf("DOWN\n");
+			cub3D->player->downKey = 1;
+		}
+		ft_calculate_pos(cub3D); //TODO перенести вызов функции 
 	}
 	return (1);
 }

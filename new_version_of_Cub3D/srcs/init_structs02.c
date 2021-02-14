@@ -39,6 +39,11 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 	player->player2D = init_player2D(NULL, player);
 	player->arrayX = 0;
     player->arrayY = 0;
+	player->leftKey = 0;
+	player->rightKey = 0;
+	player->upKey = 0;
+	player->downKey = 0;
+	player->escKey = 0;
 	player->degree = 0;
 	player->posX = 0;
 	player->posY = 0;
