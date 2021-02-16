@@ -21,6 +21,16 @@ t_mlx		*init_mlx_img(t_mlx *mlx_img)
 	return (mlx_img);
 }
 
+t_ray_coord	*init_ray_coords(t_ray_coord *coords)
+{
+	coords = malloc(sizeof(t_ray_coord));
+	coords->arrayY = 0;
+	coords->arrayX = 0;
+	coords->Xa = 0;
+	coords->Ya = 0;
+	return (coords);
+}
+
 t_player2D	*init_player2D(t_player2D *player2D, t_player *player)
 {
 	player2D = malloc(sizeof(t_player2D));
@@ -37,6 +47,7 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 {
 	player = malloc(sizeof(t_player));
 	player->player2D = init_player2D(NULL, player);
+	player->ray_coords = init_ray_coords(NULL);
 	player->arrayX = 0;
     player->arrayY = 0;
 	player->leftKey = 0;

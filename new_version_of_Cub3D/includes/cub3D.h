@@ -20,10 +20,10 @@
 
 # define UP		    13
 # define DOWN	    1
-# define LEFT	    0
-# define RIGHT      2
-# define LEFT_A	    123
-# define RIGHT_D	124
+# define LEFT_A	    0
+# define RIGHT_D    2
+# define LEFT	    123
+# define RIGHT		124
 # define ESC	    53
 
 # define SIZE_OF_CUB 100
@@ -98,6 +98,14 @@ typedef struct  	s_env
 	void			*img;
 }					t_env;
 
+typedef struct	s_ray_coord
+{
+	int			arrayY;
+	int			arrayX;
+	int			Xa;
+	int			Ya;
+}				t_ray_coord;
+
 typedef struct      s_player2D
 {
     int             color_minicubeRU;
@@ -111,6 +119,7 @@ typedef struct      s_player2D
 typedef struct      s_player
 {
     t_player2D      *player2D;
+	t_ray_coord		*ray_coords;
     int             arrayX;
     int             arrayY;
     int             leftKey;
@@ -127,6 +136,7 @@ typedef struct      s_player
     double			posDirY;
     double			posA;
 }                   t_player;
+
 
 typedef struct  s_cub3D
 {
@@ -154,9 +164,12 @@ void	ft_draw_rays(t_cub3D *cub3D);
 /*
 * event_handle01.c
 */
-    int	keyrelease_hook(int key, void *param);
-    int	keypress_hook(int key, void *param);
-
+    int		keyrelease_hook(int key, void *param);
+    int		keypress_hook(int key, void *param);
+    void	ft_set_standart_colors(t_cub3D *cub3D);
+	void	ft_change_color(t_cub3D *cub3D);
+	int		ft_calculate_pos(t_cub3D *cub3D);
+	void	ft_define_next_block(t_cub3D *cub3D);
 /*
 * ft_parse.c
 */
@@ -222,5 +235,6 @@ void	ft_draw_rays(t_cub3D *cub3D);
     t_player	*init_player(t_player *player, t_cub3D *cub3D);
     t_mlx		*init_mlx_img(t_mlx *mlx_img);
     t_player	*init_player(t_player *player, t_cub3D *cub3D);
+	t_ray_coord	*init_ray_coords(t_ray_coord *coords);
 
 #endif

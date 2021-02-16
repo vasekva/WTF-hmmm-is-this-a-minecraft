@@ -66,9 +66,9 @@ void			ft_draw_rays(t_cub3D *cub3D)
 	print_DDALine(cub3D->player->posX, cub3D->player->posY, rx + Xa, ry + Ya, cub3D, 0x00FFFF00);
 
 	// Xa = SIZE_OF_CUB / -tan(cub3D->player->posA);
-	printf("TG: %f\n", tan(3.1547));
-	printf("ArrayX: %d ArrayY: %d\n", arrayX, arrayY);
-	printf("Ya: %d Xa: %d\n", Ya, Xa);
+	// printf("TG: %f\n", tan(3.1547));
+	// printf("ArrayX: %d ArrayY: %d\n", arrayX, arrayY);
+	// printf("Ya: %d Xa: %d\n", Ya, Xa);
 }
 
 /*
@@ -129,6 +129,7 @@ static int		loop_hook(void *param)
     if (param)
     {
         cub3D = (t_cub3D *)param;
+		ft_calculate_pos(cub3D); //TODO перенести вызов функции 
 		ft_start_game(cub3D);
     }
     return (0);
@@ -161,9 +162,9 @@ int     		main(int argc, char **argv)
         {
             init_cub3D(&cub3D, argv[1]);
 			// mlx_key_hook(cub3D.env->win, keyrelease_hook, &cub3D);
+			mlx_hook(cub3D.env->win, 2, 1L<<0, keypress_hook, &cub3D);
 			mlx_hook(cub3D.env->win, 3, 1L<<0, keyrelease_hook, &cub3D);
 			ft_found_player_in_array(&cub3D);
-			mlx_hook(cub3D.env->win, 2, 1L<<0, keypress_hook, &cub3D);
 			mlx_loop_hook(cub3D.env->mlx, loop_hook, &cub3D);
 			mlx_loop(cub3D.env->mlx);
         }
