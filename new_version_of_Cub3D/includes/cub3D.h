@@ -26,7 +26,7 @@
 # define RIGHT		124
 # define ESC	    53
 
-# define SIZE_OF_CUB 100
+# define SIZE_OF_CUB 30
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
 // # define MOVESPEED 35
 # define LONG_VIEW 8
@@ -166,10 +166,15 @@ void	ft_draw_rays(t_cub3D *cub3D);
 */
     int		keyrelease_hook(int key, void *param);
     int		keypress_hook(int key, void *param);
+
+/*
+* ft_move_player.c
+*/
+	int		ft_move_player(t_cub3D *cub3D);
     void	ft_set_standart_colors(t_cub3D *cub3D);
 	void	ft_change_color(t_cub3D *cub3D);
-	int		ft_calculate_pos(t_cub3D *cub3D);
 	void	ft_define_next_block(t_cub3D *cub3D);
+
 /*
 * ft_parse.c
 */
@@ -193,7 +198,7 @@ void	ft_draw_rays(t_cub3D *cub3D);
 * static void		ft_draw_corner_cubes(t_cub3D *cub3D, char hor_flag, char vert_flag, int color)
 * static void		ft_draw_cross2D(t_cub3D *cub3D)
 * static void		draw_cub_in_pixel2D(int x, int y, int size, int color, t_cub3D *cub3D)
-* static void		ft_draw_cub_from_cubs(t_cub3D *cub3D) // вызывается в ft_start_game
+* static void		ft_draw_cub_in_pos(t_cub3D *cub3D) // вызывается в ft_start_game
 * static void		draw_cub_in_pixel(int y, int x, t_cub3D *cub3D) // TODO сменить у и x местами
 * static void		my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
 */

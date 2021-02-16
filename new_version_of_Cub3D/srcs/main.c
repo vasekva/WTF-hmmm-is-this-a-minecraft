@@ -1,77 +1,6 @@
 #include "cub3D.h"
 
 /*
-* В зависимости от угла, под которым смотрит игрок
-* вычисляет координаты, куда упадет луч и 
-* шаг по X и Y для дальнейшего сдвига координат луча
-*/
-void			ft_draw_rays(t_cub3D *cub3D)
-{
-	double rad = cub3D->player->posA;
-	int Ya = 0;
-	int Xa = 0;
-	int arrayY = 0;
-	int	arrayX = 0;
-
-	/*
-	* если вверх, то Ay = (Py / 64) * 64 - 1;
-	* если вниз, то Ay = (Py / 64) * 64 + 64;
-	*/
-
-	//верх
-	if (cub3D->player->degree > 225 && cub3D->player->degree < 315)
-	{
-		Xa = -SIZE_OF_CUB / tan(cub3D->player->posA);
-		Ya = -SIZE_OF_CUB;
-		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
-		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
-	}
-	//низ
-	if (cub3D->player->degree > 45 && cub3D->player->degree < 135)
-	{
-		Xa = SIZE_OF_CUB / tan(cub3D->player->posA);
-		Ya = SIZE_OF_CUB;
-		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB + SIZE_OF_CUB;
-		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA));
-	}	
-
-	/* 
-	* если влево, то Ay = (Py / 64) * 64 - 1;
-	* если вправо, то Ay = (Py / 64) * 64 + 64;
-	*/
-
-	//лево
-	if (cub3D->player->degree < 225 && cub3D->player->degree > 135)
-	{
-		Xa = -SIZE_OF_CUB;
-		Ya = -SIZE_OF_CUB * tan(cub3D->player->posA);
-		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
-		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
-	}
-	//право
-	if (cub3D->player->degree > 315 || cub3D->player->degree < 45)
-	{
-		Xa = SIZE_OF_CUB;
-		Ya = SIZE_OF_CUB * tan(cub3D->player->posA);
-		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB + SIZE_OF_CUB;
-		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
-	}
-	int skipBlocks = 0;
-
-	int rx = arrayX + Xa + Xa;
-	int ry = arrayY + Ya + Ya;
-	int count = 0;
-
-
-	print_DDALine(cub3D->player->posX, cub3D->player->posY, rx + Xa, ry + Ya, cub3D, 0x00FFFF00);
-
-	// Xa = SIZE_OF_CUB / -tan(cub3D->player->posA);
-	// printf("TG: %f\n", tan(3.1547));
-	// printf("ArrayX: %d ArrayY: %d\n", arrayX, arrayY);
-	// printf("Ya: %d Xa: %d\n", Ya, Xa);
-}
-
-/*
  * На основе найденного символа начальной стороны взгляда игрока
  * устанавливает радианную меру угла, под которым направлен вектор
  * взгляда
@@ -122,19 +51,10 @@ void			ft_found_player_in_array(t_cub3D *cub3D)
 	cub3D->player->posX = (double)(cub3D->player->arrayX + 1) * SIZE_OF_CUB - (SIZE_OF_CUB / 2); //TODO УБРАТЬ + 1
 }
 
-static int		loop_hook(void *param)
-{
-    t_cub3D   *cub3D;
 
-    if (param)
-    {
-        cub3D = (t_cub3D *)param;
-		ft_calculate_pos(cub3D); //TODO перенести вызов функции 
-		ft_start_game(cub3D);
-    }
-    return (0);
-}
-
+/*
+* Стартовая инициализация всех данных игры
+*/
 static void    	init_cub3D(t_cub3D *cub3D, char *path)
 {
 	cub3D->file_path = path;
@@ -149,7 +69,24 @@ static void    	init_cub3D(t_cub3D *cub3D, char *path)
 
 	cub3D->env = init_env(NULL, cub3D); // mlx_init, mlx_new_win...
 	cub3D->mlx_img = init_mlx_img(NULL); //инициализация структуры для my_mlx_pixel_put
-	cub3D->player = init_player(NULL, cub3D); //инициализация изначального положения игрока
+	cub3D->player = init_player(NULL, cub3D); // инициализация данных персонажа
+	/*
+	* поиск символа персонажа в массиве и определение и запись соот-их данных в структуру
+	*/
+	ft_found_player_in_array(cub3D);
+}
+
+
+static int		loop_hook(void *param)
+{
+    t_cub3D   *cub3D;
+
+    if (param)
+    {
+        cub3D = (t_cub3D *)param;
+		ft_start_game(cub3D);
+    }
+    return (0);
 }
 
 int     		main(int argc, char **argv)
@@ -161,10 +98,8 @@ int     		main(int argc, char **argv)
         if (argc == 2)
         {
             init_cub3D(&cub3D, argv[1]);
-			// mlx_key_hook(cub3D.env->win, keyrelease_hook, &cub3D);
 			mlx_hook(cub3D.env->win, 2, 1L<<0, keypress_hook, &cub3D);
 			mlx_hook(cub3D.env->win, 3, 1L<<0, keyrelease_hook, &cub3D);
-			ft_found_player_in_array(&cub3D);
 			mlx_loop_hook(cub3D.env->mlx, loop_hook, &cub3D);
 			mlx_loop(cub3D.env->mlx);
         }

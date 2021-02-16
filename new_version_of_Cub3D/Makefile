@@ -11,6 +11,7 @@ SRC =	ft_print_structs.c main.c ft_parse.c \
 		event_handle01.c \
 		print_DDALine.c \
 		ft_utils.c \
+		ft_move_player.c \
 #		ft_draw_rays.c \
 #		ft_draw_cub_from_cubs.c \
 
