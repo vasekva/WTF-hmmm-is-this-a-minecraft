@@ -26,9 +26,9 @@
 # define RIGHT		124
 # define ESC	    53
 
-# define SIZE_OF_CUB 30
+# define SIZE_OF_CUB 100
 # define SIZE_OF_PLAYER (SIZE_OF_CUB / 2)
-// # define MOVESPEED 35
+# define MOVE_SPEED SIZE_OF_CUB / 10
 # define LONG_VIEW 8
 
 // # define color_of_wall_minimap 0x00808080

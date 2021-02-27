@@ -174,36 +174,66 @@ void			ft_draw_rays(t_cub3D *cub3D)
 	int Xa = 0;
 	int arrayY = 0;
 	int	arrayX = 0;
-
+	int dof = 0;
+	
+	int distH = 100000;
+	int distV = 100000;
 	/*
 	* если вверх, то Ay = (Py / 64) * 64 - 1;
 	* если вниз, то Ay = (Py / 64) * 64 + 64;
 	*/
 
 	//верх
-	if (cub3D->player->degree > 225 && cub3D->player->degree < 315)
+	// if (cub3D->player->degree > 225 && cub3D->player->degree < 315)
+	if (cub3D->player->posA > PI || cub3D->player->posA < PI)
 	{
-		Xa = -SIZE_OF_CUB / tan(cub3D->player->posA);
-		Ya = -SIZE_OF_CUB;
-		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
-		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
+		if (cub3D->player->posA > PI)
+		{
+			Xa = -SIZE_OF_CUB / tan(cub3D->player->posA);
+			Ya = -SIZE_OF_CUB;
+			arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB - 1;
+			arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA));
+		}
+		//низ
+		// if (cub3D->player->degree > 45 && cub3D->player->degree < 135)
+		else if (cub3D->player->posA < PI)
+		{
+			Xa = SIZE_OF_CUB / tan(cub3D->player->posA);
+			Ya = SIZE_OF_CUB;
+			arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB + SIZE_OF_CUB;
+			arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA));
+		}
+		while (dof < 3)
+		{
+			// printf("PosA: %f arrayX: %d\n", cub3D->player->posA, arrayX);
+			// printf("Y: %d X: %d\n", (int)arrayY / SIZE_OF_CUB, arrayX / SIZE_OF_CUB);
+			if (cub3D->array[arrayY / SIZE_OF_CUB][arrayX / SIZE_OF_CUB] != '0')
+			{
+				dof = 8;
+			}
+			else
+			{
+				arrayX += Xa;
+				arrayY += Ya;
+				dof++;
+			}
+		}
 	}
-	//низ
-	if (cub3D->player->degree > 45 && cub3D->player->degree < 135)
-	{
-		Xa = SIZE_OF_CUB / tan(cub3D->player->posA);
-		Ya = SIZE_OF_CUB;
-		arrayY = ((int)cub3D->player->posY / SIZE_OF_CUB) * SIZE_OF_CUB + SIZE_OF_CUB;
-		arrayX = (cub3D->player->posX + (cub3D->player->posY - arrayY) / -tan(cub3D->player->posA));
-	}	
-
+	distH = sqrt(pow(cub3D->player->posX - arrayX, 2) + pow(cub3D->player->posY - arrayY, 2));
+	printf("distH: %d\n", distH);
+	int rx = arrayX;
+	int ry = arrayY;
 	/* 
 	* если влево, то Ay = (Py / 64) * 64 - 1;
 	* если вправо, то Ay = (Py / 64) * 64 + 64;
 	*/
 
-	//лево
-	if (cub3D->player->degree < 225 && cub3D->player->degree > 135)
+	dof = 0;
+	if ((cub3D->player->posA > PI2 && cub3D->player->posA > PI2)
+		|| (cub3D->player->posA < PI2 || cub3D->player->posA > PI3))
+	{
+	// лево
+	if (cub3D->player->posA < PI3 && cub3D->player->posA > PI2)
 	{
 		Xa = -SIZE_OF_CUB;
 		Ya = -SIZE_OF_CUB * tan(cub3D->player->posA);
@@ -211,21 +241,36 @@ void			ft_draw_rays(t_cub3D *cub3D)
 		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
 	}
 	//право
-	if (cub3D->player->degree > 315 || cub3D->player->degree < 45)
+	if (cub3D->player->posA < PI2 || cub3D->player->posA > PI3)
 	{
 		Xa = SIZE_OF_CUB;
 		Ya = SIZE_OF_CUB * tan(cub3D->player->posA);
 		arrayX = ((int)cub3D->player->posX / SIZE_OF_CUB) * SIZE_OF_CUB + SIZE_OF_CUB;
 		arrayY = (cub3D->player->posY + (cub3D->player->posX - arrayX) * -tan(cub3D->player->posA)); //TODO почему -tan ?? (cкорее всего из-за реверсивной системы)
 	}
-	int skipBlocks = 0;
-
-	int rx = arrayX + Xa + Xa;
-	int ry = arrayY + Ya + Ya;
-	int count = 0;
-
-
-	print_DDALine(cub3D->player->posX, cub3D->player->posY, rx + Xa, ry + Ya, cub3D, 0x00FFFF00);
+	while (dof < 3)
+	{
+		printf("Y: %d X: %d\n", (int)arrayY / SIZE_OF_CUB, arrayX / SIZE_OF_CUB);
+		if (cub3D->array[arrayY / SIZE_OF_CUB][arrayX / SIZE_OF_CUB] != '0')
+		{
+			dof = 8;
+		}
+		else
+		{
+			arrayX += Xa;
+			arrayY += Ya;
+			dof++;
+		}
+	}
+	}
+	distV = sqrt(pow(cub3D->player->posX - arrayX, 2) + pow(cub3D->player->posY - arrayY, 2));
+	printf("distV: %d\n", distV);
+	if (distV < distH)
+	{
+		rx = arrayX;
+		ry = arrayY;
+	}
+	print_DDALine(cub3D->player->posX, cub3D->player->posY, rx, ry, cub3D, 0x00FFFF00);
 }
 
 /*

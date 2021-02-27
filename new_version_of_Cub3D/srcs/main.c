@@ -23,15 +23,15 @@ void			ft_found_player_in_array(t_cub3D *cub3D)
 				cub3D->player->arrayX = j;
 				if (cub3D->array[i][j] == 'N')
 				{
-					cub3D->player->posA = 4.71239;
+					cub3D->player->posA = PI3;
 				}
 				if (cub3D->array[i][j] == 'S')
 				{
-					cub3D->player->posA = 1.5708;
+					cub3D->player->posA = PI2;
 				}
 				if (cub3D->array[i][j] == 'W')
 				{
-					cub3D->player->posA = 3.14159;
+					cub3D->player->posA = PI;
 				}
 				if (cub3D->array[i][j] == 'E')
 				{

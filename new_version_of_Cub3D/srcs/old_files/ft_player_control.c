@@ -14,7 +14,7 @@ void	ft_set_standart_colors(t_cub3D *cub3D)
 	if (cub3D->player->player2D->color_minicubeLD == 0x00FF0000)
 		cub3D->player->player2D->color_minicubeLD = 0x0000FF00;
 	if (cub3D->player->player2D->color_of_player == 0x00000000)
-		cub3D->player->player2D->color_of_player = 0x009932CC;
+		cub3D->player->player2D->color_of_player = player_color;
 	if (cub3D->player->player2D->color_of_cross == 0x00FF0000)
 		cub3D->player->player2D->color_of_cross = cub3D->player->player2D->color_of_player;
 }
@@ -120,7 +120,7 @@ void	ft_define_next_block(t_cub3D *cub3D)
 * посредством определения нажатых клавиш и вызова
 * вспомогательных функций
 */
-int	ft_move_player(t_cub3D *cub3D)
+int	ft_player_control(t_cub3D *cub3D)
 {
 	if (cub3D->player->leftAKey == 1)
 	{
