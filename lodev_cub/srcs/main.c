@@ -57,7 +57,6 @@ static int		loop_hook(void *param)
 
     if (param)
     {
-		printf("hello\n");
         cub3D = (t_cub3D *)param;
 		ft_start_game(cub3D);
     }

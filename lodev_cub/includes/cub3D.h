@@ -23,6 +23,8 @@
 #define screenWidth 640
 #define screenHeight 480
 
+# define MOVE_SPEED 1
+
 typedef struct	s_mlx
 {
 	void        *img;

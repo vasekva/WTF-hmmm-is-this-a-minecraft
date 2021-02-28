@@ -138,6 +138,48 @@ void			ft_start_game(t_cub3D *cub3D)
 		{
 			my_mlx_pixel_put(cub3D->mlx_img, x, y, 0x00FFF000);
 		}
+
+		//move forward if no wall in front of you
+    	if (cub3D->keys->upKey == 1)
+    	{
+			printf("UP\n");
+			printf("dirX: %f dirY: %f\n", dirX, dirY);
+			printf("posX: %f posY: %f\n", cub3D->player->posX, cub3D->player->posY);
+    		if(worldMap[(int)(cub3D->player->posX + dirX * MOVE_SPEED)][(int)(cub3D->player->posY)] == 0)
+				cub3D->player->posX += dirX * MOVE_SPEED;
+    		if(worldMap[(int)(cub3D->player->posX)][(int)(cub3D->player->posY + dirY * MOVE_SPEED)] == 0)
+				cub3D->player->posY += dirY * MOVE_SPEED;
+    	}
+    	// //move backwards if no wall behind you
+    	if (cub3D->keys->downKey == 1)
+    	{
+    		if(worldMap[(int)(cub3D->player->posX - dirX * MOVE_SPEED)][(int)(cub3D->player->posY)] == 0)
+		  		cub3D->player->posX -= dirX * MOVE_SPEED;
+    		if(worldMap[(int)cub3D->player->posX][(int)(cub3D->player->posY - dirY * MOVE_SPEED)] == 0)
+				cub3D->player->posY -= dirY * MOVE_SPEED;
+    	}
+    	// //rotate to the right
+    	// if (cub3D->keys->rightDKey == 1)
+    	// {
+    	//   //both camera direction and camera plane must be rotated
+    	//   double oldDirX = dirX;
+    	//   dirX = dirX * cos(-MOVE_SPEED) - dirY * sin(-MOVE_SPEED);
+    	//   dirY = oldDirX * sin(-MOVE_SPEED) + dirY * cos(-MOVE_SPEED);
+    	//   double oldPlaneX = planeX;
+    	//   planeX = planeX * cos(-MOVE_SPEED) - planeY * sin(-MOVE_SPEED);
+    	//   planeY = oldPlaneX * sin(-MOVE_SPEED) + planeY * cos(-MOVE_SPEED);
+    	// }
+    	// // //rotate to the left
+    	// if (cub3D->keys->leftAKey == 1)
+    	// {
+    	//   //both camera direction and camera plane must be rotated
+    	//   double oldDirX = dirX;
+    	//   dirX = dirX * cos(MOVE_SPEED) - dirY * sin(MOVE_SPEED);
+    	//   dirY = oldDirX * sin(MOVE_SPEED) + dirY * cos(MOVE_SPEED);
+    	//   double oldPlaneX = planeX;
+    	//   planeX = planeX * cos(MOVE_SPEED) - planeY * sin(MOVE_SPEED);
+    	//   planeY = oldPlaneX * sin(MOVE_SPEED) + planeY * cos(MOVE_SPEED);
+    	// }
 	}
 	
 	mlx_put_image_to_window(cub3D->env->mlx, cub3D->env->win, cub3D->env->img, 0, 0);
