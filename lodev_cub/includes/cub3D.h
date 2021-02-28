@@ -39,7 +39,7 @@ typedef struct  	s_env
 	void			*img;
 }					t_env;
 
-typedef struct      s_player
+typedef struct      s_keys
 {
     int             leftKey;
     int             rightKey;
@@ -48,13 +48,21 @@ typedef struct      s_player
     int             escKey;
     int             leftAKey;
     int             rightDKey;
+}                   t_keys;
+
+typedef struct      s_player
+{
+    double          posX;
+    double          posY;
 }                   t_player;
+
 
 typedef struct  s_cub3D
 {
     t_env       *env;
     t_mlx		*mlx_img;
-	t_player	*player;
+	t_keys      *keys;
+    t_player    *player;
 }               t_cub3D;
 
 /*
