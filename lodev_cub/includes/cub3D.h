@@ -56,8 +56,17 @@ typedef struct      s_player
 {
     double          posX;
     double          posY;
+	double			dirX;
+	double			dirY;
+	double			planeX;
+	double			planeY;
 }                   t_player;
 
+typedef struct      s_screen
+{
+    int             w;
+    id_t            h;
+}					t_screen;
 
 typedef struct  s_cub3D
 {
@@ -65,6 +74,7 @@ typedef struct  s_cub3D
     t_mlx		*mlx_img;
 	t_keys      *keys;
     t_player    *player;
+    t_screen    *screen;
 }               t_cub3D;
 
 /*

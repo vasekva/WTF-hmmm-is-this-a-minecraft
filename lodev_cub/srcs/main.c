@@ -20,7 +20,7 @@ t_env       *init_env(t_env *env, t_cub3D *cub3D)
     env->win = NULL;
 	env->mlx = NULL;
     env->mlx = mlx_init();
-    env->win = mlx_new_window(env->mlx, 1920, 1080, "Hello world!");
+    env->win = mlx_new_window(env->mlx, cub3D->screen->w, cub3D->screen->h, "Hello world!");
     return (env);
 }
 
@@ -38,13 +38,28 @@ t_mlx		*init_mlx_img(t_mlx *mlx_img)
 t_player	*init_player(t_player *player, t_cub3D *cub3D)
 {
 	player = malloc(sizeof(t_player));
-	player->posX = 0;
-	player->posY = 0;
+	player->posX = 22;
+	player->posY = 12;
+	//initial direction vector
+	player->dirX = -1;
+	player->dirY = 0;
+	//the 2d raycaster version of camera plane
+	player->planeX = 0;
+	player->planeY = 0.66;
 	return (player);
+}
+
+t_screen	*init_screen(t_screen *screen, t_cub3D *cub3D)
+{
+	screen = malloc(sizeof(t_player));
+	screen->w = 960;
+	screen->h = 1080;
+	return (screen);
 }
 
 static void    	init_cub3D(t_cub3D *cub3D)
 {
+	cub3D->screen = init_screen(NULL, cub3D);
 	cub3D->env = init_env(NULL, cub3D); // mlx_init, mlx_new_win...
 	cub3D->mlx_img = init_mlx_img(NULL); //инициализация структуры для my_mlx_pixel_put
 	cub3D->keys = init_keys(NULL, cub3D); // инициализация клавиш
@@ -68,7 +83,6 @@ int	main(void)
 	t_cub3D cub3D;
 
 	init_cub3D(&cub3D);
-
 	mlx_hook(cub3D.env->win, 2, 1L<<0, keypress_hook, &cub3D);
 	mlx_hook(cub3D.env->win, 3, 1L<<0, keyrelease_hook, &cub3D);
 	mlx_loop_hook(cub3D.env->mlx, loop_hook, &cub3D);
