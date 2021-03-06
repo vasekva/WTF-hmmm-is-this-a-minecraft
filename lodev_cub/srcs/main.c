@@ -53,10 +53,10 @@ t_screen	*init_screen(t_screen *screen, t_cub3D *cub3D)
 {
     if (!screen)
         screen = (t_screen *)malloc(sizeof(t_screen));
-	// screen->w = 0;
-	screen->w = 960;
-	// screen->h = 0;
-	screen->h = 1080;
+	screen->w = 0;
+	// screen->w = 960;
+	screen->h = 0;
+	// screen->h = 1080;
 	return (screen);
 }
 
@@ -97,12 +97,12 @@ static void    	init_cub3D(t_cub3D *cub3D, char *path)
 	cub3D->file_path = path;
 	cub3D->screen = init_screen(NULL, cub3D);
 
+	ft_parse(cub3D);
 	cub3D->env = init_env(NULL, cub3D); // mlx_init, mlx_new_win...
 	cub3D->mlx_img = init_mlx_img(NULL); //инициализация структуры для my_mlx_pixel_put
 	cub3D->keys = init_keys(NULL, cub3D); // инициализация клавиш
 	cub3D->player = init_player(NULL, cub3D);
 
-	ft_parse(cub3D);
 }
 
 static int		loop_hook(void *param)

@@ -5,10 +5,15 @@ SRC =	main.c \
 		event_handle01.c \
 		ft_parse.c \
 		get_next_line.c \
+		ft_parse_screen_size.c \
 
 INCLUDES = -I ./includes/ -I ./mlx/
 
 MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
+
+LIBFTDIR = ./libft/
+
+LIBA = ./libft/libft.a
 
 SRCDIR = ./srcs/
 
@@ -27,7 +32,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "\033[32m[Cub3D compilation...]"
-	$(CC) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+	$(MAKE) -C $(LIBFTDIR)
+	cp $(LIBA) ../
+	$(CC) $(LIBA) -o $(NAME) $(OBJS) $(MLX_FLAGS)
 	@echo "\033[32m[Done!]"
 	
 $(OBJS): $(SRCS)
@@ -35,11 +42,14 @@ $(OBJS): $(SRCS)
 	mv	$(OBJ) $(OBJDIR)
 
 clean:
+	make clean -C libft/
 	rm -rf $(OBJS)
 	rm -rf $(OBJ)
+	make clean -C $(LIBFTDIR)
 
 fclean: clean
 	rm -rf $(NAME)
+	make clean -C $(LIBFTDIR)
 
 re: fclean all
 

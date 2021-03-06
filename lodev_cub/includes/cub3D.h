@@ -9,6 +9,7 @@
 # include <math.h>
 
 #include "mlx.h"
+#include "libft.h"
 
 # define UP		    13
 # define DOWN	    1
@@ -119,8 +120,14 @@ int		get_next_line(int fd, char **line);
 
 
 /*
-* ft_parse
+* ft_parse.c
 */
 	void	ft_parse(t_cub3D *cub3D);
+
+
+/*
+* ft_parse_screen_size.c
+*/
+	int		ft_parse_screen_size(char *str, t_cub3D *cub3D);
 
 #endif
