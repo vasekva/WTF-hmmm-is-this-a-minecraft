@@ -3,6 +3,8 @@ NAME = Cub3D
 SRC =	main.c \
 		ft_start_game.c \
 		event_handle01.c \
+		ft_parse.c \
+		get_next_line.c \
 
 INCLUDES = -I ./includes/ -I ./mlx/
 

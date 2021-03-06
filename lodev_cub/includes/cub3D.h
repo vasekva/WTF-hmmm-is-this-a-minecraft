@@ -62,20 +62,49 @@ typedef struct      s_player
 	double			planeY;
 }                   t_player;
 
+typedef struct      s_map
+{
+    char            *north;
+    char            *south;
+    char            *west;
+    char            *east;
+    char            *sprite;
+}                   t_map;
+
 typedef struct      s_screen
 {
     int             w;
     id_t            h;
 }					t_screen;
 
+typedef struct		s_floor
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_floor;
+
+typedef struct		s_ceiling
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_ceiling;
+
 typedef struct  s_cub3D
 {
+	char		*file_path;
+    t_screen    *screen;
+    t_map       *map;
+    t_floor     *floor;
+	t_ceiling	*ceiling;
     t_env       *env;
     t_mlx		*mlx_img;
 	t_keys      *keys;
     t_player    *player;
-    t_screen    *screen;
 }               t_cub3D;
+
+int		get_next_line(int fd, char **line);
 
 /*
 * event_handle01.c
@@ -88,5 +117,10 @@ typedef struct  s_cub3D
 */
     void	ft_start_game(t_cub3D *cub3D);
 
+
+/*
+* ft_parse
+*/
+	void	ft_parse(t_cub3D *cub3D);
 
 #endif
