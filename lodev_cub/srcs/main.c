@@ -49,7 +49,7 @@ t_player	*init_player(t_player *player, t_cub3D *cub3D)
 	return (player);
 }
 
-t_screen	*init_screen(t_screen *screen, t_cub3D *cub3D)
+t_screen	*init_screen(t_screen *screen)
 {
     if (!screen)
         screen = (t_screen *)malloc(sizeof(t_screen));
@@ -60,42 +60,45 @@ t_screen	*init_screen(t_screen *screen, t_cub3D *cub3D)
 	return (screen);
 }
 
-// t_map		*init_map(t_map *map)
-// {
-// 	if (!map)
-// 		map = (t_map *)malloc(sizeof(t_map));
-// 	map->north = NULL;
-// 	map->south = NULL;
-// 	map->west = NULL;
-// 	map->east = NULL;
-// 	map->sprite = NULL;
-// 	return (map);
-// }
+t_map		*init_map(t_map *map)
+{
+	if (!map)
+		map = (t_map *)malloc(sizeof(t_map));
+	map->north = NULL;
+	map->south = NULL;
+	map->west = NULL;
+	map->east = NULL;
+	map->sprite = NULL;
+	return (map);
+}
 
-// t_floor		*init_floor(t_floor *floor)
-// {
-// 	if (!floor)
-// 		floor = (t_floor *)malloc(sizeof(t_floor));
-// 	floor->r = 0;
-// 	floor->g = 0;
-// 	floor->b = 0;
-// 	return (floor);
-// }
+t_floor		*init_floor(t_floor *floor)
+{
+	if (!floor)
+		floor = (t_floor *)malloc(sizeof(t_floor));
+	floor->r = 0;
+	floor->g = 0;
+	floor->b = 0;
+	return (floor);
+}
 
-// t_ceiling	*init_ceiling(t_ceiling *ceiling)
-// {
-// 	if (!ceiling)
-// 		ceiling = (t_ceiling *)malloc(sizeof(t_ceiling));
-// 	ceiling->r = 0;
-// 	ceiling->g = 0;
-// 	ceiling->b = 0;
-// 	return (ceiling);
-// }
+t_ceiling	*init_ceiling(t_ceiling *ceiling)
+{
+	if (!ceiling)
+		ceiling = (t_ceiling *)malloc(sizeof(t_ceiling));
+	ceiling->r = 0;
+	ceiling->g = 0;
+	ceiling->b = 0;
+	return (ceiling);
+}
 
 static void    	init_cub3D(t_cub3D *cub3D, char *path)
 {
 	cub3D->file_path = path;
-	cub3D->screen = init_screen(NULL, cub3D);
+	cub3D->screen = init_screen(NULL);
+	cub3D->map = init_map(NULL);
+	cub3D->ceiling = init_ceiling(NULL);
+	cub3D->floor = init_floor(NULL);
 
 	ft_parse(cub3D);
 	cub3D->env = init_env(NULL, cub3D); // mlx_init, mlx_new_win...

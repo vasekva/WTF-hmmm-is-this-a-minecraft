@@ -118,16 +118,35 @@ int		get_next_line(int fd, char **line);
 */
     void	ft_start_game(t_cub3D *cub3D);
 
-
 /*
 * ft_parse.c
 */
 	void	ft_parse(t_cub3D *cub3D);
 
-
 /*
 * ft_parse_screen_size.c
 */
 	int		ft_parse_screen_size(char *str, t_cub3D *cub3D);
+	/*
+	* int			ft_read_height(char *str, int c, t_cub3D *cub3D);
+	* int			ft_read_width(char *str, int c, t_cub3D *cub3D);
+	* int			ft_parse_int(char *str)
+	* static int	ft_pow(int num, int i)
+	*/
+/*
+*	ft_parse_path.c
+*/    
+	int		ft_parse_path(char *str, t_cub3D *cub3D);
+	/*
+	* static int ft_read_path(char *str, int start, int len, t_cub3D *cub3D);
+	*/
+
+/*
+*	ft_parse_color.c
+*/
+	int		ft_parse_color(char *str, t_cub3D *cub3D);
+	/*
+	*
+	*/
 
 #endif

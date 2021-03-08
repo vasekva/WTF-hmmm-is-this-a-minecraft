@@ -93,7 +93,7 @@ int		ft_parse_screen_size(char *str, t_cub3D *cub3D)
 	len = 0;
 	if (str[c] != ' ')
 	{
-		printf("PARSE ERROR: value string can't be without space after param %s\n", str);
+		printf("PARSE ERROR: string can't be without a space after identifier %s\n", str);
 		exit(0);
 	}
 	c = ft_read_width(str, c, cub3D);

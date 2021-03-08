@@ -28,62 +28,6 @@ int		ft_check_mapline(char *str)
 	return (0);
 }
 
-// int		ft_parse_screen_size(char *str, t_cub3D *cub3D)
-// {
-// 	int c;
-// 	int	count_values;
-// 	int	len;
-
-// 	c = 1;
-// 	count_values = 0;
-// 	len = 0;
-// 	if (str[c] != ' ')
-// 	{
-// 		printf("PARSE ERROR: value string can't be without space after param %s\n", str);
-// 		exit(0);
-// 	}
-
-// 	while (str[c] == ' ')
-// 		c++;
-// 	if (!ft_isdigit(str[c]))
-// 	{
-// 		if (str[c] == '-')
-// 				printf("PARSE ERROR: screen size can't be a negative value %s\n", str);
-// 		else
-// 			printf("PARSE ERROR: screen size can't be not a digit value %s\n", str);
-// 		exit(0);
-// 	}
-// 	while (ft_isdigit(str[c]))
-// 	{
-// 		len++;
-// 		c++;
-// 	}
-
-// 	cub3D->screen->w = ft_parse_int(ft_substr(str, c - len, len));
-// 	len = 0;
-// 	while (str[c] == ' ')
-// 		c++;
-// 	if (!ft_isdigit(str[c]))
-// 	{
-// 		if (str[c] == '-')
-// 				printf("PARSE ERROR: screen size can't be a negative value %s\n", str);
-// 		else
-// 			printf("PARSE ERROR: screen size can't be not a digit value %s\n", str);
-// 		exit(0);
-// 	}
-// 	while (ft_isdigit(str[c]))
-// 	{
-// 		len++;
-// 		c++;
-// 	}
-
-// 	cub3D->screen->h = ft_parse_int(ft_substr(str, c - len, len));
-
-// 	printf("W: %d H: %d\n", cub3D->screen->w, cub3D->screen->h);
-// 	exit(0);
-// 	return (0);
-// }
-
 int		ft_check_specifier(char *str, t_cub3D *cub3D)
 {
 	int check;
@@ -94,32 +38,17 @@ int		ft_check_specifier(char *str, t_cub3D *cub3D)
 		ft_parse_screen_size(str, cub3D);
 		check++;
 	}
-	if (str[0] == 'S')
+	if (str[0] == 'S' || (str[0] == 'S' && str[0] == 'O')
+		|| (str[0] == 'N' && str[1] == 'O')
+		|| (str[0] == 'W' && str[1] == 'E')
+		|| (str[0] == 'E' && str[1] == 'A'))
 	{
+		ft_parse_path(str, cub3D);
 		check++;
 	}
-	if (str[0] == 'F')
+	if (str[0] == 'F' || str[0] == 'C')
 	{
-		check++;
-	}
-	if (str[0] == 'C')
-	{
-		check++;
-	}
-	if (str[0] == 'N' && str[1] == 'O')
-	{
-		check++;
-	}
-	if (str[0] == 'S' && str[1] == 'O')
-	{
-		check++;
-	}
-	if (str[0] == 'W' && str[1] == 'E')
-	{
-		check++;
-	}
-	if (str[0] == 'E' && str[1] == 'A')
-	{
+		ft_parse_color(str, cub3D);
 		check++;
 	}
 	if (str[0] >= 49 && str[0] <= 57)
@@ -161,7 +90,6 @@ void	ft_parse(t_cub3D *cub3D)
 		i = 0;
     	while((i = get_next_line(fd, &line)) >= 0) // get a string
     	{
-    	    printf("STR: %s\n", line);
 			int c = 0;
 			while (line[c] != '\0') // check each symbol of string
 			{
@@ -184,7 +112,6 @@ void	ft_parse(t_cub3D *cub3D)
 				}
 				c++;
 			}
-
 			if (i == 0)
 				break;
     	}

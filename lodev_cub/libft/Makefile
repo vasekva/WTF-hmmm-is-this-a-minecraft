@@ -12,7 +12,7 @@
 
 NAME = libft.a
 
-SRC = ft_strlen.c ft_isdigit.c ft_substr.c
+SRC = ft_strlen.c ft_isdigit.c ft_substr.c ft_atoi.c
 
 OBJS = $(SRC:.c=.o)
 

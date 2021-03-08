@@ -19,5 +19,6 @@
 int					ft_isdigit(int c);
 size_t				ft_strlen(const char *str);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
+int					ft_atoi(const char *str);
 
 #endif
