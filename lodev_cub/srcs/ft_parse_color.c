@@ -1,6 +1,5 @@
 #include "cub3D.h"
 
-
 int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifier)
 {
 	if (identifier == 'F')
@@ -24,15 +23,8 @@ int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifi
 	return (0);
 }
 
-int		ft_read_color(char *str, int i, char symb_of_color, t_cub3D *cub3D, char identifier)
+int		skip_spaces_and_zeros(char *str, int i)
 {
-	int len;
-	int color;
-	int start;
-
-	len = 0;
-	color = -1;
-	start = 0;
 	while (str[i] == ' ') // skip all spaces before the number
 		i++;
 	if (!ft_isdigit(str[i])) // if symbol after space isn't a digit value - ERROR
@@ -49,62 +41,48 @@ int		ft_read_color(char *str, int i, char symb_of_color, t_cub3D *cub3D, char id
 	}
 	if (str[i] == '0') // if symbol equals zero - set a color and skip all zero symbols  
 	{
-		color = 0;
 		while (str[i] == '0')
 		{
 			i++;
 		}
 	}
-	while (ft_isdigit(str[i])) // after count a length symbols in value of color 
-	{
-		i++;
+	return (i);
+}
+
+int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier)
+{
+	int len;
+	int color;
+	int start;
+
+	len = 0;
+	color = 0;
+	start = 0;
+	i = skip_spaces_and_zeros(str, i) - 1;
+	while (ft_isdigit(str[++i])) // after count a length symbols in value of color 
 		len++;
-	}
-	// printf("LEN: %d\n", len);
 	color = ft_atoi(ft_substr(str, i - len, len));
-	// printf("COLOR: |%d|\n", color);
+	if (color > 255)
+	{
+		printf("PARSE ERROR: value of color can't be bigger than 255 %s\n", str);
+		exit (0);
+	}
 	if (str[i] != ',' && str[i] != '\0')
 	{
 		printf("PARSE ERROR: invalid character after color value %s\n", str);
 		exit (0);
 	}
 	else
-	{
 		i++;
-	}
-	ft_write_color(color, symb_of_color, cub3D, identifier);
+	ft_write_color(color, value, cub3D, identifier);
 	return (i);
 }
 
 int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char identifier)
 {
-	int r;
-	int g;
-	int b;
-
-	// printf("STR COLOR BEFORE PARSE 1: |%s|\n", &str[i]);
 	i = ft_read_color(str, i, 'R', cub3D, identifier);
-	// printf("STR COLOR AFTER PARSE 1: |%s|\n", &str[i]);
-
-	// printf("STR COLOR BEFORE PARSE 2: |%s|\n", &str[i]);
 	i = ft_read_color(str, i, 'G', cub3D, identifier);
-	// printf("STR COLOR AFTER PARSE 2: |%s|\n", &str[i]);
-
-	// printf("STR COLOR BEFORE PARSE 2: |%s|\n", &str[i]);
 	i = ft_read_color(str, i, 'B', cub3D, identifier);
-	// printf("STR COLOR AFTER PARSE 2: |%s|\n", &str[i]);
-
-	// printf("STRUCT COLOR R: %d\nSTRUCT COLOR G: %d\nSTRUCT COLOR B: %d\n", cub3D->floor->r, cub3D->floor->g, cub3D->floor->b);
-	// printf("STR COLOR AFTER PARSE: |%s|\n", &str[i]);
-
-	// }
-	// start = i;
-	// while (ft_isdigit(str[i]))
-	// {
-	// 	len++;
-	// 	i++;
-	// }
-	// exit(0);
 	return (0);
 }
 
@@ -124,24 +102,5 @@ int		ft_parse_color(char *str, t_cub3D *cub3D)
 	}
 	i++;
 	ft_read_colors(str, i, start, cub3D, identifier);
-	// while(str[i] == ' ')
-	// 	i++;
-	// if (!ft_isdigit(str[i]))
-	// {
-	// 	if (str[i] == '-')
-	// 	{
-	// 		printf("PARSE ERROR: color can't be a negative value %s\n", str);
-	// 		exit (0);
-	// 	}
-	// 	else
-	// 	{
-	// 		printf("PARSE ERROR: color can't be specified by non-digital value %s\n", str);
-	// 		exit (0);
-	// 	}
-	// }
-	// else
-	// {
-	// 	ft_read_colors(str, i, start, cub3D);
-	// }
 	return (0);
 }

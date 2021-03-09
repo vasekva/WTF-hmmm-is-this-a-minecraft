@@ -49,6 +49,10 @@ int		ft_check_specifier(char *str, t_cub3D *cub3D)
 	if (str[0] == 'F' || str[0] == 'C')
 	{
 		ft_parse_color(str, cub3D);
+		// if (str[0] == 'F')
+		// 	printf("F: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->floor->r, cub3D->floor->g, cub3D->floor->b);
+		// if (str[0] == 'C')
+		// 	printf("C: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->ceiling->r, cub3D->ceiling->g, cub3D->ceiling->b);
 		check++;
 	}
 	if (str[0] >= 49 && str[0] <= 57)

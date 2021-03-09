@@ -54,9 +54,7 @@ t_screen	*init_screen(t_screen *screen)
     if (!screen)
         screen = (t_screen *)malloc(sizeof(t_screen));
 	screen->w = 0;
-	// screen->w = 960;
 	screen->h = 0;
-	// screen->h = 1080;
 	return (screen);
 }
 
