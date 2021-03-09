@@ -53,8 +53,8 @@ t_screen	*init_screen(t_screen *screen)
 {
     if (!screen)
         screen = (t_screen *)malloc(sizeof(t_screen));
-	screen->w = 0;
-	screen->h = 0;
+	screen->w = -1;
+	screen->h = -1;
 	return (screen);
 }
 
@@ -74,9 +74,9 @@ t_floor		*init_floor(t_floor *floor)
 {
 	if (!floor)
 		floor = (t_floor *)malloc(sizeof(t_floor));
-	floor->r = 0;
-	floor->g = 0;
-	floor->b = 0;
+	floor->r = -1;
+	floor->g = -1;
+	floor->b = -1;
 	return (floor);
 }
 
@@ -84,9 +84,9 @@ t_ceiling	*init_ceiling(t_ceiling *ceiling)
 {
 	if (!ceiling)
 		ceiling = (t_ceiling *)malloc(sizeof(t_ceiling));
-	ceiling->r = 0;
-	ceiling->g = 0;
-	ceiling->b = 0;
+	ceiling->r = -1;
+	ceiling->g = -1;
+	ceiling->b = -1;
 	return (ceiling);
 }
 
@@ -94,9 +94,9 @@ static void    	init_cub3D(t_cub3D *cub3D, char *path)
 {
 	cub3D->file_path = path;
 	cub3D->screen = init_screen(NULL);
-	cub3D->map = init_map(NULL);
-	cub3D->ceiling = init_ceiling(NULL);
 	cub3D->floor = init_floor(NULL);
+	cub3D->ceiling = init_ceiling(NULL);
+	cub3D->map = init_map(NULL);
 
 	ft_parse(cub3D);
 	cub3D->env = init_env(NULL, cub3D); // mlx_init, mlx_new_win...

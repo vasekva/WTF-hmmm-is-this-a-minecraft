@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifier)
+static int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifier)
 {
 	if (identifier == 'F')
 	{
@@ -23,7 +23,7 @@ int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifi
 	return (0);
 }
 
-int		skip_spaces_and_zeros(char *str, int i)
+static int		ft_skip_spaces_and_zeros(char *str, int i)
 {
 	while (str[i] == ' ') // skip all spaces before the number
 		i++;
@@ -49,7 +49,7 @@ int		skip_spaces_and_zeros(char *str, int i)
 	return (i);
 }
 
-int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier)
+static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier)
 {
 	int len;
 	int color;
@@ -58,7 +58,7 @@ int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier
 	len = 0;
 	color = 0;
 	start = 0;
-	i = skip_spaces_and_zeros(str, i) - 1;
+	i = ft_skip_spaces_and_zeros(str, i) - 1;
 	while (ft_isdigit(str[++i])) // after count a length symbols in value of color 
 		len++;
 	color = ft_atoi(ft_substr(str, i - len, len));
@@ -78,8 +78,24 @@ int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier
 	return (i);
 }
 
-int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char identifier)
+static int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char identifier)
 {
+	if (identifier == 'F')
+	{
+		if (cub3D->floor->r != -1 || cub3D->floor->g != -1 || cub3D->floor->b != -1)
+		{
+			printf("Parameter F has already been specified!\n");
+			exit(0);
+		}
+	}
+	if (identifier == 'C')
+	{
+		if (cub3D->ceiling->r != -1 || cub3D->ceiling->g != -1 || cub3D->ceiling->b != -1)
+		{
+			printf("Parameter C has already been specified!\n");
+			exit(0);
+		}
+	}
 	i = ft_read_color(str, i, 'R', cub3D, identifier);
 	i = ft_read_color(str, i, 'G', cub3D, identifier);
 	i = ft_read_color(str, i, 'B', cub3D, identifier);

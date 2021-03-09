@@ -1,33 +1,5 @@
 #include "cub3D.h"
 
-int		ft_check_mapline(char *str)
-{
-	char	c;
-
-	c = 0;
-	while (str[c])
-	{
-		if (str[0] < 49 || str[0] > 57)
-		{
-			printf("PARSE ERROR: unknown digit at the start of a line %s\n", str);
-			exit (0);
-		}
-		if ((c == ft_strlen(str) - 1) && (str[c] < 49 || str[c] > 57))
-		{
-			printf("PARSE ERROR: unknown digit at the end of a line %s\n", str);
-			exit (0);
-		}
-		if (str[c] != 'S' && str[c] != 'N' && str[c] != 'W' && str[c] != 'E'
-			&& (str[c] < 48 || str[c] > 57))
-		{
-			printf("PARSE ERROR: unknown digit in line %s\n", str);
-			exit (0);
-		}
-		c++;
-	}
-	return (0);
-}
-
 int		ft_check_specifier(char *str, t_cub3D *cub3D)
 {
 	int check;
@@ -57,27 +29,45 @@ int		ft_check_specifier(char *str, t_cub3D *cub3D)
 	}
 	if (str[0] >= 49 && str[0] <= 57)
 	{
-		ft_check_mapline(str);
+		ft_parse_map(str);
 		check++;
 	}					
 	return (check);			
 }
 
-int		check_line_with_space(char *line)
+int		check_line_with_space(char *line, t_cub3D *cub3D)
 {
 	int c;
 	int	is_first_symb;
+	int has_digit;
 
 	c = 0;
+	has_digit = 0;
 	is_first_symb = 1;
 	while (line[c])
 	{
-		if (line[c] != ' ')
+		if (ft_isdigit(line[c]))
 		{
-			ft_check_mapline(&line[c]);
+			has_digit = 1;
 			break;
 		}
 		c++;
+	}
+	if (has_digit)
+	{
+		if (!ft_check_structs(cub3D))
+		{
+			printf("PARSE ERROR: not all parameters are filled in! The map must be the last %s\n", line);
+			exit(0);
+		}
+		else
+			ft_parse_map(line);
+
+	}
+	else
+	{
+		printf("PARSE ERROR: empty string can't contain characters %s\n", line);
+		exit(0);
 	}
 	return (0);
 }
@@ -96,7 +86,7 @@ void	ft_parse(t_cub3D *cub3D)
     	{
 			if (line[0] == ' ')
 			{
-				check_line_with_space(line);
+				check_line_with_space(line, cub3D);
 			}
 			if (ft_isalpha(line[0]))
 			{
@@ -105,7 +95,7 @@ void	ft_parse(t_cub3D *cub3D)
 					printf("PARSE ERROR: string can't end with space symbol %s\n", line);
 					exit(0);
 				}
-				if (ft_check_specifier(&line[0], cub3D) == 0)
+				if (ft_check_specifier(line, cub3D) == 0)
 				{
 					printf("PARSE ERROR: unknown param in str: %s\n", line);
 					exit(0);

@@ -1,14 +1,16 @@
 R 960 01080
+
 NO ./path_to_the_north_texture
+
 SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
 S ./path_to_the_sprite_texture
-F  220, 100, 225
-C  230, 220, 255
+F  80,0,0
+C  0,0,0
 
- 1111111111
+111111111111
 100000000001
 100110011001
 100100001001
@@ -20,4 +22,4 @@ C  230, 220, 255
 100100001001
 100110011001
 100000W00001
- 1111111111
+111111111111

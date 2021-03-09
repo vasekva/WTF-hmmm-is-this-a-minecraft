@@ -105,7 +105,10 @@ typedef struct  s_cub3D
     t_player    *player;
 }               t_cub3D;
 
-int		get_next_line(int fd, char **line);
+int			get_next_line(int fd, char **line);
+t_ceiling	*init_ceiling(t_ceiling *ceiling);
+t_floor		*init_floor(t_floor *floor);
+t_screen	*init_screen(t_screen *screen);
 
 /*
 * event_handle01.c
@@ -146,7 +149,18 @@ int		get_next_line(int fd, char **line);
 */
 	int		ft_parse_color(char *str, t_cub3D *cub3D);
 	/*
-	*
+	* static int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char identifier);
+	* static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier);
+	* static int		ft_skip_spaces_and_zeros(char *str, int i);
+	* static int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifier);
 	*/
+
+/*
+*	ft_parse_map.c
+*/
+	int		ft_parse_map(char *str);
+	int		ft_check_structs(t_cub3D *cub3D);
+
+
 
 #endif
