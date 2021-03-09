@@ -49,10 +49,10 @@ int		ft_check_specifier(char *str, t_cub3D *cub3D)
 	if (str[0] == 'F' || str[0] == 'C')
 	{
 		ft_parse_color(str, cub3D);
-		// if (str[0] == 'F')
-		// 	printf("F: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->floor->r, cub3D->floor->g, cub3D->floor->b);
-		// if (str[0] == 'C')
-		// 	printf("C: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->ceiling->r, cub3D->ceiling->g, cub3D->ceiling->b);
+		if (str[0] == 'F')
+			printf("F: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->floor->r, cub3D->floor->g, cub3D->floor->b);
+		if (str[0] == 'C')
+			printf("C: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->ceiling->r, cub3D->ceiling->g, cub3D->ceiling->b);
 		check++;
 	}
 	if (str[0] >= 49 && str[0] <= 57)
@@ -94,27 +94,22 @@ void	ft_parse(t_cub3D *cub3D)
 		i = 0;
     	while((i = get_next_line(fd, &line)) >= 0) // get a string
     	{
-			int c = 0;
-			while (line[c] != '\0') // check each symbol of string
+			if (line[0] == ' ')
 			{
-				if (line[0] == ' ')
+				check_line_with_space(line);
+			}
+			if (ft_isalpha(line[0]))
+			{
+				if (line[ft_strlen(line) - 1] == ' ')
 				{
-					check_line_with_space(line);
+					printf("PARSE ERROR: string can't end with space symbol %s\n", line);
+					exit(0);
 				}
-				else
+				if (ft_check_specifier(&line[0], cub3D) == 0)
 				{
-					if (line[ft_strlen(line) - 1] == ' ')
-					{
-						printf("PARSE ERROR: string can't end with space symbol %s\n", &line[c]);
-						exit(0);
-					}
-					if (ft_check_specifier(&line[0], cub3D) == 0)
-					{
-						printf("PARSE ERROR: unknown param in str: %s\n", &line[c]);
-						exit(0);
-					}
+					printf("PARSE ERROR: unknown param in str: %s\n", line);
+					exit(0);
 				}
-				c++;
 			}
 			if (i == 0)
 				break;

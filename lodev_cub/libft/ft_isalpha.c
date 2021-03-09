@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 19:24:39 by jberegon          #+#    #+#             */
-/*   Updated: 2020/11/10 20:07:51 by jberegon         ###   ########.fr       */
+/*   Created: 2020/11/03 12:40:33 by jberegon          #+#    #+#             */
+/*   Updated: 2020/11/04 20:57:41 by jberegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-
-# include <stdlib.h>
-# include <unistd.h>
-
-int					ft_isdigit(int c);
-size_t				ft_strlen(const char *str);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
-int					ft_atoi(const char *str);
-int					ft_isalpha(int c);
-
-#endif
+int		ft_isalpha(int c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+	{
+		return (1);
+	}
+	return (0);
+}
