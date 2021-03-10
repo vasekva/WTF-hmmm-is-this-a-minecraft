@@ -100,7 +100,7 @@ int		ft_parse_screen_size(char *str, t_cub3D *cub3D)
 	{
 		printf("PARSE ERROR: the screen parameters have already been specified! %s\n", str);
 		exit(0);
-	}
+	} 
 	c = ft_read_width(str, c, cub3D);
 	c = ft_read_height(str, c, cub3D);
 	

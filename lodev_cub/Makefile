@@ -8,7 +8,7 @@ SRC =	main.c \
 		ft_parse_screen_size.c \
 		ft_parse_path.c \
 		ft_parse_color.c \
-		ft_parse_map.c \
+		ft_parse_array.c \
 
 INCLUDES = -I ./includes/ -I ./mlx/
 

@@ -90,6 +90,16 @@ t_ceiling	*init_ceiling(t_ceiling *ceiling)
 	return (ceiling);
 }
 
+t_array		*init_array(t_array *array)
+{
+	if (!array)
+		array = (t_array *)malloc(sizeof(t_array));
+	array->count_player_point = 0;
+	array->size = 0;
+	array->map_arr = NULL;
+	return (array);
+}
+
 static void    	init_cub3D(t_cub3D *cub3D, char *path)
 {
 	cub3D->file_path = path;
@@ -97,6 +107,7 @@ static void    	init_cub3D(t_cub3D *cub3D, char *path)
 	cub3D->floor = init_floor(NULL);
 	cub3D->ceiling = init_ceiling(NULL);
 	cub3D->map = init_map(NULL);
+	cub3D->array = init_array(NULL);
 
 	ft_parse(cub3D);
 	cub3D->env = init_env(NULL, cub3D); // mlx_init, mlx_new_win...

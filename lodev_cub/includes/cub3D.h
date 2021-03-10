@@ -92,6 +92,13 @@ typedef struct		s_ceiling
 	int				b;
 }					t_ceiling;
 
+typedef struct		s_array
+{
+	int		count_player_point;
+	int		size;
+	char	**map_arr;
+}					t_array;
+
 typedef struct  s_cub3D
 {
 	char		*file_path;
@@ -103,6 +110,7 @@ typedef struct  s_cub3D
     t_mlx		*mlx_img;
 	t_keys      *keys;
     t_player    *player;
+	t_array		*array;
 }               t_cub3D;
 
 int			get_next_line(int fd, char **line);
@@ -158,7 +166,7 @@ t_screen	*init_screen(t_screen *screen);
 /*
 *	ft_parse_map.c
 */
-	int		ft_parse_map(char *str);
+	int		ft_parse_array(char *str, t_cub3D *cub3D);
 	int		ft_check_structs(t_cub3D *cub3D);
 
 

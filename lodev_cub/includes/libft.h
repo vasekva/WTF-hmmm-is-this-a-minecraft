@@ -21,5 +21,6 @@ int					ft_isdigit(int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
+char				*ft_strcpy(char *dest, const char *src);
 
 #endif
