@@ -10,6 +10,7 @@
 
 #include "mlx.h"
 #include "libft.h"
+#include "exception.h"
 
 # define UP		    13
 # define DOWN	    1
@@ -170,5 +171,14 @@ t_screen	*init_screen(t_screen *screen);
 	int		ft_check_structs(t_cub3D *cub3D);
 
 
+/*
+*	exception.c
+*/
+	void	exception(char *str);
+
+/*
+*	ft_check_array.c
+*/	
+	void	ft_check_array(t_cub3D *cub3D);
 
 #endif

@@ -21,10 +21,6 @@ int		ft_check_specifier(char *str, t_cub3D *cub3D)
 	if (str[0] == 'F' || str[0] == 'C')
 	{
 		ft_parse_color(str, cub3D);
-		if (str[0] == 'F')
-			printf("F: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->floor->r, cub3D->floor->g, cub3D->floor->b);
-		if (str[0] == 'C')
-			printf("C: \nR: |%d|, G: |%d|, B: |%d|\n\n", cub3D->ceiling->r, cub3D->ceiling->g, cub3D->ceiling->b);
 		check++;
 	}					
 	return (check);			
@@ -52,17 +48,14 @@ int		check_line_with_space(char *line, t_cub3D *cub3D)
 	{
 		if (ft_check_structs(cub3D) == -1)
 		{
-			printf("PARSE ERROR: not all parameters are filled in! The map must be the last %s\n", line);
-			exit(0);
+			exception(FIVETEEN);
 		}
 		else
 			ft_parse_array(line, cub3D);
-
 	}
 	else
 	{
-		printf("PARSE ERROR: empty string can't contain characters %s\n", line);
-		exit(0);
+		exception(SIXTEEN);
 	}
 	return (0);
 }
@@ -71,7 +64,6 @@ void	ft_print_array(t_cub3D *cub3D)
 {
 	int i = 0;
 
-	printf("SIZE: %d\n", cub3D->array->size);
 	while (cub3D->array->map_arr[i])
 	{
 		printf("%s\n", cub3D->array->map_arr[i]);
@@ -86,8 +78,10 @@ void	ft_parse(t_cub3D *cub3D)
 		int 	fd;
 		char	*line;
 		int		i;
+		int 	num_of_line;
 
-		fd = open(cub3D->file_path, O_RDONLY);
+		fd = open(cub3D->file_path, O_RDONLY); //TODO проверка открытия файла
+		num_of_line = 0;
 		i = 0;
     	while((i = get_next_line(fd, &line)) >= 0) // get a string
     	{
@@ -95,13 +89,11 @@ void	ft_parse(t_cub3D *cub3D)
 			{
 				if (line[ft_strlen(line) - 1] == ' ')
 				{
-					printf("PARSE ERROR: string can't end with space symbol %s\n", line);
-					exit(0);
+					exception(ONE);
 				}
 				if (ft_check_specifier(line, cub3D) == 0)
 				{
-					printf("PARSE ERROR: unknown param in str: %s\n", line);
-					exit(0);
+					exception(TWO);
 				}
 			}
 			if (line[0] == ' ')
@@ -111,28 +103,22 @@ void	ft_parse(t_cub3D *cub3D)
 			if (line[0] >= '0' && line[0] <= '9')
 			{
 				ft_parse_array(line, cub3D);
-				printf("ARRAY SIZE: %d\n", cub3D->array->size);
 			}
 			if (i == 0)
 				break;
     	}
 		if (cub3D->array->size == 0)
 		{
-			printf("PARSE ERROR: there's no map in the file %s\n", line);
-			exit(0);			
+			exception(THREE);		
 		}
 		cub3D->array->map_arr = (char **)malloc(sizeof(char) * (cub3D->array->size + 1));
 		if (!cub3D->array->map_arr)
 		{
-			printf("PARSE ERROR: map_arr malloc error \n");
-			exit(0);	
+			exception(SEVENTEEN);
 		}
 		cub3D->array->map_arr[cub3D->array->size] = NULL;
 		close(fd);
 		fd = open(cub3D->file_path, O_RDONLY);
-
-		int num_of_line;
-		num_of_line = 0;
 		while((i = get_next_line(fd, &line)) >= 0) // read map
     	{
 			int c;
@@ -143,6 +129,10 @@ void	ft_parse(t_cub3D *cub3D)
 				if (num_of_line == cub3D->array->size)
 					break;
 				cub3D->array->map_arr[num_of_line] = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
+				if (!cub3D->array->map_arr[num_of_line])
+				{
+					exception(SEVENTEEN);
+				}				
 				ft_strcpy(cub3D->array->map_arr[num_of_line], line);
 				num_of_line++;
 			}
@@ -150,6 +140,7 @@ void	ft_parse(t_cub3D *cub3D)
 				break;
     	}
 		cub3D->array->map_arr[cub3D->array->size] = NULL;
+		ft_check_array(cub3D);
 		ft_print_array(cub3D);
     }
 }

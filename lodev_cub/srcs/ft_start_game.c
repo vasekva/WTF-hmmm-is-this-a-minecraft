@@ -1,65 +1,7 @@
 #include "cub3D.h"
 
-#define screenWidth 640
-#define screenHeight 480
 #define texWidth 64
 #define texHeight 64
-
-// int worldMap[mapWidth][mapHeight]=
-// {
-//   {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-//   {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-//   {4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-//   {4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-//   {4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-//   {4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-//   {4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-//   {4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-//   {4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-//   {4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-//   {4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-//   {4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-//   {6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-//   {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-//   {6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-//   {4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-//   {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-//   {4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-//   {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-//   {4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-//   {4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-//   {4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-//   {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-//   {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
-// };
-
-char worldMap[mapWidth][mapHeight]=
-{
-  "444444444444444477777777",
-  "400000000000000070000007",
-  "401000000000000000000007",
-  "402000000000000000000007",
-  "403000000000000070000007",
-  "404000055555555577077777",
-  "405000050505050570007771",
-  "406000050000000570000008",
-  "407000000000000000007771",
-  "408000050000000570000008",
-  "400000050000000570007771",
-  "400000055550555577777771",
-  "666666666660666666666666",
-  "800000000000000000000004",
-  "666666066660666666666666",
-  "444444044460622222223333",
-  "400000000460620000020002",
-  "400000000000620050020002",
-  "400000000460620000022022",
-  "406060000460000050000002",
-  "400500000460620000022022",
-  "406060000460620050020002",
-  "400000000460620000020002",
-  "444444444411122222233333"
-};
 
 int		ft_abs(int num)
 {
@@ -79,7 +21,6 @@ void			ft_start_game(t_cub3D *cub3D)
 	cub3D->env->img = mlx_new_image(cub3D->env->mlx, cub3D->screen->w, cub3D->screen->h);
 	cub3D->mlx_img->addr = mlx_get_data_addr(cub3D->env->img, &cub3D->mlx_img->bits_per_pixel, &cub3D->mlx_img->line_length,
                                 &cub3D->mlx_img->endian);
-
 
  	for(int x = 0; x < cub3D->screen->w; x++)
     {
@@ -142,7 +83,7 @@ void			ft_start_game(t_cub3D *cub3D)
     	    side = 1;
     	  }
     	  //Check if ray has hit a wall
-    	  if (worldMap[mapX][mapY] > '0')
+    	  if (cub3D->array->map_arr[mapX][mapY] > '0')
 		  	hit = 1;
     	}
 		  
@@ -163,11 +104,7 @@ void			ft_start_game(t_cub3D *cub3D)
 
 		int color;
 
-		// printf("CHARRR: %c\n", (int)worldMap[2][2]);
-		// printf("CHAR: %c\n", worldMap[mapX][mapY]);
-		// printf("CHAR: %d\n", worldMap[mapX][mapY]);
-
-      	switch(worldMap[mapX][mapY])
+      	switch(cub3D->array->map_arr[mapX][mapY])
       	{
       	  case '1':  color = 0x00FF0000;  break; //red
       	  case '2':  color = 0x0000FF00;  break; //green
@@ -190,17 +127,17 @@ void			ft_start_game(t_cub3D *cub3D)
 		//move forward if no wall in front of you
     	if (cub3D->keys->upKey == 1)
     	{
-    		if(worldMap[(int)(cub3D->player->posX + cub3D->player->dirX * moveSpeed)][(int)(cub3D->player->posY)] == '0')
+    		if(cub3D->array->map_arr[(int)(cub3D->player->posX + cub3D->player->dirX * moveSpeed)][(int)(cub3D->player->posY)] == '0')
 				cub3D->player->posX += cub3D->player->dirX * moveSpeed;
-    		if(worldMap[(int)(cub3D->player->posX)][(int)(cub3D->player->posY + cub3D->player->dirY * moveSpeed)] == '0')
+    		if(cub3D->array->map_arr[(int)(cub3D->player->posX)][(int)(cub3D->player->posY + cub3D->player->dirY * moveSpeed)] == '0')
 				cub3D->player->posY += cub3D->player->dirY * moveSpeed;
     	}
     	// //move backwards if no wall behind you
     	if (cub3D->keys->downKey == 1)
     	{
-    		if(worldMap[(int)(cub3D->player->posX - cub3D->player->dirX * moveSpeed)][(int)(cub3D->player->posY)] == '0')
+    		if(cub3D->array->map_arr[(int)(cub3D->player->posX - cub3D->player->dirX * moveSpeed)][(int)(cub3D->player->posY)] == '0')
 		  		cub3D->player->posX -= cub3D->player->dirX * moveSpeed;
-    		if(worldMap[(int)cub3D->player->posX][(int)(cub3D->player->posY - cub3D->player->dirY * moveSpeed)] == '0')
+    		if(cub3D->array->map_arr[(int)cub3D->player->posX][(int)(cub3D->player->posY - cub3D->player->dirY * moveSpeed)] == '0')
 				cub3D->player->posY -= cub3D->player->dirY * moveSpeed;
     	}
     	//rotate to the right

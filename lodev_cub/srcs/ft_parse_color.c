@@ -31,13 +31,15 @@ static int		ft_skip_spaces_and_zeros(char *str, int i)
 	{
 		if (str[i] == '-')
 		{
-			printf("PARSE ERROR: color can't be a negative value %s\n", str);
+			exception(NINE);
+			// printf("PARSE ERROR: color can't be a negative value %s\n", str);
 		}
 		else
 		{
-			printf("PARSE ERROR: color can't be not a digit value %s\n", str);
+			exception(TEN);
+			// printf("PARSE ERROR: color can't be not a digit value %s\n", str);
 		}
-		exit (0);
+		// exit (0);
 	}
 	if (str[i] == '0') // if symbol equals zero - set a color and skip all zero symbols  
 	{
@@ -64,13 +66,15 @@ static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char ide
 	color = ft_atoi(ft_substr(str, i - len, len));
 	if (color > 255)
 	{
-		printf("PARSE ERROR: value of color can't be bigger than 255 %s\n", str);
-		exit (0);
+		exception(ELEVEN);
+		// printf("PARSE ERROR: value of color can't be bigger than 255 %s\n", str);
+		// exit (0);
 	}
 	if (str[i] != ',' && str[i] != '\0')
 	{
-		printf("PARSE ERROR: invalid character after color value %s\n", str);
-		exit (0);
+		exception(TWELVE);
+		// printf("PARSE ERROR: invalid character after color value %s\n", str);
+		// exit (0);
 	}
 	else
 		i++;
@@ -84,16 +88,18 @@ static int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char ide
 	{
 		if (cub3D->floor->r != -1 || cub3D->floor->g != -1 || cub3D->floor->b != -1)
 		{
-			printf("Parameter F has already been specified!\n");
-			exit(0);
+			exception(THIRTEEN);
+			// printf("Parameter F has already been specified!\n");
+			// exit(0);
 		}
 	}
 	if (identifier == 'C')
 	{
 		if (cub3D->ceiling->r != -1 || cub3D->ceiling->g != -1 || cub3D->ceiling->b != -1)
 		{
-			printf("Parameter C has already been specified!\n");
-			exit(0);
+			exception(FOURTEEN);
+			// printf("Parameter C has already been specified!\n");
+			// exit(0);
 		}
 	}
 	i = ft_read_color(str, i, 'R', cub3D, identifier);
@@ -113,8 +119,9 @@ int		ft_parse_color(char *str, t_cub3D *cub3D)
 	identifier = str[0];
 	if (str[i] != ' ')
 	{
-		printf("PARSE ERROR: string can't be without a space after identifier %s\n", str);
-		exit (0);
+		exception(FOUR);
+		// printf("PARSE ERROR: string can't be without a space after identifier %s\n", str);
+		// exit (0);
 	}
 	i++;
 	ft_read_colors(str, i, start, cub3D, identifier);

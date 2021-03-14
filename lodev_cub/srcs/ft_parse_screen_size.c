@@ -44,10 +44,9 @@ int		ft_read_width(char *str, int c, t_cub3D *cub3D)
 	if (!ft_isdigit(str[c]))
 	{
 		if (str[c] == '-')
-				printf("PARSE ERROR: screen size can't be a negative value %s\n", str);
+			exception(SIX);
 		else
-			printf("PARSE ERROR: screen size can't be not a digit value %s\n", str);
-		exit(0);
+			exception(SEVEN);
 	}
 	while (ft_isdigit(str[c]))
 	{
@@ -68,10 +67,9 @@ int		ft_read_height(char *str, int c, t_cub3D *cub3D)
 	if (!ft_isdigit(str[c]))
 	{
 		if (str[c] == '-')
-				printf("PARSE ERROR: screen size can't be a negative value %s\n", str);
+			exception(SIX);
 		else
-			printf("PARSE ERROR: screen size can't be not a digit value %s\n", str);
-		exit(0);
+			exception(SEVEN);
 	}
 	while (ft_isdigit(str[c]))
 	{
@@ -93,17 +91,13 @@ int		ft_parse_screen_size(char *str, t_cub3D *cub3D)
 	len = 0;
 	if (str[c] != ' ')
 	{
-		printf("PARSE ERROR: string can't be without a space after identifier %s\n", str);
-		exit(0);
+		exception(FOUR);
 	}
 	if (cub3D->screen->h != -1 && cub3D->screen->w != -1)
 	{
-		printf("PARSE ERROR: the screen parameters have already been specified! %s\n", str);
-		exit(0);
+		exception(FIVE);
 	} 
 	c = ft_read_width(str, c, cub3D);
 	c = ft_read_height(str, c, cub3D);
-	
-	printf("W: %d H: %d\n", cub3D->screen->w, cub3D->screen->h);
 	return (0);
 }
