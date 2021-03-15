@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_screen_size.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 14:29:21 by jberegon          #+#    #+#             */
+/*   Updated: 2021/03/15 14:29:23 by jberegon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 static int	ft_pow(int num, int i)
@@ -13,12 +25,10 @@ static int	ft_pow(int num, int i)
 	return (num);
 }
 
-/*
-* Используется парсером в ft_parse_screen_size
-*/
 int			ft_parse_int(char *str)
 {
 	int i;
+	int n;
 	int	sum;
 	int len;
 
@@ -27,14 +37,14 @@ int			ft_parse_int(char *str)
 	sum = 0;
 	while (i < len)
 	{
-		int n = str[len - (i + 1)] - '0';
+		n = str[len - (i + 1)] - '0';
 		sum = sum + ft_pow(n, i);
 		i++;
 	}
 	return (sum);
 }
 
-int		ft_read_width(char *str, int c, t_cub3D *cub3D)
+int			ft_read_width(char *str, int c, t_cub3D *cub3d)
 {
 	int len;
 
@@ -53,11 +63,11 @@ int		ft_read_width(char *str, int c, t_cub3D *cub3D)
 		len++;
 		c++;
 	}
-	cub3D->screen->w = ft_parse_int(ft_substr(str, c - len, len));
+	cub3d->screen->w = ft_parse_int(ft_substr(str, c - len, len));
 	return (c);
 }
 
-int		ft_read_height(char *str, int c, t_cub3D *cub3D)
+int			ft_read_height(char *str, int c, t_cub3D *cub3d)
 {
 	int len;
 
@@ -76,11 +86,11 @@ int		ft_read_height(char *str, int c, t_cub3D *cub3D)
 		len++;
 		c++;
 	}
-	cub3D->screen->h = ft_parse_int(ft_substr(str, c - len, len));
+	cub3d->screen->h = ft_parse_int(ft_substr(str, c - len, len));
 	return (c);
 }
 
-int		ft_parse_screen_size(char *str, t_cub3D *cub3D)
+int			ft_parse_screen_size(char *str, t_cub3D *cub3d)
 {
 	int c;
 	int	count_values;
@@ -93,11 +103,11 @@ int		ft_parse_screen_size(char *str, t_cub3D *cub3D)
 	{
 		exception(FOUR);
 	}
-	if (cub3D->screen->h != -1 && cub3D->screen->w != -1)
+	if (cub3d->screen->h != -1 && cub3d->screen->w != -1)
 	{
 		exception(FIVE);
-	} 
-	c = ft_read_width(str, c, cub3D);
-	c = ft_read_height(str, c, cub3D);
+	}
+	c = ft_read_width(str, c, cub3d);
+	c = ft_read_height(str, c, cub3d);
 	return (0);
 }

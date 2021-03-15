@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_path.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 14:29:10 by jberegon          #+#    #+#             */
+/*   Updated: 2021/03/15 14:29:12 by jberegon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-static void ft_print_error(char *str)
+static void	ft_print_error(char *str)
 {
 	int i;
 
@@ -15,67 +27,43 @@ static void ft_print_error(char *str)
 	exit(0);
 }
 
-static int ft_check_struct(char *str, t_cub3D *cub3D)
+static int	ft_check_struct(char *str, t_cub3D *cub3d)
 {
 	if (str[0] == 'S' && str[1] != 'O')
-	{
-		if (cub3D->map->sprite != NULL)
+		if (cub3d->map->sprite != NULL)
 			ft_print_error("S");
-	}
 	if (str[0] == 'S' && str[1] == 'O')
-	{
-		if (cub3D->map->south != NULL)
-			ft_print_error("SO");		
-	}
+		if (cub3d->map->south != NULL)
+			ft_print_error("SO");
 	if (str[0] == 'N' && str[1] == 'O')
-	{
-		if (cub3D->map->north != NULL)
+		if (cub3d->map->north != NULL)
 			ft_print_error("NO");
-	}
 	if (str[0] == 'W' && str[1] == 'E')
-	{
-		if (cub3D->map->west != NULL)
+		if (cub3d->map->west != NULL)
 			ft_print_error("WE");
-	}
 	if (str[0] == 'E' && str[1] == 'A')
-	{
-		if (cub3D->map->east != NULL)
-			ft_print_error("EA");		
-	}
+		if (cub3d->map->east != NULL)
+			ft_print_error("EA");
 	return (1);
 }
 
-static int ft_read_path(char *str, int start, int len, t_cub3D *cub3D)
+static int	ft_read_path(char *str, int start, int len, t_cub3D *cub3d)
 {
+	ft_check_struct(str, cub3d);
 	if (str[0] == 'S' && str[1] != 'O')
-	{
-		ft_check_struct(str, cub3D);
-		cub3D->map->sprite = ft_substr(str, start, len);
-	}
+		cub3d->map->sprite = ft_substr(str, start, len);
 	if (str[0] == 'S' && str[1] == 'O')
-	{
-		ft_check_struct(str, cub3D);	
-		cub3D->map->south = ft_substr(str, start, len);
-	}
+		cub3d->map->south = ft_substr(str, start, len);
 	if (str[0] == 'N' && str[1] == 'O')
-	{
-		ft_check_struct(str, cub3D);
-		cub3D->map->north = ft_substr(str, start, len);	
-	}
+		cub3d->map->north = ft_substr(str, start, len);
 	if (str[0] == 'W' && str[1] == 'E')
-	{
-		ft_check_struct(str, cub3D);
-		cub3D->map->west = ft_substr(str, start, len);	
-	}
+		cub3d->map->west = ft_substr(str, start, len);
 	if (str[0] == 'E' && str[1] == 'A')
-	{
-		ft_check_struct(str, cub3D);	
-		cub3D->map->east = ft_substr(str, start, len);	
-	}
+		cub3d->map->east = ft_substr(str, start, len);
 	return (0);
 }
 
-int			ft_parse_path(char *str, t_cub3D *cub3D)
+int			ft_parse_path(char *str, t_cub3D *cub3d)
 {
 	int i;
 	int len;
@@ -99,7 +87,7 @@ int			ft_parse_path(char *str, t_cub3D *cub3D)
 	}
 	else
 	{
-		ft_read_path(str, i, len, cub3D);
+		ft_read_path(str, i, len, cub3d);
 	}
 	return (0);
 }

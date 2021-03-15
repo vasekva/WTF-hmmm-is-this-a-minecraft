@@ -11,6 +11,8 @@ SRC =	main.c \
 		ft_parse_array.c \
 		exception.c \
 		ft_check_array.c \
+		init_params01.c \
+		init_params02.c \
 
 INCLUDES = -I ./includes/ -I ./mlx/
 

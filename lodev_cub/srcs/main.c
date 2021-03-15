@@ -1,120 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 14:29:55 by jberegon          #+#    #+#             */
+/*   Updated: 2021/03/15 14:30:00 by jberegon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_keys	*init_keys(t_keys *keys, t_cub3D *cub3D)
+static void    	init_cub3D(t_cub3D *cub3d, char *path)
 {
-	keys = malloc(sizeof(t_keys));
-	keys->leftKey = 0;
-	keys->rightKey = 0;
-	keys->upKey = 0;
-	keys->downKey = 0;
-	keys->escKey = 0;
-	keys->rightDKey = 0;
-	keys->leftAKey = 0;
-	return (keys);
-}
+	cub3d->file_path = path;
+	cub3d->screen = init_screen(NULL);
+	cub3d->floor = init_floor(NULL);
+	cub3d->ceiling = init_ceiling(NULL);
+	cub3d->map = init_map(NULL);
+	cub3d->array = init_array(NULL);
 
-t_env       *init_env(t_env *env, t_cub3D *cub3D)
-{
-    env = malloc(sizeof(t_env));
-    env->win = NULL;
-	env->mlx = NULL;
-    env->mlx = mlx_init();
-    env->win = mlx_new_window(env->mlx, cub3D->screen->w, cub3D->screen->h, "Hello world!");
-    return (env);
-}
-
-t_mlx		*init_mlx_img(t_mlx *mlx_img)
-{
-	mlx_img = malloc(sizeof(t_mlx));
-	mlx_img->img = NULL;
-	mlx_img->addr = NULL;
-	mlx_img->bits_per_pixel = 0;
-	mlx_img->line_length = 0;
-	mlx_img->endian = 0;
-	return (mlx_img);
-}
-
-t_player	*init_player(t_player *player, t_cub3D *cub3D)
-{
-	player = malloc(sizeof(t_player));
-	player->posX = 22;
-	player->posY = 12;
-	//initial direction vector
-	player->dirX = -1;
-	player->dirY = 0;
-	//the 2d raycaster version of camera plane
-	player->planeX = 0;
-	player->planeY = 0.66;
-	return (player);
-}
-
-t_screen	*init_screen(t_screen *screen)
-{
-    if (!screen)
-        screen = (t_screen *)malloc(sizeof(t_screen));
-	screen->w = -1;
-	screen->h = -1;
-	return (screen);
-}
-
-t_map		*init_map(t_map *map)
-{
-	if (!map)
-		map = (t_map *)malloc(sizeof(t_map));
-	map->north = NULL;
-	map->south = NULL;
-	map->west = NULL;
-	map->east = NULL;
-	map->sprite = NULL;
-	return (map);
-}
-
-t_floor		*init_floor(t_floor *floor)
-{
-	if (!floor)
-		floor = (t_floor *)malloc(sizeof(t_floor));
-	floor->r = -1;
-	floor->g = -1;
-	floor->b = -1;
-	return (floor);
-}
-
-t_ceiling	*init_ceiling(t_ceiling *ceiling)
-{
-	if (!ceiling)
-		ceiling = (t_ceiling *)malloc(sizeof(t_ceiling));
-	ceiling->r = -1;
-	ceiling->g = -1;
-	ceiling->b = -1;
-	return (ceiling);
-}
-
-t_array		*init_array(t_array *array)
-{
-	if (!array)
-		array = (t_array *)malloc(sizeof(t_array));
-	array->count_player_point = 0;
-	array->size = 0;
-	array->map_arr = NULL;
-	return (array);
-}
-
-static void    	init_cub3D(t_cub3D *cub3D, char *path)
-{
-	cub3D->file_path = path;
-	cub3D->screen = init_screen(NULL);
-	cub3D->floor = init_floor(NULL);
-	cub3D->ceiling = init_ceiling(NULL);
-	cub3D->map = init_map(NULL);
-	cub3D->array = init_array(NULL);
-
-	ft_parse(cub3D);
-	cub3D->env = init_env(NULL, cub3D); // mlx_init, mlx_new_win...
-	cub3D->mlx_img = init_mlx_img(NULL); //инициализация структуры для my_mlx_pixel_put
-	cub3D->keys = init_keys(NULL, cub3D); // инициализация клавиш
-	cub3D->player = init_player(NULL, cub3D);
-
+	ft_parse(cub3d);
+	cub3d->env = init_env(NULL, cub3d); // mlx_init, mlx_new_win...
+	cub3d->mlx_img = init_mlx_img(NULL); //инициализация структуры для my_mlx_pixel_put
+	cub3d->keys = init_keys(NULL); // инициализация клавиш
+	cub3d->player = init_player(NULL);
 }
 
 static int		loop_hook(void *param)

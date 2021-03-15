@@ -1,62 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_array.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 14:28:51 by jberegon          #+#    #+#             */
+/*   Updated: 2021/03/15 14:28:52 by jberegon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-int		ft_check_structs(t_cub3D *cub3D)
+int		ft_check_structs(t_cub3D *cub3d)
 {
-	if (cub3D->screen->h == -1 && cub3D->screen->w == -1)
+	if (cub3d->screen->h == -1 && cub3d->screen->w == -1)
 		return (-1);
-	if (cub3D->map->north == NULL || cub3D->map->south == NULL
-		|| cub3D->map->west == NULL || cub3D->map->east == NULL
-		|| cub3D->map->sprite == NULL)
+	if (cub3d->map->north == NULL || cub3d->map->south == NULL
+		|| cub3d->map->west == NULL || cub3d->map->east == NULL
+		|| cub3d->map->sprite == NULL)
 		return (-1);
-	if (cub3D->ceiling->r == -1 || cub3D->ceiling->g == -1 ||
-		cub3D->ceiling->b == -1 || cub3D->floor->r == -1 ||
-		cub3D->floor->g == -1 || cub3D->floor->b == -1)
+	if (cub3d->ceiling->r == -1 || cub3d->ceiling->g == -1 ||
+		cub3d->ceiling->b == -1 || cub3d->floor->r == -1 ||
+		cub3d->floor->g == -1 || cub3d->floor->b == -1)
 		return (-1);
 	return (0);
 }
 
-int		ft_parse_array(char *str, t_cub3D *cub3D)
+int		ft_parse_array(char *str, t_cub3D *cub3d)
 {
 	char	c;
 
 	c = 0;
-	if (ft_check_structs(cub3D) == -1)
-	{
-		printf("PARSE ERROR: The map must be in the end of file! Not all values have been init %s\n", str);
-		exit (0);
-	}
+	if (ft_check_structs(cub3d) == -1)
+		exception(TWENTYSEVEN);
 	if (str[0] != ' ' && str[0] != '1')
-	{
-		printf("PARSE ERROR: The map must start with symbol '1' or ' ' \n");
-		exit (0);
-	}
+		exception(TWENTYEIGHT);
 	if (str[ft_strlen(str) - 1] != '1')
-	{
-		printf("PARSE ERROR: The map must end with symbol '1' \n");
-		exit (0);
-	}
+		exception(TWENTYNINE);
 	while (str[c] == ' ')
 		c++;
 	while (str[c] != '\0')
 	{
-		if (str[c] == 'W' || str[c] == 'E'
-			|| str[c] == 'S' || str[c] == 'N')
+		if (str[c] == 'W' || str[c] == 'E' || str[c] == 'S' || str[c] == 'N')
 		{
-			if (cub3D->array->count_player_point == 1)
-			{
-				printf("PARSE ERROR: The point of player have been already init! \n");
-				exit (0);
-			}
-			cub3D->array->count_player_point++;
+			if (cub3d->array->count_player_point == 1)
+				exception(THIRTY);
+			cub3d->array->count_player_point++;
 		}
 		if (str[c] != '0' && str[c] != '1' && str[c] != '2' && str[c] != 'W'
 			&& str[c] != 'E' && str[c] != 'S' && str[c] != 'N')
-		{
-			printf("PARSE ERROR: A forbidden symbol is used in the map! \n");
-			exit (0);
-		}
+			exception(THIRTYONE);
 		c++;
 	}
-	cub3D->array->size++;
+	cub3d->array->size++;
 	return (0);
 }

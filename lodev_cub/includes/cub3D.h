@@ -76,7 +76,7 @@ typedef struct      s_map
 typedef struct      s_screen
 {
     int             w;
-    id_t            h;
+    int				h;
 }					t_screen;
 
 typedef struct		s_floor
@@ -118,6 +118,14 @@ int			get_next_line(int fd, char **line);
 t_ceiling	*init_ceiling(t_ceiling *ceiling);
 t_floor		*init_floor(t_floor *floor);
 t_screen	*init_screen(t_screen *screen);
+t_map		*init_map(t_map *map);
+t_array		*init_array(t_array *array);
+
+t_env       *init_env(t_env *env, t_cub3D *cub3d);
+t_mlx		*init_mlx_img(t_mlx *mlx_img);
+t_keys		*init_keys(t_keys *keys);
+t_player	*init_player(t_player *player);
+
 
 /*
 * event_handle01.c
@@ -126,9 +134,23 @@ t_screen	*init_screen(t_screen *screen);
     int		keypress_hook(int key, void *param);
 
 /*
-* ft_start_game.c
+*	exception.c
 */
-    void	ft_start_game(t_cub3D *cub3D);
+	void	exception(char *str);
+	/*
+	 * static	void	ft_print_exception(char *str);
+	 */
+
+/*
+*	ft_check_array.c
+*/
+	void	ft_check_array(t_cub3D *cub3d);
+	/*
+	 * void	ft_check_last_lines(t_cub3D *cub3d);
+	 * void	ft_check_top_lines(t_cub3D *cub3d);
+	 * void	ft_check_longline(t_cub3D *cub3d, int line, int diff);
+	 * void	ft_check_middle_lines(t_cub3D *cub3d, int i);
+	 */
 
 /*
 * ft_parse.c
@@ -136,19 +158,26 @@ t_screen	*init_screen(t_screen *screen);
 	void	ft_parse(t_cub3D *cub3D);
 
 /*
+* ft_start_game.c
+*/
+    void	ft_start_game(t_cub3D *cub3D);
+
+
+
+/*
 * ft_parse_screen_size.c
 */
-	int		ft_parse_screen_size(char *str, t_cub3D *cub3D);
+	int		ft_parse_screen_size(char *str, t_cub3D *cub3d);
 	/*
-	* int			ft_read_height(char *str, int c, t_cub3D *cub3D);
-	* int			ft_read_width(char *str, int c, t_cub3D *cub3D);
-	* int			ft_parse_int(char *str)
-	* static int	ft_pow(int num, int i)
-	*/
+	 * int			ft_read_height(char *str, int c, t_cub3D *cub3d);
+	 * int			ft_read_width(char *str, int c, t_cub3D *cub3d);
+	 * int			ft_parse_int(char *str)
+	 * static int	ft_pow(int num, int i)
+	 */
 /*
 *	ft_parse_path.c
 */    
-	int		ft_parse_path(char *str, t_cub3D *cub3D);
+	int		ft_parse_path(char *str, t_cub3D *cub3d);
 	/*
 	* static int ft_read_path(char *str, int start, int len, t_cub3D *cub3D);
 	*/
@@ -167,18 +196,12 @@ t_screen	*init_screen(t_screen *screen);
 /*
 *	ft_parse_map.c
 */
-	int		ft_parse_array(char *str, t_cub3D *cub3D);
-	int		ft_check_structs(t_cub3D *cub3D);
+	int		ft_parse_array(char *str, t_cub3D *cub3d);
+	int		ft_check_structs(t_cub3D *cub3d);
 
 
-/*
-*	exception.c
-*/
-	void	exception(char *str);
 
-/*
-*	ft_check_array.c
-*/	
-	void	ft_check_array(t_cub3D *cub3D);
+
+
 
 #endif

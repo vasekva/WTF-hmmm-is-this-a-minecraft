@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exception.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 14:28:23 by jberegon          #+#    #+#             */
+/*   Updated: 2021/03/15 14:28:25 by jberegon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "exception.h"
 #include "cub3D.h"
 #include <unistd.h>
 
-void	ft_print_exception(char *str)
+static	void	ft_print_exception(char *str)
 {
 	int i;
 
@@ -16,23 +28,7 @@ void	ft_print_exception(char *str)
 	exit(0);
 }
 
-int		equals(char *constant, char *str)
-{
-	int i;
-
-	i = 0;
-	if (ft_strlen(constant) != ft_strlen(str))
-		return (-1);
-	while (constant[i] != '\0')
-	{
-		if (constant[i] != str[i])
-			return (-1);
-		i++;
-	}
-	return (1);
-}
-
-void	exception(char *str)
+void			exception(char *str)
 {
 	ft_print_exception(str);
 }

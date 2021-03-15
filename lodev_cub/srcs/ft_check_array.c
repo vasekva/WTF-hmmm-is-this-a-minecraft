@@ -1,97 +1,115 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_array.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/15 14:28:32 by jberegon          #+#    #+#             */
+/*   Updated: 2021/03/15 14:28:34 by jberegon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-void	ft_check_last_lines(t_cub3D *cub3D)
+/*
+** В ft_check_last_lines сначала пропускаются пробельные символы и проверяется,
+** является ли первый символ после пробела стеной
+**
+** В ft_check_top_lines идет проходка по пробельным символам верхней строки, в
+** процессе которой в цикле идет проходка по каждому столбцу, первый два if'a
+** проверяют закрыта ли карта сверху под пробельными символами, третий if
+** проверяет закрыт ли внешний угол, имеющий стены справа и снизу и
+** последний цикл проверяет не пробельные символы
+**
+** В ft_check_longline проверяется строка, длинна которой больше следующей
+** первый if проверяет есть ли стена в предыдущем символе, если разница длин = 1
+** если разница > 1 проверяется каждый выпирающий символ и наличие относительно
+** этого символа стены сверху и снизу
+**
+** В ft_check_middle_lines в цикле идет проход по пробельным символам
+** в процессе которого первые два if'a проверяют символы сверху и снизу на
+** наличие 0 || 2, третий if проверяет следующий по строке дальше символ, если
+** это 0 || 2 - ошибка
+**
+** В ft_check_array cначала проверяется размер массива, если он < 2 - ошибка,
+** дальше проверяется расположение этой строки: верхняя, нижняя или остальные
+** и вызывается одна из функций: ft_check_top_lines, ft_check_last_lines или
+** ft_check_middle_lines, дополнительно последний if проверяет разницу длин
+** текущей строки и следующей, если нынешняя имеет большую длинну, то вызывается
+** ft_check_longline
+*/
+
+void	ft_check_last_lines(t_cub3D *cub3d)
 {
-	int line;
 	int j;
 	int i;
 
 	j = 0;
-	line = cub3D->array->size - 1;;
-	i = cub3D->array->size - 1;
-	// i = 0;
-	// проходим по пробельным символам
-	while (cub3D->array->map_arr[i][j] == ' ')
+	i = cub3d->array->size - 1;
+	while (cub3d->array->map_arr[i][j] == ' ')
 	{
 		j++;
 	}
-	// если символ после пробела не равен стене
-	if (cub3D->array->map_arr[i][j] != '1')
+	if (cub3d->array->map_arr[i][j] != '1')
 		exception(TWENTYFOUR);
 }
 
-void	ft_check_top_lines(t_cub3D *cub3D)
+void	ft_check_top_lines(t_cub3D *cub3d)
 {
 	int line;
 	int j;
 
 	j = 0;
 	line = 0;
-	// проходим по пробельным символам
-	while (cub3D->array->map_arr[0][j] != '\0'
-		&& cub3D->array->map_arr[0][j] == ' ')
+	while (cub3d->array->map_arr[0][j] != '\0'
+			&& cub3d->array->map_arr[0][j] == ' ')
 	{
-		// спускаемся по каждому пробельному столбцу вниз
-		while (cub3D->array->map_arr[line] != NULL)
+		while (cub3d->array->map_arr[line] != NULL)
 		{
-			if (cub3D->array->map_arr[line][j] == '0'
-				|| cub3D->array->map_arr[line][j] == '2')
-			{
+			if (cub3d->array->map_arr[line][j] == '0'
+				|| cub3d->array->map_arr[line][j] == '2')
 				exception(TWENTYONE);
-			}
-			if (cub3D->array->map_arr[line][j] == '1')
-				break;
-			// если мы пришли в угол ограниченный справа и снизу
-			if (cub3D->array->map_arr[line][j + 1] == '1'
-				&& cub3D->array->map_arr[line + 1] != NULL
-				&& cub3D->array->map_arr[line + 1][j] == '1')
-			{
-				if (cub3D->array->map_arr[line + 1][j + 1] == '0')
+			if (cub3d->array->map_arr[line][j] == '1')
+				break ;
+			if (cub3d->array->map_arr[line][j + 1] == '1'
+				&& cub3d->array->map_arr[line + 1] != NULL
+				&& cub3d->array->map_arr[line + 1][j] == '1')
+				if (cub3d->array->map_arr[line + 1][j + 1] == '0')
 					exception(TWENTYFIVE);
-			}
 			line++;
 		}
 		line = 0;
 		j++;
 	}
-	// проходим по непробельным символам в строке
-	while (cub3D->array->map_arr[0][j] != '\0')
+	while (cub3d->array->map_arr[0][j] != '\0')
 	{
-		if (cub3D->array->map_arr[0][j] != '1')
-		{
+		if (cub3d->array->map_arr[0][j] != '1')
 			exception(TWENTYONE);
-		}
 		j++;
 	}
 }
 
-void	ft_check_longline(t_cub3D *cub3D, int line, int diff)
+void	ft_check_longline(t_cub3D *cub3d, int line, int diff)
 {
 	int i;
 	int j;
 
-	printf("HELLO\n");
 	if (diff < 0)
 		diff *= -1;
 	j = 0;
-	i = ft_strlen(cub3D->array->map_arr[line]) - 1;
-	if (diff == 1 && cub3D->array->map_arr[line][i - 1] != '1')
-	{
+	i = ft_strlen(cub3d->array->map_arr[line]) - 1;
+	if (diff == 1 && cub3d->array->map_arr[line][i - 1] != '1')
 		exception(TWENTYFIVE);
-	}
 	else
 	{
-		// пока мы не дойдем до значения разницы
 		while (j < diff)
 		{
-			// если текущий символ в строке не равен стене
-			if (cub3D->array->map_arr[line][(i - 1) - j] != '1')
+			if (cub3d->array->map_arr[line][(i - 1) - j] != '1')
 			{
-				// проверка верхней строки 
-				if (cub3D->array->map_arr[line + 1][(i - 1) - j] != '1')
+				if (cub3d->array->map_arr[line + 1][(i - 1) - j] != '1')
 					exception(TWENTYSIX);
-				// проверка нижней строки
-				if (cub3D->array->map_arr[line - 1][(i - 1) - j] != '1')
+				if (cub3d->array->map_arr[line - 1][(i - 1) - j] != '1')
 					exception(TWENTYSIX);
 			}
 			j++;
@@ -99,27 +117,25 @@ void	ft_check_longline(t_cub3D *cub3D, int line, int diff)
 	}
 }
 
-void	ft_check_middle_lines(t_cub3D *cub3D, int i)
+void	ft_check_middle_lines(t_cub3D *cub3d, int i)
 {
 	int j;
 
 	j = 0;
-	while (cub3D->array->map_arr[i][j] == ' ')
+	while (cub3d->array->map_arr[i][j] == ' ')
 	{
-		// если в строке сверху есть не закрытый 0
-		if (cub3D->array->map_arr[i - 1][j] == '0')
+		if (cub3d->array->map_arr[i - 1][j] == '0')
 		{
 			exception(TWENTYTWO);
 		}
-		// если в строке снизу есть не закрытый 0
-		if (cub3D->array->map_arr[i + 1][j] == '0'
-			&& cub3D->array->map_arr[i + 1] != NULL)
+		if ((cub3d->array->map_arr[i + 1][j] == '0'
+			|| cub3d->array->map_arr[i + 1][j] == '2')
+			&& cub3d->array->map_arr[i + 1] != NULL)
 		{
 			exception(TWENTYTHREE);
 		}
-		// если символ справа не 1 и не ' '
-		if (cub3D->array->map_arr[i][j + 1] == '0'
-			|| cub3D->array->map_arr[i][j + 1] == '2')
+		if (cub3d->array->map_arr[i][j + 1] == '0'
+			|| cub3d->array->map_arr[i][j + 1] == '2')
 		{
 			exception(TWENTYFOUR);
 		}
@@ -127,7 +143,7 @@ void	ft_check_middle_lines(t_cub3D *cub3D, int i)
 	}
 }
 
-void	ft_check_array(t_cub3D *cub3D)
+void	ft_check_array(t_cub3D *cub3d)
 {
 	int i;
 	int j;
@@ -136,30 +152,20 @@ void	ft_check_array(t_cub3D *cub3D)
 	i = 0;
 	j = 0;
 	diff = 0;
-	if (cub3D->array->size < 2)
-	{
+	if (cub3d->array->size < 2)
 		exception(EIGHTEEN);
-	}
-	// проходимся по строкам
-	while (cub3D->array->map_arr[i] != NULL)
+	while (cub3d->array->map_arr[i] != NULL)
 	{
-		// если самая верхняя строка
 		if (i == 0)
-		{
-			ft_check_top_lines(cub3D);
-			diff = ft_strlen(cub3D->array->map_arr[i + 1]) - ft_strlen(cub3D->array->map_arr[i]);
-			if (diff != 0)
-				ft_check_longline(cub3D, i, diff);
-		}
-		else if (i > 0 && i < cub3D->array->size - 1)
-		{
-			ft_check_middle_lines(cub3D, i);
-			diff = ft_strlen(cub3D->array->map_arr[i + 1]) - ft_strlen(cub3D->array->map_arr[i]);
-			if (diff != 0)
-				ft_check_longline(cub3D, i, diff);
-		}
+			ft_check_top_lines(cub3d);
+		else if (i > 0 && i < cub3d->array->size - 1)
+			ft_check_middle_lines(cub3d, i);
 		else
-			ft_check_last_lines(cub3D);
+			ft_check_last_lines(cub3d);
+		if ((i != cub3d->array->size - 1) &&
+				(diff = ft_strlen(cub3d->array->map_arr[i + 1])
+					- ft_strlen(cub3d->array->map_arr[i])) != 0)
+			ft_check_longline(cub3d, i, diff);
 		i++;
 	}
 }

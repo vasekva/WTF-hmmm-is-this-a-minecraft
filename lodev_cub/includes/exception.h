@@ -29,5 +29,12 @@
 # define TWENTYFIVE		"MAP CHECK ERROR: The inner corner of the map must be covered!\n"
 # define TWENTYSIX		"MAP CHECK ERROR: Zero symbols must be covered!\n"
 
+# define TWENTYSEVEN	"PARSE ERROR: The map must be in the end of file! Not all values have been init!\n"
+# define TWENTYEIGHT	"PARSE ERROR: The map must start with symbol '1' or ' '!\n"
+# define TWENTYNINE		"PARSE ERROR: The map must end with symbol '1'!\n"
+# define THIRTY			"PARSE ERROR: The point of player have been already init!\n"
+# define THIRTYONE		"PARSE ERROR: A forbidden symbol is used in the map!\n"
+
+
 
 # endif
