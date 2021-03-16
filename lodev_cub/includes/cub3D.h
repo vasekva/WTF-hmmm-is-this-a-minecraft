@@ -54,14 +54,46 @@ typedef struct      s_keys
     int             rightDKey;
 }                   t_keys;
 
-typedef struct      s_player
+typedef struct 		s_player_point
 {
-    double          posX;
-    double          posY;
+	double          posX;
+	double          posY;
 	double			dirX;
 	double			dirY;
 	double			planeX;
 	double			planeY;
+}					t_player_point;
+
+typedef struct 		s_dda
+{
+	int 			hit;
+	int 			side;
+	double 			perpWallDist;
+}					t_dda;
+
+typedef struct      s_player
+{
+	double 			cameraX;
+	int 			mapX;
+	int 			mapY;
+	t_player_point *player_point;
+	t_dda			*dda;
+//	double          posX;
+//    double          posY;
+//	double			dirX;
+//	double			dirY;
+//	double			planeX;
+//	double			planeY;
+
+	double 			rayDirX;
+	double 			rayDirY;
+
+	int 			stepX;
+	int				stepY;
+	double 			deltaDistX;
+	double 			deltaDistY;
+	double 			sideDistX;
+	double 			sideDistY;
 }                   t_player;
 
 typedef struct      s_map
