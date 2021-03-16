@@ -95,14 +95,15 @@ typedef struct		s_ceiling
 
 typedef struct		s_array
 {
-	int		count_player_point;
-	int		size;
-	char	**map_arr;
+	int				count_player_point;
+	int				size;
+	char			**map_arr;
 }					t_array;
 
 typedef struct  s_cub3D
 {
 	char		*file_path;
+	char 		identifier;
     t_screen    *screen;
     t_map       *map;
     t_floor     *floor;
@@ -113,6 +114,9 @@ typedef struct  s_cub3D
     t_player    *player;
 	t_array		*array;
 }               t_cub3D;
+
+void	ft_print_array(t_cub3D *cub3d);
+
 
 int			get_next_line(int fd, char **line);
 t_ceiling	*init_ceiling(t_ceiling *ceiling);
@@ -155,7 +159,7 @@ t_player	*init_player(t_player *player);
 /*
 * ft_parse.c
 */
-	void	ft_parse(t_cub3D *cub3D);
+	void	ft_parse(t_cub3D *cub3d);
 
 /*
 * ft_start_game.c
@@ -185,7 +189,7 @@ t_player	*init_player(t_player *player);
 /*
 *	ft_parse_color.c
 */
-	int		ft_parse_color(char *str, t_cub3D *cub3D);
+	int		ft_parse_color(char *str, t_cub3D *cub3d);
 	/*
 	* static int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char identifier);
 	* static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier);

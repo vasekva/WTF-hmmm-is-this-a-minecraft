@@ -34,7 +34,7 @@
 # define TWENTYNINE		"PARSE ERROR: The map must end with symbol '1'!\n"
 # define THIRTY			"PARSE ERROR: The point of player have been already init!\n"
 # define THIRTYONE		"PARSE ERROR: A forbidden symbol is used in the map!\n"
-
+# define THIRTYTWO		"FILE OPEN ERROR!\n"
 
 
 # endif

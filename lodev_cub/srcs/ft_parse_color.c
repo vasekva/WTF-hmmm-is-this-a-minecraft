@@ -12,34 +12,49 @@
 
 #include "cub3D.h"
 
-static int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifier)
+/*
+** ft_parse_color() сперва проверяет, что после символа цвета стоит пробел,
+** после вызывает функцию ft_check_colors() в которой сперва проверяется то, что
+** переменные не были инициализированы, после три раза вызывается функция
+** ft_read_color(), которая в самом начале вызывает ft_skip_spaces_and_zeros(),
+** пропускающую все пробелы и нули, а так же проверяет символ после пропущенных,
+** после возвращает индекс первого числового значения
+** ft_read_color() высчитывает длинну числового значения, после чего передает ее
+** в ft_atoi() в который передается число, вырезанное с помощью ft_substr(), в
+** конце проверяется валидность значения цвета и символа после числового знач-ия
+** и вызывается ft_write_color() и в нужную структуру под определенным цветом
+** заносятся значения.
+*/
+
+static int		ft_write_color(int color,
+	char symb_of_color, t_cub3D *cub3d)
 {
-	if (identifier == 'F')
+	if (cub3d->identifier == 'F')
 	{
 		if (symb_of_color == 'R')
-			cub3D->floor->r = color;
+			cub3d->floor->r = color;
 		if (symb_of_color == 'G')
-			cub3D->floor->g = color;
+			cub3d->floor->g = color;
 		if (symb_of_color == 'B')
-			cub3D->floor->b = color;
+			cub3d->floor->b = color;
 	}
-	if (identifier == 'C')
+	if (cub3d->identifier == 'C')
 	{
 		if (symb_of_color == 'R')
-			cub3D->ceiling->r = color;
+			cub3d->ceiling->r = color;
 		if (symb_of_color == 'G')
-			cub3D->ceiling->g = color;
+			cub3d->ceiling->g = color;
 		if (symb_of_color == 'B')
-			cub3D->ceiling->b = color;
+			cub3d->ceiling->b = color;
 	}
 	return (0);
 }
 
 static int		ft_skip_spaces_and_zeros(char *str, int i)
 {
-	while (str[i] == ' ') // skip all spaces before the number
+	while (str[i] == ' ')
 		i++;
-	if (!ft_isdigit(str[i])) // if symbol after space isn't a digit value - ERROR
+	if (!ft_isdigit(str[i]))
 	{
 		if (str[i] == '-')
 		{
@@ -50,7 +65,7 @@ static int		ft_skip_spaces_and_zeros(char *str, int i)
 			exception(TEN);
 		}
 	}
-	if (str[i] == '0') // if symbol equals zero - set a color and skip all zero symbols  
+	if (str[i] == '0')
 	{
 		while (str[i] == '0')
 		{
@@ -60,17 +75,14 @@ static int		ft_skip_spaces_and_zeros(char *str, int i)
 	return (i);
 }
 
-static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier)
+static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3d)
 {
-	int len;
-	int color;
-	int start;
+	int		len;
+	int		color;
 
 	len = 0;
-	color = 0;
-	start = 0;
 	i = ft_skip_spaces_and_zeros(str, i) - 1;
-	while (ft_isdigit(str[++i])) // after count a length symbols in value of color 
+	while (ft_isdigit(str[++i]))
 		len++;
 	color = ft_atoi(ft_substr(str, i - len, len));
 	if (color > 255)
@@ -83,46 +95,45 @@ static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char ide
 	}
 	else
 		i++;
-	ft_write_color(color, value, cub3D, identifier);
+	ft_write_color(color, value, cub3d);
 	return (i);
 }
 
-static int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char identifier)
+static int		ft_check_colors(char *str, int i, t_cub3D *cub3d)
 {
-	if (identifier == 'F')
+	if (cub3d->identifier == 'F')
 	{
-		if (cub3D->floor->r != -1 || cub3D->floor->g != -1 || cub3D->floor->b != -1)
+		if (cub3d->floor->r != -1
+			|| cub3d->floor->g != -1 || cub3d->floor->b != -1)
 		{
 			exception(THIRTEEN);
 		}
 	}
-	if (identifier == 'C')
+	if (cub3d->identifier == 'C')
 	{
-		if (cub3D->ceiling->r != -1 || cub3D->ceiling->g != -1 || cub3D->ceiling->b != -1)
+		if (cub3d->ceiling->r != -1 || cub3d->ceiling->g != -1
+		|| cub3d->ceiling->b != -1)
 		{
 			exception(FOURTEEN);
 		}
 	}
-	i = ft_read_color(str, i, 'R', cub3D, identifier);
-	i = ft_read_color(str, i, 'G', cub3D, identifier);
-	i = ft_read_color(str, i, 'B', cub3D, identifier);
+	i = ft_read_color(str, i, 'R', cub3d);
+	i = ft_read_color(str, i, 'G', cub3d);
+	i = ft_read_color(str, i, 'B', cub3d);
 	return (0);
 }
 
-int		ft_parse_color(char *str, t_cub3D *cub3D)
+int				ft_parse_color(char *str, t_cub3D *cub3d)
 {
 	int i;
-	int start;
-	char identifier;
 
 	i = 1;
-	start = 0;
-	identifier = str[0];
+	cub3d->identifier = str[0];
 	if (str[i] != ' ')
 	{
 		exception(FOUR);
 	}
 	i++;
-	ft_read_colors(str, i, start, cub3D, identifier);
+	ft_check_colors(str, i, cub3d);
 	return (0);
 }

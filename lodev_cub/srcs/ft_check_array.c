@@ -146,11 +146,9 @@ void	ft_check_middle_lines(t_cub3D *cub3d, int i)
 void	ft_check_array(t_cub3D *cub3d)
 {
 	int i;
-	int j;
 	int diff;
 
 	i = 0;
-	j = 0;
 	diff = 0;
 	if (cub3d->array->size < 2)
 		exception(EIGHTEEN);
