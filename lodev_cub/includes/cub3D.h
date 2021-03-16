@@ -71,6 +71,15 @@ typedef struct 		s_dda
 	double 			perpWallDist;
 }					t_dda;
 
+typedef struct		s_walls
+{
+	int 			lineHeight;
+	int 			drawStart;
+	int 			drawEnd;
+	int 			color;
+
+}					t_walls;
+
 typedef struct      s_player
 {
 	double 			cameraX;
@@ -144,6 +153,7 @@ typedef struct  s_cub3D
     t_mlx		*mlx_img;
 	t_keys      *keys;
     t_player    *player;
+	t_walls		*walls;
 	t_array		*array;
 }               t_cub3D;
 
@@ -162,6 +172,9 @@ t_mlx		*init_mlx_img(t_mlx *mlx_img);
 t_keys		*init_keys(t_keys *keys);
 t_player	*init_player(t_player *player);
 
+t_walls		*init_walls(t_walls *walls);
+
+void 		ft_move_player(t_cub3D *cub3d);
 
 /*
 * event_handle01.c
@@ -196,7 +209,7 @@ t_player	*init_player(t_player *player);
 /*
 * ft_start_game.c
 */
-    void	ft_start_game(t_cub3D *cub3D);
+    void	ft_start_game(t_cub3D *cub3d);
 
 
 

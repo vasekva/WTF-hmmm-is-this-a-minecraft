@@ -12,176 +12,148 @@
 
 #include "cub3D.h"
 
-int		ft_abs(int num)
+int				ft_abs(int num)
 {
 	return (num < 0 ? -num : num);
 }
 
 static void		my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
 {
-    char    *dst;
+	char	*dst;
 
-    dst = mlx_img->addr + (y * mlx_img->line_length + x * (mlx_img->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+	dst = mlx_img->addr + (y * mlx_img->line_length + x
+		* (mlx_img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
-int		create_rgb(int r, int g, int b)
+int				create_rgb(int r, int g, int b)
 {
-	return(r << 16 | g << 8 | b);
+	return (r << 16 | g << 8 | b);
 }
 
-void 			ft_def_player_dir(t_cub3D *cub3D)
+void			ft_check_raydir_x(t_cub3D *cub3d)
 {
-	cub3D->player->deltaDistX = sqrt(1 + (cub3D->player->rayDirY
-			* cub3D->player->rayDirY) /
-					(cub3D->player->rayDirX * cub3D->player->rayDirX));
-	cub3D->player->deltaDistY = sqrt(1 + (cub3D->player->rayDirX
-			* cub3D->player->rayDirX) /
-					(cub3D->player->rayDirY * cub3D->player->rayDirY));
-	if (cub3D->player->rayDirX < 0)
+	if (cub3d->player->rayDirX < 0)
 	{
-		cub3D->player->stepX = -1;
-		cub3D->player->sideDistX = (cub3D->player->player_point->posX
-			- cub3D->player->mapX) * cub3D->player->deltaDistX;
+		cub3d->player->stepX = -1;
+		cub3d->player->sideDistX = (cub3d->player->player_point->posX
+			- cub3d->player->mapX) * cub3d->player->deltaDistX;
 	}
 	else
 	{
-		cub3D->player->stepX = 1;
-		cub3D->player->sideDistX = (cub3D->player->mapX + 1.0
-			- cub3D->player->player_point->posX) * cub3D->player->deltaDistX;
-	}
-	if (cub3D->player->rayDirY < 0)
-	{
-		cub3D->player->stepY = -1;
-		cub3D->player->sideDistY = (cub3D->player->player_point->posY
-				- cub3D->player->mapY) * cub3D->player->deltaDistY;
-	}
-	else
-	{
-		cub3D->player->stepY = 1;
-		cub3D->player->sideDistY = (cub3D->player->mapY + 1.0
-				- cub3D->player->player_point->posY) * cub3D->player->deltaDistY;
+		cub3d->player->stepX = 1;
+		cub3d->player->sideDistX = (cub3d->player->mapX + 1.0
+			- cub3d->player->player_point->posX) * cub3d->player->deltaDistX;
 	}
 }
 
-void 			ft_perform_dda(t_cub3D *cub3D)
+void			ft_check_raydir_y(t_cub3D *cub3d)
 {
-	int hit = 0;
-//	int side;
+	if (cub3d->player->rayDirY < 0)
+	{
+		cub3d->player->stepY = -1;
+		cub3d->player->sideDistY = (cub3d->player->player_point->posY
+			- cub3d->player->mapY) * cub3d->player->deltaDistY;
+	}
+	else
+	{
+		cub3d->player->stepY = 1;
+		cub3d->player->sideDistY = (cub3d->player->mapY + 1.0
+			- cub3d->player->player_point->posY) * cub3d->player->deltaDistY;
+	}
+}
 
+void			ft_def_player_dir(t_cub3D *cub3d)
+{
+	cub3d->player->deltaDistX = sqrt(1 + (cub3d->player->rayDirY
+		* cub3d->player->rayDirY) /
+		(cub3d->player->rayDirX * cub3d->player->rayDirX));
+	cub3d->player->deltaDistY = sqrt(1 + (cub3d->player->rayDirX
+		* cub3d->player->rayDirX) /
+		(cub3d->player->rayDirY * cub3d->player->rayDirY));
+	ft_check_raydir_x(cub3d);
+	ft_check_raydir_y(cub3d);
+}
 
+void			ft_perform_dda(t_cub3D *cub3d)
+{
+	int hit;
+
+	hit = 0;
 	while (hit == 0)
 	{
-		//jump to next map square, OR in x-direction, OR in y-direction
-		if (cub3D->player->sideDistX < cub3D->player->sideDistY)
+		if (cub3d->player->sideDistX < cub3d->player->sideDistY)
 		{
-			cub3D->player->sideDistX += cub3D->player->deltaDistX;
-			cub3D->player->mapX += cub3D->player->stepX;
-			cub3D->player->dda->side = 0;
+			cub3d->player->sideDistX += cub3d->player->deltaDistX;
+			cub3d->player->mapX += cub3d->player->stepX;
+			cub3d->player->dda->side = 0;
 		}
 		else
 		{
-			cub3D->player->sideDistY += cub3D->player->deltaDistY;
-			cub3D->player->mapY += cub3D->player->stepY;
-			cub3D->player->dda->side = 1;
+			cub3d->player->sideDistY += cub3d->player->deltaDistY;
+			cub3d->player->mapY += cub3d->player->stepY;
+			cub3d->player->dda->side = 1;
 		}
-		//Check if ray has hit a wall
-		if (cub3D->array->map_arr[cub3D->player->mapX][cub3D->player->mapY] > '0')
+		if (cub3d->array->map_arr[cub3d->player->mapX]
+			[cub3d->player->mapY] > '0')
 			hit = 1;
 	}
 }
 
-void			ft_start_game(t_cub3D *cub3D)
+void			ft_calc_distance(t_cub3D *cub3d, int x)
 {
-	cub3D->env->img = mlx_new_image(cub3D->env->mlx, cub3D->screen->w, cub3D->screen->h);
-	cub3D->mlx_img->addr = mlx_get_data_addr(cub3D->env->img, &cub3D->mlx_img->bits_per_pixel, &cub3D->mlx_img->line_length,
-                                &cub3D->mlx_img->endian);
+	int y;
 
- 	for(int x = 0; x < cub3D->screen->w; x++)
-    {
-		cub3D->player->cameraX = 2 * x / (double)(cub3D->screen->w) - 1;
-      	cub3D->player->rayDirX = cub3D->player->player_point->dirX + cub3D->player->player_point->planeX * cub3D->player->cameraX;
-		cub3D->player->rayDirY = cub3D->player->player_point->dirY + cub3D->player->player_point->planeY * cub3D->player->cameraX;
-
-    	cub3D->player->mapX = (int)(cub3D->player->player_point->posX);
-		cub3D->player->mapY = (int)(cub3D->player->player_point->posY);
-
-
-    	ft_def_player_dir(cub3D);
-
-    	ft_perform_dda(cub3D);
-
-		if (cub3D->player->dda->side == 0)
-			cub3D->player->dda->perpWallDist = (cub3D->player->mapX - cub3D->player->player_point->posX + (1 - cub3D->player->stepX) / 2) / cub3D->player->rayDirX;
-		else
-			cub3D->player->dda->perpWallDist = (cub3D->player->mapY - cub3D->player->player_point->posY + (1 - cub3D->player->stepY) / 2) / cub3D->player->rayDirY;
-
-
-    	//Calculate height of line to draw on screen
-    	int lineHeight = (int)(cub3D->screen->h / cub3D->player->dda->perpWallDist);
-    	//calculate lowest and highest pixel to fill in current stripe
-    	int drawStart = -lineHeight / 2 + cub3D->screen->h / 2;
-    	if	(drawStart < 0)
-			drawStart = 0;
-    	int drawEnd = lineHeight / 2 + cub3D->screen->h / 2;
-    	if	(drawEnd >= cub3D->screen->h)
-			drawEnd = cub3D->screen->h - 1;
-
-		int color;
-
-		color = create_rgb(255, 255, 255);
-
-		for (int y = drawStart; y < drawEnd; y++)
-		{
-			my_mlx_pixel_put(cub3D->mlx_img, x, y, color);
-		}
-
-		double time = 3; //time of current frame
-  		double oldTime = 2.99; //time of previous frame
-		double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds	
-		double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-    	double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
-
-		//move forward if no wall in front of you
-    	if (cub3D->keys->upKey == 1)
-    	{
-    		if(cub3D->array->map_arr[(int)(cub3D->player->player_point->posX + cub3D->player->player_point->dirX * moveSpeed)][(int)(cub3D->player->player_point->posY)] == '0')
-				cub3D->player->player_point->posX += cub3D->player->player_point->dirX * moveSpeed;
-    		if(cub3D->array->map_arr[(int)(cub3D->player->player_point->posX)][(int)(cub3D->player->player_point->posY + cub3D->player->player_point->dirY * moveSpeed)] == '0')
-				cub3D->player->player_point->posY += cub3D->player->player_point->dirY * moveSpeed;
-    	}
-    	// //move backwards if no wall behind you
-    	if (cub3D->keys->downKey == 1)
-    	{
-    		if(cub3D->array->map_arr[(int)(cub3D->player->player_point->posX - cub3D->player->player_point->dirX * moveSpeed)][(int)(cub3D->player->player_point->posY)] == '0')
-		  		cub3D->player->player_point->posX -= cub3D->player->player_point->dirX * moveSpeed;
-    		if(cub3D->array->map_arr[(int)cub3D->player->player_point->posX][(int)(cub3D->player->player_point->posY - cub3D->player->player_point->dirY * moveSpeed)] == '0')
-				cub3D->player->player_point->posY -= cub3D->player->player_point->dirY * moveSpeed;
-    	}
-    	//rotate to the right
-    	if (cub3D->keys->rightDKey == 1)
-    	{
-    	  //both camera direction and camera plane must be rotated
-    	  double oldDirX = cub3D->player->player_point->dirX;
-    	  cub3D->player->player_point->dirX = cub3D->player->player_point->dirX * cos(-rotSpeed) - cub3D->player->player_point->dirY * sin(-rotSpeed);
-    	  cub3D->player->player_point->dirY = oldDirX * sin(-rotSpeed) + cub3D->player->player_point->dirY * cos(-rotSpeed);
-    	  double oldPlaneX = cub3D->player->player_point->planeX;
-    	  cub3D->player->player_point->planeX = cub3D->player->player_point->planeX * cos(-rotSpeed) - cub3D->player->player_point->planeY * sin(-rotSpeed);
-    	  cub3D->player->player_point->planeY = oldPlaneX * sin(-rotSpeed) + cub3D->player->player_point->planeY * cos(-rotSpeed);
-    	}
-    	// //rotate to the left
-    	if (cub3D->keys->leftAKey == 1)
-    	{
-    	  //both camera direction and camera plane must be rotated
-    	  double oldDirX = cub3D->player->player_point->dirX;
-    	  cub3D->player->player_point->dirX = cub3D->player->player_point->dirX * cos(rotSpeed) - cub3D->player->player_point->dirY * sin(rotSpeed);
-    	  cub3D->player->player_point->dirY = oldDirX * sin(rotSpeed) + cub3D->player->player_point->dirY * cos(rotSpeed);
-    	  double oldPlaneX = cub3D->player->player_point->planeX;
-    	  cub3D->player->player_point->planeX = cub3D->player->player_point->planeX * cos(rotSpeed) - cub3D->player->player_point->planeY * sin(rotSpeed);
-    	  cub3D->player->player_point->planeY = oldPlaneX * sin(rotSpeed) + cub3D->player->player_point->planeY * cos(rotSpeed);
-    	}
+	if (cub3d->player->dda->side == 0)
+		cub3d->player->dda->perpWallDist = (cub3d->player->mapX
+			- cub3d->player->player_point->posX
+			+ (1 - cub3d->player->stepX) / 2) / cub3d->player->rayDirX;
+	else
+		cub3d->player->dda->perpWallDist = (cub3d->player->mapY
+			- cub3d->player->player_point->posY
+			+ (1 - cub3d->player->stepY) / 2) / cub3d->player->rayDirY;
+	cub3d->walls->lineHeight = (int)(cub3d->screen->h
+			/ cub3d->player->dda->perpWallDist);
+	cub3d->walls->drawStart = -cub3d->walls->lineHeight
+			/ 2 + cub3d->screen->h / 2;
+	if (cub3d->walls->drawStart < 0)
+		cub3d->walls->drawStart = 0;
+	cub3d->walls->drawEnd = cub3d->walls->lineHeight / 2 + cub3d->screen->h / 2;
+	if (cub3d->walls->drawEnd >= cub3d->screen->h)
+		cub3d->walls->drawEnd = cub3d->screen->h - 1;
+	cub3d->walls->color = create_rgb(255, 255, 255);
+	y = cub3d->walls->drawStart - 1;
+	while (++y < cub3d->walls->drawEnd)
+	{
+		my_mlx_pixel_put(cub3d->mlx_img, x, y, cub3d->walls->color);
 	}
-	
-	mlx_put_image_to_window(cub3D->env->mlx, cub3D->env->win, cub3D->env->img, 0, 0);
-	
+}
+
+void			ft_start_game(t_cub3D *cub3d)
+{
+	int x;
+
+	x = 0;
+	cub3d->env->img = mlx_new_image(cub3d->env->mlx,
+		cub3d->screen->w, cub3d->screen->h);
+	cub3d->mlx_img->addr = mlx_get_data_addr(cub3d->env->img,
+		&cub3d->mlx_img->bits_per_pixel, &cub3d->mlx_img->line_length,
+			&cub3d->mlx_img->endian);
+	while (x < cub3d->screen->w)
+	{
+		cub3d->player->cameraX = 2 * x / (double)(cub3d->screen->w) - 1;
+		cub3d->player->rayDirX = cub3d->player->player_point->dirX
+			+ (cub3d->player->player_point->planeX * cub3d->player->cameraX);
+		cub3d->player->rayDirY = cub3d->player->player_point->dirY
+			+ (cub3d->player->player_point->planeY * cub3d->player->cameraX);
+		cub3d->player->mapX = (int)(cub3d->player->player_point->posX);
+		cub3d->player->mapY = (int)(cub3d->player->player_point->posY);
+		ft_def_player_dir(cub3d);
+		ft_perform_dda(cub3d);
+		ft_calc_distance(cub3d, x);
+		ft_move_player(cub3d);
+		x++;
+	}
+	mlx_put_image_to_window(cub3d->env->mlx, cub3d->env->win,
+		cub3d->env->img, 0, 0);
 }

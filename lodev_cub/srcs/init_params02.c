@@ -72,6 +72,16 @@ t_dda *init_dda(t_dda *dda)
 	return (dda);
 }
 
+t_walls		*init_walls(t_walls *walls)
+{
+	walls = malloc(sizeof(t_walls));
+	walls->lineHeight = 0;
+	walls->drawStart = 0;
+	walls->drawEnd = 0;
+	walls->color = 0;
+	return (walls);
+}
+
 t_player	*init_player(t_player *player)
 {
 	player = malloc(sizeof(t_player));
@@ -80,13 +90,6 @@ t_player	*init_player(t_player *player)
 	player->mapY = 0;
 	player->player_point = init_player_point(NULL);
 	player->dda = init_dda(NULL);
-//	player->dda = init_dda(NULL);
-//	player->posX = 22;
-//	player->posY = 12;
-//	player->dirX = -1;
-//	player->dirY = 0;
-//	player->planeX = 0;
-//	player->planeY = 0.66;
 	player->rayDirX = 0;
 	player->rayDirY = 0;
 	player->stepX = 0;

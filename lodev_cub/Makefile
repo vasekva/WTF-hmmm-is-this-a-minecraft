@@ -14,6 +14,7 @@ SRC =	main.c \
 		init_params01.c \
 		init_params02.c \
 		ft_print_array.c \
+		ft_move_player.c \
 
 INCLUDES = -I ./includes/ -I ./mlx/
 

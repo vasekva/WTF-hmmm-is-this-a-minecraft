@@ -26,6 +26,8 @@ static void		init_cub3d(t_cub3D *cub3d, char *path)
 	cub3d->mlx_img = init_mlx_img(NULL);
 	cub3d->keys = init_keys(NULL);
 	cub3d->player = init_player(NULL);
+	cub3d->walls = init_walls(NULL);
+
 }
 
 static int		loop_hook(void *param)
