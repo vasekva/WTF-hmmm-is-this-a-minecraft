@@ -42,8 +42,8 @@
 
 void	ft_check_last_lines(t_cub3D *cub3d)
 {
-	int j;
-	int i;
+	int	j;
+	int	i;
 
 	j = 0;
 	i = cub3d->array->size - 1;
@@ -55,17 +55,13 @@ void	ft_check_last_lines(t_cub3D *cub3d)
 		exception(TWENTYFOUR);
 }
 
-void	ft_check_top_lines(t_cub3D *cub3d)
+void	ft_check_top_lines(t_cub3D *cub3d, int line, int j)
 {
-	int line;
-	int j;
-
-	j = 0;
-	line = 0;
 	while (cub3d->array->map_arr[0][j] != '\0'
-			&& cub3d->array->map_arr[0][j] == ' ')
+		&& cub3d->array->map_arr[0][j] == ' ')
 	{
-		while (cub3d->array->map_arr[line] != NULL)
+		line = -1;
+		while (cub3d->array->map_arr[++line] != NULL)
 		{
 			if (cub3d->array->map_arr[line][j] == '0'
 				|| cub3d->array->map_arr[line][j] == '2')
@@ -77,9 +73,7 @@ void	ft_check_top_lines(t_cub3D *cub3d)
 				&& cub3d->array->map_arr[line + 1][j] == '1')
 				if (cub3d->array->map_arr[line + 1][j + 1] == '0')
 					exception(TWENTYFIVE);
-			line++;
 		}
-		line = 0;
 		j++;
 	}
 	while (cub3d->array->map_arr[0][j] != '\0')
@@ -103,62 +97,51 @@ void	ft_check_longline(t_cub3D *cub3d, int line, int diff)
 	else
 	{
 		while (i > (ft_strlen(cub3d->array->map_arr[line + 1]) - 1)
-		|| i > (ft_strlen(cub3d->array->map_arr[line - 1]) - 1))
+			|| i > (ft_strlen(cub3d->array->map_arr[line - 1]) - 1))
 		{
 			c = cub3d->array->map_arr[line][i];
 			if (c != '1')
-			{
 				exception(TWENTYSIX);
-			}
 			i--;
 		}
 		c = cub3d->array->map_arr[line][i];
 		if (c == '0')
-		{
 			exception(TWENTYFIVE);
-		}
 	}
 }
 
 void	ft_check_middle_lines(t_cub3D *cub3d, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (cub3d->array->map_arr[i][j] == ' ')
 	{
 		if (cub3d->array->map_arr[i - 1][j] == '0')
-		{
 			exception(TWENTYTWO);
-		}
 		if ((cub3d->array->map_arr[i + 1][j] == '0'
-			|| cub3d->array->map_arr[i + 1][j] == '2')
+				|| cub3d->array->map_arr[i + 1][j] == '2')
 			&& cub3d->array->map_arr[i + 1] != NULL)
-		{
 			exception(TWENTYTHREE);
-		}
 		if (cub3d->array->map_arr[i][j + 1] == '0'
 			|| cub3d->array->map_arr[i][j + 1] == '2')
-		{
 			exception(TWENTYFOUR);
-		}
 		j++;
 	}
 }
 
 void	ft_check_array(t_cub3D *cub3d)
 {
-	int i;
-	int diff;
+	int	i;
+	int	diff;
 
 	i = 0;
-	diff = 0;
 	if (cub3d->array->size < 2)
 		exception(EIGHTEEN);
 	while (cub3d->array->map_arr[i] != NULL)
 	{
-		if ((i != cub3d->array->size - 1) &&
-				(diff = ft_strlen(cub3d->array->map_arr[i + 1])
+		if ((i != cub3d->array->size - 1)
+			&& (diff = ft_strlen(cub3d->array->map_arr[i + 1])
 					- ft_strlen(cub3d->array->map_arr[i])) != 0)
 		{
 			if (diff < 0)
@@ -167,7 +150,7 @@ void	ft_check_array(t_cub3D *cub3d)
 				ft_check_longline(cub3d, i + 1, diff);
 		}
 		if (i == 0)
-			ft_check_top_lines(cub3d);
+			ft_check_top_lines(cub3d, -1, 0);
 		else if (i > 0 && i < cub3d->array->size - 1)
 			ft_check_middle_lines(cub3d, i);
 		else

@@ -14,7 +14,7 @@
 
 static int	ft_pow(int num, int i)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (count < i)
@@ -25,12 +25,12 @@ static int	ft_pow(int num, int i)
 	return (num);
 }
 
-int			ft_parse_int(char *str)
+int	ft_parse_int(char *str)
 {
-	int i;
-	int n;
+	int	i;
+	int	n;
 	int	sum;
-	int len;
+	int	len;
 
 	len = ft_strlen(str);
 	i = 0;
@@ -44,9 +44,9 @@ int			ft_parse_int(char *str)
 	return (sum);
 }
 
-int			ft_read_width(char *str, int c, t_cub3D *cub3d)
+int	ft_read_width(char *str, int c, t_cub3D *cub3d)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (str[c] == ' ')
@@ -67,9 +67,9 @@ int			ft_read_width(char *str, int c, t_cub3D *cub3d)
 	return (c);
 }
 
-int			ft_read_height(char *str, int c, t_cub3D *cub3d)
+int	ft_read_height(char *str, int c, t_cub3D *cub3d)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (str[c] == ' ')
@@ -90,15 +90,11 @@ int			ft_read_height(char *str, int c, t_cub3D *cub3d)
 	return (c);
 }
 
-int			ft_parse_screen_size(char *str, t_cub3D *cub3d)
+int	ft_parse_screen_size(char *str, t_cub3D *cub3d)
 {
-	int c;
-	int	count_values;
-	int	len;
+	int	c;
 
 	c = 1;
-	count_values = 0;
-	len = 0;
 	if (str[c] != ' ')
 	{
 		exception(FOUR);

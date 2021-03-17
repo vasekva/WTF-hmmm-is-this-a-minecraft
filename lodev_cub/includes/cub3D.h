@@ -211,7 +211,7 @@ void 		ft_move_player(t_cub3D *cub3d);
 /*
 * ft_start_game.c
 */
-    void	ft_start_game(t_cub3D *cub3d);
+    void	ft_start_game(t_cub3D *cub3d, int x);
 
 /*
 *	ft_utils.c
@@ -252,7 +252,7 @@ void 		ft_move_player(t_cub3D *cub3d);
 /*
 *	ft_parse_map.c
 */
-	int		ft_parse_array(char *str, t_cub3D *cub3d);
+	int		ft_parse_array(char *str, t_cub3D *cub3d, int c);
 	int		ft_check_structs(t_cub3D *cub3d);
 
 

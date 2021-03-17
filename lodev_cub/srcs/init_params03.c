@@ -24,7 +24,7 @@ t_player_point	*init_player_point(t_player_point *point)
 	return (point);
 }
 
-t_dda			*init_dda(t_dda *dda)
+t_dda	*init_dda(t_dda *dda)
 {
 	dda = malloc(sizeof(t_dda));
 	dda->side = 0;
@@ -36,7 +36,7 @@ t_dda			*init_dda(t_dda *dda)
 	return (dda);
 }
 
-t_player		*init_player(t_player *player)
+t_player	*init_player(t_player *player)
 {
 	player = malloc(sizeof(t_player));
 	player->cameraX = 0;

@@ -21,7 +21,7 @@ t_screen	*init_screen(t_screen *screen)
 	return (screen);
 }
 
-t_floor		*init_floor(t_floor *floor)
+t_floor	*init_floor(t_floor *floor)
 {
 	if (!floor)
 		floor = (t_floor *)malloc(sizeof(t_floor));
@@ -41,7 +41,7 @@ t_ceiling	*init_ceiling(t_ceiling *ceiling)
 	return (ceiling);
 }
 
-t_map		*init_map(t_map *map)
+t_map	*init_map(t_map *map)
 {
 	if (!map)
 		map = (t_map *)malloc(sizeof(t_map));
@@ -53,7 +53,7 @@ t_map		*init_map(t_map *map)
 	return (map);
 }
 
-t_array		*init_array(t_array *array)
+t_array	*init_array(t_array *array)
 {
 	if (!array)
 		array = (t_array *)malloc(sizeof(t_array));

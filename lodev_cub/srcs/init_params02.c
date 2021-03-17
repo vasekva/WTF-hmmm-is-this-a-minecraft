@@ -12,10 +12,10 @@
 
 #include "cub3D.h"
 
-t_env			*init_env(t_env *env, t_cub3D *cub3d)
+t_env	*init_env(t_env *env, t_cub3D *cub3d)
 {
-	int w;
-	int h;
+	int	w;
+	int	h;
 
 	w = cub3d->screen->w;
 	h = cub3d->screen->h;
@@ -27,7 +27,7 @@ t_env			*init_env(t_env *env, t_cub3D *cub3d)
 	return (env);
 }
 
-t_mlx			*init_mlx_img(t_mlx *mlx_img)
+t_mlx	*init_mlx_img(t_mlx *mlx_img)
 {
 	mlx_img = malloc(sizeof(t_mlx));
 	mlx_img->img = NULL;
@@ -38,7 +38,7 @@ t_mlx			*init_mlx_img(t_mlx *mlx_img)
 	return (mlx_img);
 }
 
-t_keys			*init_keys(t_keys *keys)
+t_keys	*init_keys(t_keys *keys)
 {
 	keys = malloc(sizeof(t_keys));
 	keys->leftKey = 0;
@@ -51,7 +51,7 @@ t_keys			*init_keys(t_keys *keys)
 	return (keys);
 }
 
-t_walls			*init_walls(t_walls *walls)
+t_walls	*init_walls(t_walls *walls)
 {
 	walls = malloc(sizeof(t_walls));
 	walls->lineHeight = 0;

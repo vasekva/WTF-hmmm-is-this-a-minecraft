@@ -16,7 +16,7 @@
 
 static	void	ft_print_exception(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -28,7 +28,7 @@ static	void	ft_print_exception(char *str)
 	exit(0);
 }
 
-void			exception(char *str)
+void	exception(char *str)
 {
 	ft_print_exception(str);
 }

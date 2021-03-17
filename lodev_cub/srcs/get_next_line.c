@@ -12,29 +12,29 @@
 
 #include "cub3D.h"
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int		i;
-	int		ret;
+	int		cwr;
 	char	buffer[1000000];
 	char	buf;
 
 	i = 0;
-	while ((ret = read(fd, &buf, 1)) != 0)
+	while (1)
 	{
-		if (buf == '\n')
+		cwr = read(fd, &buf, 1);
+		if (cwr == 0 || buf == '\n')
 			break ;
 		buffer[i] = buf;
 		i++;
 	}
 	buffer[i] = '\0';
 	*line = (char *)malloc(sizeof(char) * i);
-	i = 0;
-	while (buffer[i] != 0)
+	i = -1;
+	while (buffer[++i] != 0)
 	{
 		line[0][i] = buffer[i];
-		i++;
 	}
 	line[0][i] = '\0';
-	return (ret);
+	return (cwr);
 }

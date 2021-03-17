@@ -26,7 +26,7 @@
 ** заносятся значения.
 */
 
-static int		ft_write_color(int color,
+static int	ft_write_color(int color,
 	char symb_of_color, t_cub3D *cub3d)
 {
 	if (cub3d->identifier == 'F')
@@ -50,7 +50,7 @@ static int		ft_write_color(int color,
 	return (0);
 }
 
-static int		ft_skip_spaces_and_zeros(char *str, int i)
+static int	ft_skip_spaces_and_zeros(char *str, int i)
 {
 	while (str[i] == ' ')
 		i++;
@@ -75,7 +75,7 @@ static int		ft_skip_spaces_and_zeros(char *str, int i)
 	return (i);
 }
 
-static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3d)
+static int	ft_read_color(char *str, int i, char value, t_cub3D *cub3d)
 {
 	int		len;
 	int		color;
@@ -99,7 +99,7 @@ static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3d)
 	return (i);
 }
 
-static int		ft_check_colors(char *str, int i, t_cub3D *cub3d)
+static int	ft_check_colors(char *str, int i, t_cub3D *cub3d)
 {
 	if (cub3d->identifier == 'F')
 	{
@@ -111,8 +111,8 @@ static int		ft_check_colors(char *str, int i, t_cub3D *cub3d)
 	}
 	if (cub3d->identifier == 'C')
 	{
-		if (cub3d->ceiling->r != -1 || cub3d->ceiling->g != -1
-		|| cub3d->ceiling->b != -1)
+		if (cub3d->ceiling->r != -1
+			|| cub3d->ceiling->g != -1 || cub3d->ceiling->b != -1)
 		{
 			exception(FOURTEEN);
 		}
@@ -123,9 +123,9 @@ static int		ft_check_colors(char *str, int i, t_cub3D *cub3d)
 	return (0);
 }
 
-int				ft_parse_color(char *str, t_cub3D *cub3d)
+int	ft_parse_color(char *str, t_cub3D *cub3d)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	cub3d->identifier = str[0];

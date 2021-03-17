@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-static void		init_cub3d(t_cub3D *cub3d, char *path)
+static void	init_cub3d(t_cub3D *cub3d, char *path)
 {
 	cub3d->file_path = path;
 	cub3d->identifier = 0;
@@ -29,21 +29,21 @@ static void		init_cub3d(t_cub3D *cub3d, char *path)
 	cub3d->walls = init_walls(NULL);
 }
 
-static int		loop_hook(void *param)
+static int	loop_hook(void *param)
 {
 	t_cub3D	*cub3d;
 
 	if (param)
 	{
 		cub3d = (t_cub3D *)param;
-		ft_start_game(cub3d);
+		ft_start_game(cub3d, 0);
 	}
 	return (0);
 }
 
-int				main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_cub3D cub3d;
+	t_cub3D	cub3d;
 
 	if (argc == 2)
 	{

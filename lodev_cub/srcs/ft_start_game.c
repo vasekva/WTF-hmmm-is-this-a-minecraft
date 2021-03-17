@@ -12,9 +12,9 @@
 
 #include "cub3D.h"
 
-void			ft_perform_dda(t_cub3D *cub3d)
+void	ft_perform_dda(t_cub3D *cub3d)
 {
-	int hit;
+	int	hit;
 
 	hit = 0;
 	while (hit == 0)
@@ -37,22 +37,22 @@ void			ft_perform_dda(t_cub3D *cub3d)
 	}
 }
 
-void			ft_calc_distance(t_cub3D *cub3d, int x)
+void	ft_calc_distance(t_cub3D *cub3d, int x)
 {
-	int y;
+	int	y;
 
 	if (cub3d->player->dda->side == 0)
-		cub3d->player->dda->perpWallDist = (cub3d->player->mapX
-			- cub3d->player->player_point->posX
-			+ (1 - cub3d->player->stepX) / 2) / cub3d->player->rayDirX;
+		cub3d->player->dda->perpWallDist
+			= (cub3d->player->mapX - cub3d->player->player_point->posX
+				+ (1 - cub3d->player->stepX) / 2) / cub3d->player->rayDirX;
 	else
-		cub3d->player->dda->perpWallDist = (cub3d->player->mapY
-			- cub3d->player->player_point->posY
-			+ (1 - cub3d->player->stepY) / 2) / cub3d->player->rayDirY;
+		cub3d->player->dda->perpWallDist
+			= (cub3d->player->mapY - cub3d->player->player_point->posY
+				+ (1 - cub3d->player->stepY) / 2) / cub3d->player->rayDirY;
 	cub3d->walls->lineHeight = (int)(cub3d->screen->h
 			/ cub3d->player->dda->perpWallDist);
-	cub3d->walls->drawStart = -cub3d->walls->lineHeight
-			/ 2 + cub3d->screen->h / 2;
+	cub3d->walls->drawStart
+		= -cub3d->walls->lineHeight / 2 + cub3d->screen->h / 2;
 	if (cub3d->walls->drawStart < 0)
 		cub3d->walls->drawStart = 0;
 	cub3d->walls->drawEnd = cub3d->walls->lineHeight / 2 + cub3d->screen->h / 2;
@@ -66,22 +66,22 @@ void			ft_calc_distance(t_cub3D *cub3d, int x)
 	}
 }
 
-void			ft_start_game(t_cub3D *cub3d)
+void	ft_start_game(t_cub3D *cub3d, int x)
 {
-	int x;
-
-	x = 0;
-	cub3d->env->img = mlx_new_image(cub3d->env->mlx,
-		cub3d->screen->w, cub3d->screen->h);
-	cub3d->mlx_img->addr = mlx_get_data_addr(cub3d->env->img,
-		&cub3d->mlx_img->bits_per_pixel, &cub3d->mlx_img->line_length,
-			&cub3d->mlx_img->endian);
+	cub3d->env->img
+		= mlx_new_image(cub3d->env->mlx, cub3d->screen->w, cub3d->screen->h);
+	cub3d->mlx_img->addr
+		= mlx_get_data_addr(cub3d->env->img,
+			&cub3d->mlx_img->bits_per_pixel,
+			&cub3d->mlx_img->line_length, &cub3d->mlx_img->endian);
 	while (x < cub3d->screen->w)
 	{
 		cub3d->player->cameraX = 2 * x / (double)(cub3d->screen->w) - 1;
-		cub3d->player->rayDirX = cub3d->player->player_point->dirX
+		cub3d->player->rayDirX
+			= cub3d->player->player_point->dirX
 			+ (cub3d->player->player_point->planeX * cub3d->player->cameraX);
-		cub3d->player->rayDirY = cub3d->player->player_point->dirY
+		cub3d->player->rayDirY
+			= cub3d->player->player_point->dirY
 			+ (cub3d->player->player_point->planeY * cub3d->player->cameraX);
 		cub3d->player->mapX = (int)(cub3d->player->player_point->posX);
 		cub3d->player->mapY = (int)(cub3d->player->player_point->posY);

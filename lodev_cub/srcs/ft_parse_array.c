@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-int		ft_check_structs(t_cub3D *cub3d)
+int	ft_check_structs(t_cub3D *cub3d)
 {
 	if (cub3d->screen->h == -1 && cub3d->screen->w == -1)
 		return (-1);
@@ -20,18 +20,15 @@ int		ft_check_structs(t_cub3D *cub3d)
 		|| cub3d->map->west == NULL || cub3d->map->east == NULL
 		|| cub3d->map->sprite == NULL)
 		return (-1);
-	if (cub3d->ceiling->r == -1 || cub3d->ceiling->g == -1 ||
-		cub3d->ceiling->b == -1 || cub3d->floor->r == -1 ||
-		cub3d->floor->g == -1 || cub3d->floor->b == -1)
+	if (cub3d->ceiling->r == -1 || cub3d->ceiling->g == -1
+		|| cub3d->ceiling->b == -1 || cub3d->floor->r == -1
+		|| cub3d->floor->g == -1 || cub3d->floor->b == -1)
 		return (-1);
 	return (0);
 }
 
-int		ft_parse_array(char *str, t_cub3D *cub3d)
+int	ft_parse_array(char *str, t_cub3D *cub3d, int c)
 {
-	char	c;
-
-	c = 0;
 	if (ft_check_structs(cub3d) == -1)
 		exception(TWENTYSEVEN);
 	if (str[0] != ' ' && str[0] != '1')

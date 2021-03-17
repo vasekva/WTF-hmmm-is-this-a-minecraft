@@ -14,7 +14,7 @@
 
 static void	ft_print_error(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	write(1, "Parameter '", 11);
@@ -63,10 +63,10 @@ static int	ft_read_path(char *str, int start, int len, t_cub3D *cub3d)
 	return (0);
 }
 
-int			ft_parse_path(char *str, t_cub3D *cub3d)
+int	ft_parse_path(char *str, t_cub3D *cub3d)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
