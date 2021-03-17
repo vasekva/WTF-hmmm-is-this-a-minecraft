@@ -66,8 +66,11 @@ typedef struct 		s_player_point
 
 typedef struct 		s_dda
 {
-	int 			hit;
 	int 			side;
+	double 			deltaDistX;
+	double 			deltaDistY;
+	double 			sideDistX;
+	double 			sideDistY;
 	double 			perpWallDist;
 }					t_dda;
 
@@ -87,22 +90,12 @@ typedef struct      s_player
 	int 			mapY;
 	t_player_point *player_point;
 	t_dda			*dda;
-//	double          posX;
-//    double          posY;
-//	double			dirX;
-//	double			dirY;
-//	double			planeX;
-//	double			planeY;
 
 	double 			rayDirX;
 	double 			rayDirY;
 
 	int 			stepX;
 	int				stepY;
-	double 			deltaDistX;
-	double 			deltaDistY;
-	double 			sideDistX;
-	double 			sideDistY;
 }                   t_player;
 
 typedef struct      s_map
@@ -202,6 +195,15 @@ void 		ft_move_player(t_cub3D *cub3d);
 	 */
 
 /*
+*	ft_def_player_dir.c
+*/
+	void ft_def_player_dir(t_cub3D *cub3D);
+	/*
+	 * static void		ft_check_raydir_y(t_cub3D *cub3d);
+	 * static void		ft_check_raydir_x(t_cub3D *cub3d);
+	 */
+
+/*
 * ft_parse.c
 */
 	void	ft_parse(t_cub3D *cub3d);
@@ -211,7 +213,12 @@ void 		ft_move_player(t_cub3D *cub3d);
 */
     void	ft_start_game(t_cub3D *cub3d);
 
-
+/*
+*	ft_utils.c
+*/
+	int		ft_abs(int num);
+	void	my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color);
+	int		create_rgb(int r, int g, int b);
 
 /*
 * ft_parse_screen_size.c

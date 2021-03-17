@@ -107,7 +107,9 @@ void	ft_read_map_from_file(int fd, t_cub3D *cub3d)
 			{
 				exception(SEVENTEEN);
 			}
-			ft_strcpy(cub3d->array->map_arr[num_of_line], line);
+			printf("STR: %s\n IND: %d\n SIZE: %d\n", line, num_of_line, ft_strlen(line) + 1);
+			// ft_strcpy(cub3d->array->map_arr[num_of_line], line);
+			ft_strlcpy(cub3d->array->map_arr[num_of_line], line, ft_strlen(line) + 1);
 			num_of_line++;
 		}
 		if (i == 0)

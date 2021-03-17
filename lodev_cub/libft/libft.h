@@ -21,7 +21,7 @@ size_t				ft_strlen(const char *str);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
-char				*ft_strcpy(char *dest, const char *src);
+size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 
 
 #endif

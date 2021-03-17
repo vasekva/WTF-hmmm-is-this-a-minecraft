@@ -12,69 +12,6 @@
 
 #include "cub3D.h"
 
-int				ft_abs(int num)
-{
-	return (num < 0 ? -num : num);
-}
-
-static void		my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = mlx_img->addr + (y * mlx_img->line_length + x
-		* (mlx_img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-int				create_rgb(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
-}
-
-void			ft_check_raydir_x(t_cub3D *cub3d)
-{
-	if (cub3d->player->rayDirX < 0)
-	{
-		cub3d->player->stepX = -1;
-		cub3d->player->sideDistX = (cub3d->player->player_point->posX
-			- cub3d->player->mapX) * cub3d->player->deltaDistX;
-	}
-	else
-	{
-		cub3d->player->stepX = 1;
-		cub3d->player->sideDistX = (cub3d->player->mapX + 1.0
-			- cub3d->player->player_point->posX) * cub3d->player->deltaDistX;
-	}
-}
-
-void			ft_check_raydir_y(t_cub3D *cub3d)
-{
-	if (cub3d->player->rayDirY < 0)
-	{
-		cub3d->player->stepY = -1;
-		cub3d->player->sideDistY = (cub3d->player->player_point->posY
-			- cub3d->player->mapY) * cub3d->player->deltaDistY;
-	}
-	else
-	{
-		cub3d->player->stepY = 1;
-		cub3d->player->sideDistY = (cub3d->player->mapY + 1.0
-			- cub3d->player->player_point->posY) * cub3d->player->deltaDistY;
-	}
-}
-
-void			ft_def_player_dir(t_cub3D *cub3d)
-{
-	cub3d->player->deltaDistX = sqrt(1 + (cub3d->player->rayDirY
-		* cub3d->player->rayDirY) /
-		(cub3d->player->rayDirX * cub3d->player->rayDirX));
-	cub3d->player->deltaDistY = sqrt(1 + (cub3d->player->rayDirX
-		* cub3d->player->rayDirX) /
-		(cub3d->player->rayDirY * cub3d->player->rayDirY));
-	ft_check_raydir_x(cub3d);
-	ft_check_raydir_y(cub3d);
-}
-
 void			ft_perform_dda(t_cub3D *cub3d)
 {
 	int hit;
@@ -82,15 +19,15 @@ void			ft_perform_dda(t_cub3D *cub3d)
 	hit = 0;
 	while (hit == 0)
 	{
-		if (cub3d->player->sideDistX < cub3d->player->sideDistY)
+		if (cub3d->player->dda->sideDistX < cub3d->player->dda->sideDistY)
 		{
-			cub3d->player->sideDistX += cub3d->player->deltaDistX;
+			cub3d->player->dda->sideDistX += cub3d->player->dda->deltaDistX;
 			cub3d->player->mapX += cub3d->player->stepX;
 			cub3d->player->dda->side = 0;
 		}
 		else
 		{
-			cub3d->player->sideDistY += cub3d->player->deltaDistY;
+			cub3d->player->dda->sideDistY += cub3d->player->dda->deltaDistY;
 			cub3d->player->mapY += cub3d->player->stepY;
 			cub3d->player->dda->side = 1;
 		}

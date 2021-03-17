@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 19:24:39 by jberegon          #+#    #+#             */
-/*   Updated: 2020/11/10 20:07:51 by jberegon         ###   ########.fr       */
+/*   Created: 2021/03/16 15:04:54 by jberegon          #+#    #+#             */
+/*   Updated: 2021/03/16 15:04:58 by jberegon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "cub3D.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+void			my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color)
+{
+	char	*dst;
 
-size_t				ft_strlen(const char *str);
-int					ft_isdigit(int c);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
-int					ft_atoi(const char *str);
-int					ft_isalpha(int c);
-size_t				ft_strlcpy(char *dst, const char *src, size_t size);
+	dst = mlx_img->addr +
+			(y * mlx_img->line_length + x * (mlx_img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
-#endif
+int				create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}

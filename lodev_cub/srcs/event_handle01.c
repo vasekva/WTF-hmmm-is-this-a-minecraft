@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-int		keyrelease_hook(int key, void *param)
+int	keyrelease_hook(int key, void *param)
 {
 	t_cub3D *cub3d;
 
@@ -29,7 +29,7 @@ int		keyrelease_hook(int key, void *param)
 	return (1);
 }
 
-int		keypress_hook(int key, void *param)
+int	keypress_hook(int key, void *param)
 {
 	t_cub3D *cub3d;
 
