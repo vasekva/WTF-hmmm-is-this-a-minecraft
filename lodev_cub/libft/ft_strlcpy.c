@@ -1,42 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 20:02:54 by jberegon          #+#    #+#             */
-/*   Updated: 2021/03/16 20:02:58 by jberegon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-size_t		ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	size_t			strlength;
-	const	char	*osrc;
+	unsigned int i;
+	unsigned int j;
 
-	if (dst == NULL || src == NULL)
+	i = 0;
+	j = 0;
+	if (!dest || !src)
 		return (0);
-	osrc = src;
-	strlength = size;
-	if (strlength != 0)
+	while (src[i])
+		i++;
+	if (!size)
+		return (i);
+	while (src[j] && j < size - 1 && size > 0)
 	{
-		while (--strlength != 0)
-		{
-			if ((*dst++ = *src++) == '\0')
-			{
-				break ;
-			}
-		}
+		dest[j] = src[j];
+		j++;
 	}
-	if (strlength == 0)
-	{
-		if (size != 0)
-			*dst = '\0';
-		while (*src++)
-			;
-	}
-	return (src - osrc - 1);
+	if (size > 0)
+		dest[j] = '\0';
+	return (i);
 }

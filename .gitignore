@@ -1,8 +1,5 @@
-.idea
-.DS_Store
-.vscode
-*dSYM
+*.DS_Store
+*.swp
+*.idea
 *.o
-Cub3D
-libft.a
-libmlx.a
+*.dSYM

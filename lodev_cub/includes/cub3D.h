@@ -1,263 +1,298 @@
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <stdio.h>
+# include "mlx.h"
+# include "libft.h"
 # include <fcntl.h>
-# include <stdlib.h>
+//# include <sys/types.h>
+//# include <sys/uio.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 # include <math.h>
 
-#include "mlx.h"
-#include "libft.h"
-#include "exception.h"
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_W 13
 
-# define UP		    13
-# define DOWN	    1
-# define LEFT_A	    0
-# define RIGHT_D    2
-# define LEFT	    123
-# define RIGHT		124
-# define ESC	    53
+# define KEY_H 4
 
-#define mapWidth 24
-#define mapHeight 24
-#define screenWidth 640
-#define screenHeight 480
+# define KEY_TAB 48
+# define KEY_SPACE 49
+# define KEY_ESC 53
+# define KEY_SHIFT 257
 
-# define MOVE_SPEED 1
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_DOWN 125
+# define KEY_UP 126
 
-typedef struct	s_mlx
+typedef struct		s_buf
 {
-	void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}				t_mlx;
+	char			*content;
+	char			**buffer;
+}					t_buf;
 
-typedef struct  	s_env
+typedef struct		s_tex
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-}					t_env;
-
-typedef struct      s_keys
-{
-    int             leftKey;
-    int             rightKey;
-    int             upKey;
-    int             downKey;
-    int             escKey;
-    int             leftAKey;
-    int             rightDKey;
-}                   t_keys;
-
-typedef struct 		s_player_point
-{
-	double          posX;
-	double          posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
-}					t_player_point;
-
-typedef struct 		s_dda
-{
-	int 			side;
-	double 			deltaDistX;
-	double 			deltaDistY;
-	double 			sideDistX;
-	double 			sideDistY;
-	double 			perpWallDist;
-}					t_dda;
-
-typedef struct		s_walls
-{
-	int 			lineHeight;
-	int 			drawStart;
-	int 			drawEnd;
-	int 			color;
-
-}					t_walls;
-
-typedef struct      s_player
-{
-	double 			cameraX;
-	int 			mapX;
-	int 			mapY;
-	t_player_point *player_point;
-	t_dda			*dda;
-
-	double 			rayDirX;
-	double 			rayDirY;
-
-	int 			stepX;
-	int				stepY;
-}                   t_player;
-
-typedef struct      s_map
-{
-    char            *north;
-    char            *south;
-    char            *west;
-    char            *east;
-    char            *sprite;
-}                   t_map;
-
-typedef struct      s_screen
-{
-    int             w;
-    int				h;
-}					t_screen;
+	int				texture;
+	int				col;
+	int				color;
+	int				width;
+	int				height;
+	char			*tex_path;
+	void			*image;
+	void			*tex_ptr;
+	int				bit_pix;
+	int				size_line;
+	int				endian;
+	int				pix;
+}					t_tex;
 
 typedef struct		s_floor
 {
-	int				r;
-	int				g;
-	int				b;
+	double			fl_x_wall;
+	double			fl_y_wall;
+	double			cur_dist;
+	double			weight;
+	double			cur_fl_x;
+	double			cur_fl_y;
+	int				fl_tex_x;
+	int				fl_tex_y;
 }					t_floor;
 
-typedef struct		s_ceiling
+typedef struct		s_coor
 {
-	int				r;
-	int				g;
-	int				b;
-}					t_ceiling;
+	double			x;
+	double			y;
+}					t_coor;
 
-typedef struct		s_array
+typedef struct		s_sprite
 {
-	int				count_player_point;
-	int				size;
-	char			**map_arr;
-}					t_array;
+	double			*distbuf;
+	int				nb_sprite;
+	int				*sp_order;
+	double			*sp_dist;
+	double			sp_x;
+	double			sp_y;
+	double			inv_det;
+	double			trans_x;
+	double			trans_y;
+	int				sp_screen;
+	int				sp_h;
+	int				sp_w;
+	int				draw_startx;
+	int				draw_endx;
+	int				draw_starty;
+	int				draw_endy;
+	int				tsp_x;
+	int				tsp_y;
+}					t_sprite;
 
-typedef struct  s_cub3D
+typedef struct		s_action
 {
-	char		*file_path;
-	char 		identifier;
-    t_screen    *screen;
-    t_map       *map;
-    t_floor     *floor;
-	t_ceiling	*ceiling;
-    t_env       *env;
-    t_mlx		*mlx_img;
-	t_keys      *keys;
-    t_player    *player;
-	t_walls		*walls;
-	t_array		*array;
-}               t_cub3D;
+	int				up;
+	int				down;
+	int				r_left;
+	int				m_left;
+	int				r_right;
+	int				m_right;
+	double			m_speed;
+	double			r_speed;
+	int				hud;
+}					t_action;
 
-void	ft_print_array(t_cub3D *cub3d);
+typedef struct		s_cub3d
+{
+	t_buf			buf;
+	int				screenshot;
+	char			**map;
+	int				map_h;
+	int				map_w;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	int				res_x;
+	int				res_y;
+	void			*image;
+	void			*img_ptr;
+	int				bit_pix;
+	int				size_line;
+	int				endian;
+	int				map_x;
+	int				map_y;
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			cam_plane;
+	double			raydir_x;
+	double			raydir_y;
+	double			side_dx;
+	double			side_dy;
+	double			delta_dx;
+	double			delta_dy;
+	double			wall_dist;
+	int				step_x;
+	int				step_y;
+	int				wall_hit;
+	int				side;
+	int				line_h;
+	int				draw_start;
+	int				draw_end;
+	double			olddir_x;
+	double			oldplane_x;
+	t_action		act;
+	t_tex			tex[7];
+	double			wall_x;
+	int				x_coor;
+	int				y_coor;
+	t_floor			flr;
+	t_coor			*c_spr;
+	t_sprite		spr;
+}					t_cub3d;
 
-
-int			get_next_line(int fd, char **line);
-t_ceiling	*init_ceiling(t_ceiling *ceiling);
-t_floor		*init_floor(t_floor *floor);
-t_screen	*init_screen(t_screen *screen);
-t_map		*init_map(t_map *map);
-t_array		*init_array(t_array *array);
-
-t_env       *init_env(t_env *env, t_cub3D *cub3d);
-t_mlx		*init_mlx_img(t_mlx *mlx_img);
-t_keys		*init_keys(t_keys *keys);
-t_player	*init_player(t_player *player);
-
-t_walls		*init_walls(t_walls *walls);
-
-void 		ft_move_player(t_cub3D *cub3d);
+typedef struct		s_bmp
+{
+	int				filesize;
+	char			*img;
+	unsigned char	fileheader[14];
+	unsigned char	infoheader[40];
+	unsigned char	pad[3];
+	int				color;
+	int				fd;
+}					t_bmp;
 
 /*
-* event_handle01.c
+** INIT_DESC.C
 */
-    int		keyrelease_hook(int key, void *param);
-    int		keypress_hook(int key, void *param);
+void				init_desc(t_cub3d *cub, char *desc);
 
 /*
-*	exception.c
+** CHECK_CONTENT.C
 */
-	void	exception(char *str);
-	/*
-	 * static	void	ft_print_exception(char *str);
-	 */
+void				check_content(t_cub3d *cub);
 
 /*
-*	ft_check_array.c
+** BMP.C
 */
-	void	ft_check_array(t_cub3D *cub3d);
-	/*
-	 * void	ft_check_last_lines(t_cub3D *cub3d);
-	 * void	ft_check_top_lines(t_cub3D *cub3d);
-	 * void	ft_check_longline(t_cub3D *cub3d, int line, int diff);
-	 * void	ft_check_middle_lines(t_cub3D *cub3d, int i);
-	 */
+void				convert_bmp(t_cub3d *cub);
 
 /*
-*	ft_def_player_dir.c
+** RESOLUTION.C
 */
-	void ft_def_player_dir(t_cub3D *cub3D);
-	/*
-	 * static void		ft_check_raydir_y(t_cub3D *cub3d);
-	 * static void		ft_check_raydir_x(t_cub3D *cub3d);
-	 */
+void				assign_res(t_cub3d *cub);
 
 /*
-* ft_parse.c
+** CREATE_MAP.C
 */
-	void	ft_parse(t_cub3D *cub3d);
+void				create_map(t_cub3d *cub);
 
 /*
-* ft_start_game.c
+** ARRANGE_MAP.C
 */
-    void	ft_start_game(t_cub3D *cub3d, int x);
+void				adjust_map(t_cub3d *cub);
+void				complete_map(t_cub3d *cub);
 
 /*
-*	ft_utils.c
+** CHECK_MAP.C
 */
-	int		ft_abs(int num);
-	void	my_mlx_pixel_put(t_mlx *mlx_img, int x, int y, int color);
-	int		create_rgb(int r, int g, int b);
+void				check_map(t_cub3d *cub);
 
 /*
-* ft_parse_screen_size.c
+** COLORS.C
 */
-	int		ft_parse_screen_size(char *str, t_cub3D *cub3d);
-	/*
-	 * int			ft_read_height(char *str, int c, t_cub3D *cub3d);
-	 * int			ft_read_width(char *str, int c, t_cub3D *cub3d);
-	 * int			ft_parse_int(char *str)
-	 * static int	ft_pow(int num, int i)
-	 */
-/*
-*	ft_parse_path.c
-*/    
-	int		ft_parse_path(char *str, t_cub3D *cub3d);
-	/*
-	* static int ft_read_path(char *str, int start, int len, t_cub3D *cub3D);
-	*/
+void				assign_color(t_cub3d *cub, char *line, int ind);
 
 /*
-*	ft_parse_color.c
+** TEXTURES.C
 */
-	int		ft_parse_color(char *str, t_cub3D *cub3d);
-	/*
-	* static int		ft_read_colors(char *str, int i, int start, t_cub3D *cub3D, char identifier);
-	* static int		ft_read_color(char *str, int i, char value, t_cub3D *cub3D, char identifier);
-	* static int		ft_skip_spaces_and_zeros(char *str, int i);
-	* static int		ft_write_color(int color, char symb_of_color, t_cub3D *cub3D, char identifier);
-	*/
+void				get_textures(t_cub3d *cub);
 
 /*
-*	ft_parse_map.c
+** INIT_VAR.C
 */
-	int		ft_parse_array(char *str, t_cub3D *cub3d, int c);
-	int		ft_check_structs(t_cub3D *cub3d);
+void				init_var(t_cub3d *cub);
 
+/*
+** ACTIONS.C
+*/
+int					key_press(int key, t_cub3d *cub);
+int					key_release(int key, t_cub3d *cub);
 
+/*
+** PIX.C
+*/
+void				get_color(t_cub3d *cub, int ind, int x, int y);
+void				color_dist(t_cub3d *cub, int ind, double dist);
+void				draw_pix(t_cub3d *cub, int ind, int x, int y);
 
+/*
+** DRAW_*.C
+*/
+void				draw_walls(t_cub3d *cub, int x);
+void				draw_floor(t_cub3d *cub, int x);
+void				draw_ceiling(t_cub3d *cub, int x);
+void				draw_sky(t_cub3d *cub, int x);
+void				draw_all(t_cub3d *cub, int x);
 
+/*
+** SPRITE_SORTING.C
+*/
+void				count_sprites(t_cub3d *cub);
+void				create_sorting(t_cub3d *cub);
+void				sort_sprites(int *order, double *dist, int amount);
 
+/*
+** SPRITE.C
+*/
+void				sprites(t_cub3d *cub);
+
+/*
+** RAYCASTING.C
+*/
+void				raycasting(t_cub3d *cub);
+
+/*
+** IMAGE.C
+*/
+void				put_image(t_cub3d *cub);
+
+/*
+** HUD.C
+*/
+void				hud(t_cub3d *cub);
+
+/*
+** MOTION.C
+*/
+int					motion(t_cub3d *cub);
+
+/*
+** ERROR.C
+*/
+void				display_error(t_cub3d *cub, char *err_message);
+
+/*
+** FREE.C
+*/
+void				free_all(t_cub3d *cub);
+
+/*
+** EXIT.C
+*/
+int					exit_prog(t_cub3d *cub);
+
+/*
+** MAIN.C
+*/
+int					main(int argc, char **argv);
+
+/*
+ * GET_NEXT_LINE.C
+ */
+int					get_next_line(int fd, char **line);
 
 #endif

@@ -1,68 +1,66 @@
-NAME = Cub3D
+NAME 				=	cub3D
 
-SRC =	main.c \
-		ft_start_game.c \
-		event_handle01.c \
-		ft_parse.c \
-		get_next_line.c \
-		ft_parse_screen_size.c \
-		ft_parse_path.c \
-		ft_parse_color.c \
-		ft_parse_array.c \
-		exception.c \
-		ft_check_array.c \
-		init_params01.c \
-		init_params02.c \
-		init_params03.c \
-		ft_print_array.c \
-		ft_move_player.c \
-		ft_utils.c \
-		ft_def_player_dir.c \
+INCLUDES 			=	-I ./includes/ -I ./mlx/
+SRCS_DIR			=	./srcs/
+INCLUDES_DIR		=	./includes
+LIBFT_DIR			=	./libft/
+OBJS_DIR			=	./objs/
+LIBRARY				=	./libft/libft.a
 
-INCLUDES = -I ./includes/ -I ./mlx/
+SRCS_NAME			=	actions.c			\
+						arrange_map.c		\
+						bmp.c				\
+						check_content.c		\
+						check_map.c			\
+						colors.c			\
+						create_map.c		\
+						draw.c				\
+						error.c				\
+						exit.c				\
+						free.c				\
+						init_desc.c			\
+						init_var.c			\
+						main.c				\
+						motion.c			\
+						pix.c				\
+						raycasting.c		\
+						resolution.c		\
+						sprite_sorting.c	\
+						sprite.c			\
+						textures.c			\
+						get_next_line.c		\
 
-MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
+OBJS_NAME			=	$(SRCS_NAME:.c=.o)
 
-LIBFTDIR = ./libft/
+SRCS				=	$(addprefix $(SRCS_DIR), $(SRCS_NAME))
+OBJS 				=	$(addprefix $(OBJS_DIR), $(OBJS_NAME))
 
-LIBA = ./libft/libft.a
+CC					=	gcc
 
-SRCDIR = ./srcs/
+CFLAGS				=	-Wall -Wextra -Werror -cmake
+MLX_FLAGS			=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 
-OBJDIR = ./objs/
+all:					$(NAME)
 
-OBJ = $(SRC:.c=.o)
+$(NAME): 				$(OBJS)
+						@(echo "\033[32m===	CUB3D COMPILATION...	===\033[0m")
+						@$(MAKE) -C $(LIBFT_DIR)
+						@$(CC) $(LIBRARY) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+						@(echo "\033[32m===	CUB3D COMPILATION OK	===\033[0m")
 
-SRCS = $(addprefix $(SRCDIR), $(SRC))
-OBJS = $(addprefix $(OBJDIR), $(OBJ))
-
-CC = gcc
-
-CFLAGS = -Wall -Wextra -Werror -c
-
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	@echo "\033[32m[Cub3D compilation...]"
-	$(MAKE) -C $(LIBFTDIR)
-	cp $(LIBA) ../
-	$(CC) $(LIBA) -o $(NAME) $(OBJS) $(MLX_FLAGS)
-	@echo "\033[32m[Done!]"
-	
-$(OBJS): $(SRCS)
-	$(CC) $(INCLUDES) -c $(SRCS)
-	mv	$(OBJ) $(OBJDIR)
-
+$(OBJS): 				$(SRCS)
+						@($(CC) $(INCLUDES) -c $(SRCS))
+						@(mv	$(OBJS_NAME) $(OBJS_DIR))
 clean:
-	make clean -C libft/
-	rm -rf $(OBJS)
-	rm -rf $(OBJ)
-	make clean -C $(LIBFTDIR)
+						@make clean -C ./libft/
+						@rm -rf $(OBJS)
 
-fclean: clean
-	rm -rf $(NAME)
-	make clean -C $(LIBFTDIR)
+fclean: 				clean
+						@rm -rf $(NAME)
+						@make fclean -C $(LIBFT_DIR)
+						@make clean -C ./mlx/
+						@echo "\033[34m===	REPERTORY CUB3D CLEANED	===\033[0m"
 
-re: fclean all
+re:						fclean all
 
-.PHONY: all, clean, fclean, re
+.PHONY:					all clean fclean re

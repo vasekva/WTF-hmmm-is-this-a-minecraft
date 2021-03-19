@@ -1,65 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   atoi.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/29 16:40:22 by jberegon          #+#    #+#             */
-/*   Updated: 2020/11/08 11:21:14 by jberegon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "libft.h"
-
-static size_t	iteration(const char *str, int index, int neg)
+int	ft_atoi(const char *str)
 {
-	size_t i;
-	size_t count;
-	size_t res;
+	int			i;
+	long int	nb;
+	int			sign;
 
-	res = 0;
-	count = 0;
-	i = index;
-	while (str[i] > 47 && str[i] < 58)
-	{
-		if (count > 20)
-		{
-			if (neg < 0)
-				return (0);
-			else
-				return (-1);
-		}
-		res = res * 10 + str[i++] - '0';
-		count++;
-	}
-	return (res);
-}
-
-int				ft_atoi(const char *str)
-{
-	int	i;
-	int neg;
-	int res;
-	int count;
-	int flag;
-
-	flag = 0;
 	i = 0;
-	neg = 1;
-	res = 0;
-	count = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	nb = 0;
+	sign = 1;
+	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\t' || str[i] == '\n'
+	|| str[i] == '\r' || str[i] == '\v')
 		i++;
-	while (str[i] == 45 || str[i] == 43)
+	if (str[i] == '-')
+		sign = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (flag > 0)
-			return (0);
-		flag++;
-		if (str[i] == 45)
-			neg = -neg;
+		nb = nb * 10 + str[i] - '0';
 		i++;
 	}
-	res = iteration(str, i, neg);
-	return (res * neg);
+	return (sign * nb);
 }

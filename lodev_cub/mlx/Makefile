@@ -13,12 +13,13 @@ CFLAGS+= -DSTRINGPUTX11
 
 all: $(NOM)
 
-$(NOM):	$(OBJ)
-	ar -r $(NOM) $(OBJ)
-	ranlib $(NOM)
+$(NOM):		$(OBJ)
+			@ar -r $(NOM) $(OBJ)
+			@ranlib $(NOM)
 
 clean:
-	rm -f $(NOM) $(OBJ) *~
-	rm -f mlx_app
+			@rm -f $(NOM) $(OBJ) *~
+			@rm -f mlx_app
+			@echo "\033[34m===	MLX'S OBJS CLEANED	===\033[0m"
 
 re: clean all

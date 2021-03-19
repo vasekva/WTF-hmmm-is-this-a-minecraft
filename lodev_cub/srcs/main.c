@@ -1,56 +1,56 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jberegon <jberegon@student.21-schoo>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/15 14:29:55 by jberegon          #+#    #+#             */
-/*   Updated: 2021/03/15 14:30:00 by jberegon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "cub3d.h"
 
-#include "cub3D.h"
-
-static void	init_cub3d(t_cub3D *cub3d, char *path)
+static void	init_map(t_cub3d *cub)
 {
-	cub3d->file_path = path;
-	cub3d->identifier = 0;
-	cub3d->screen = init_screen(NULL);
-	cub3d->floor = init_floor(NULL);
-	cub3d->ceiling = init_ceiling(NULL);
-	cub3d->map = init_map(NULL);
-	cub3d->array = init_array(NULL);
-	ft_parse(cub3d);
-	cub3d->env = init_env(NULL, cub3d);
-	cub3d->mlx_img = init_mlx_img(NULL);
-	cub3d->keys = init_keys(NULL);
-	cub3d->player = init_player(NULL);
-	cub3d->walls = init_walls(NULL);
+	create_map(cub);
+	adjust_map(cub);
+	complete_map(cub);
+	check_map(cub);
 }
 
-static int	loop_hook(void *param)
+static int	create_window(t_cub3d *cub)
 {
-	t_cub3D	*cub3d;
-
-	if (param)
+	if (!(cub->mlx_ptr = mlx_init()))
+		return (0);
+	get_textures(cub);
+	if (!(cub->image = mlx_new_image(cub->mlx_ptr, cub->res_x, cub->res_y)))
+		return (0);
+	cub->img_ptr = mlx_get_data_addr(cub->image, &cub->bit_pix, \
+									&cub->size_line, &cub->endian);
+	raycasting(cub);
+	if (cub->screenshot)
 	{
-		cub3d = (t_cub3D *)param;
-		ft_start_game(cub3d, 0);
+		convert_bmp(cub);
+		exit_prog(cub);
 	}
+	if (!(cub->win_ptr = \
+		mlx_new_window(cub->mlx_ptr, cub->res_x, cub->res_y, "cub3d")))
+		return (0);
+	return (1);
+}
+
+int			main(int argc, char **argv)
+{
+	t_cub3d	cub;
+
+	if (argc > 1)
+	{
+		init_desc(&cub, argv[1]);
+		check_content(&cub);
+		assign_res(&cub);
+		init_map(&cub);
+		init_var(&cub);
+		if (argc == 3 && !ft_strcmp(argv[2], "--save"))
+			cub.screenshot = 1;
+		if (!create_window(&cub))
+			display_error(&cub, "Could not create window.\n");
+		mlx_hook(cub.win_ptr, 17, 0L, exit_prog, &cub);
+		mlx_hook(cub.win_ptr, 2, (1L << 0), key_press, &cub);
+		mlx_hook(cub.win_ptr, 3, (1L << 1), key_release, &cub);
+		mlx_loop_hook(cub.mlx_ptr, motion, &cub);
+		mlx_loop(cub.mlx_ptr);
+	}
+	else
+		ft_putstr_fd("Please select descriptor file.\n", 1);
 	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_cub3D	cub3d;
-
-	if (argc == 2)
-	{
-		init_cub3d(&cub3d, argv[1]);
-		mlx_hook(cub3d.env->win, 2, 1L << 0, keypress_hook, &cub3d);
-		mlx_hook(cub3d.env->win, 3, 1L << 0, keyrelease_hook, &cub3d);
-		mlx_loop_hook(cub3d.env->mlx, loop_hook, &cub3d);
-		mlx_loop(cub3d.env->mlx);
-	}
 }
