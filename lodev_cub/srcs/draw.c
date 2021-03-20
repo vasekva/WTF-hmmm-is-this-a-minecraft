@@ -185,7 +185,7 @@ void	draw_all(t_cub3d *cub, int x)
 	 * end of draw_floor
 	 */
 	if (cub->tex[5].tex_path \
-	&& !ft_strncmp(cub->tex[5].tex_path, "textures/sky", 12))
+	&& !ft_strncmp(cub->tex[5].tex_path, "textures/c_sky", 12))
 	{
 //		draw_sky(cub, x);
 		/**

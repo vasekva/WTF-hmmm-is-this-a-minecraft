@@ -18,13 +18,11 @@ SRCS_NAME			=	actions.c			\
 						error.c				\
 						exit.c				\
 						free.c				\
-						init_desc.c			\
 						init_var.c			\
 						main.c				\
 						motion.c			\
 						pix.c				\
 						raycasting.c		\
-						resolution.c		\
 						sprite_sorting.c	\
 						sprite.c			\
 						textures.c			\
