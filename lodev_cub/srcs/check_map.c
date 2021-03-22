@@ -97,11 +97,15 @@ static int	check_position(t_cub3d *cub)
 void		check_map(t_cub3d *cub)
 {
 	if (!(check_size(cub)))
-		display_error(cub, "Map too small.\n");
+		exception(NINE);
+//		display_error(cub, "Map too small.\n");
 	if (!(check_edges(cub)))
-		display_error(cub, "Map must be surrounded by 1.\n");
+		exception(TEN);
+//		display_error(cub, "Map must be surrounded by 1.\n");
 	if (!(check_inside(cub)))
-		display_error(cub, "Invalid value.\n");
+		exception(ELEVEN);
+//		display_error(cub, "Invalid value.\n");
 	if (!(check_position(cub)))
-		display_error(cub, "Must have 1 position identifier.\n");
+		exception(TWELVE);
+//		display_error(cub, "Must have 1 position identifier.\n");
 }

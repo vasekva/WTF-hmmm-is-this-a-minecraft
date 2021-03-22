@@ -1,4 +1,4 @@
-R 500 500
+R 1920 1080
 
 SO textures/minecraft/cobblestone.xpm
 NO textures/minecraft/diamond_block.xpm
@@ -6,7 +6,6 @@ EA textures/minecraft/plank_birch.xpm
 WE textures/minecraft/черешня.xpm
 
 S textures/wolf/s_dog.xpm
-
 
 C textures/c_sky2.xpm
 

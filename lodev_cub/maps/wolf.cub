@@ -1,16 +1,16 @@
-R 1600 900
+R 1920 900
 
-SO textures/wolf_wood.xpm
-NO textures/wolf_stone1.xpm
-EA textures/wolf_redbrick.xpm
-WE textures/wolf_texture4.xpm
+SO textures/wolf/mossy.xpm
+NO textures/wolf/redbrick.xpm
+EA textures/wolf/wood.xpm
+WE textures/wolf/bluestone.xpm
 
-S textures/s_dog.xpm
+S textures/wolf/s_dog.xpm
 
 
-C textures/c_sky2.xpm
+C textures/f_whitetile.xpm
 
-F textures/f_bluegreyl.xpm
+F textures/wolf/f_bluegreyl.xpm
 
 11111111111111111111111111111
 10000000001100000000000000001

@@ -40,7 +40,8 @@ static void	check_nbr_elem(t_cub3d *cub)
 	|| !check_missing_elem(cub->buf.buffer, 'N', 'O') \
 	|| !check_missing_elem(cub->buf.buffer, 'E', 'A') \
 	|| !check_missing_elem(cub->buf.buffer, 'W', 'E'))
-		display_error(cub, "Information missing.\n");
+		exception(FIVE);
+//		display_error(cub, "Information missing.\n");
 	if (!check_double_elem(cub->buf.buffer, 'R', ' ') \
 	|| !check_double_elem(cub->buf.buffer, 'F', ' ') \
 	|| !check_double_elem(cub->buf.buffer, 'C', ' ') \
@@ -49,7 +50,8 @@ static void	check_nbr_elem(t_cub3d *cub)
 	|| !check_double_elem(cub->buf.buffer, 'N', 'O') \
 	|| !check_double_elem(cub->buf.buffer, 'E', 'A') \
 	|| !check_double_elem(cub->buf.buffer, 'W', 'E'))
-		display_error(cub, "One information is double.\n");
+		exception(SIX);
+//		display_error(cub, "One information is double.\n");
 }
 
 static void	check_elem_order(t_cub3d *cub)
@@ -65,7 +67,8 @@ static void	check_elem_order(t_cub3d *cub)
 			|| cub->buf.buffer[i][0] == 'N' || cub->buf.buffer[i][0] == 'E' \
 			|| cub->buf.buffer[i][0] == 'W' || cub->buf.buffer[i][0] == 'F' \
 			|| cub->buf.buffer[i][0] == 'C' || cub->buf.buffer[i][0] == 'S')
-			display_error(cub, "Map must be last in description.\n");
+			exception(SEVEN);
+//			display_error(cub, "Map must be last in description.\n");
 		i++;
 	}
 }

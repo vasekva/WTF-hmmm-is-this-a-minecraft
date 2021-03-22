@@ -1,0 +1,27 @@
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
+
+# define ONE		"Карта должна иметь расширение .cub!"
+# define TWO		"Не удалось открыть файл!"
+# define THREE		"Недостаточно параметров в файле!"
+# define FOUR		"В файле присутствуют повторяющиеся параметры!"
+# define FIVE		"Карта должна находиться в конце файла!"
+# define SIX		"Задан некорректный размер экрана!"
+# define SEVEN		"Слишком маленькая карта!"
+# define EIGHT		"Ошибка выделения памяти для карты!"
+# define NINE		"Карта должна быть окружена стенами!"
+# define TEN		"Карта имеет недопустимые символы!!"
+# define ELEVEN		"На карте должна быть задана только одна позиция игрока!"
+# define TWELVE		"Ошибка при инициализации окна!"
+# define THIRTEEN	"Текстура не найдена!"
+# define FOURTEEN	"Ошибка при вызове mlx_get_data_addr!"
+# define FIFTEEN	"Неверный формат цвета! Шаблон формата: R,G,B"
+# define SIXTEEN	"Отсутствует красный цвет!"
+# define SEVENTEEN	"Отсутствует зеленый цвет!"
+# define EIGHTEEN	"Отсутствует синий цвет!"
+# define NINETEEN	"Красный цвет имеет неверный формат!"
+# define TWENTY		"Зеленый цвет имеет неверный формат!"
+# define TWENTYONE	"Синий цвет имеет неверный формат!"
+# define TWENTYTWO	"Ошибка выделения памяти в init_cub!"
+
+#endif

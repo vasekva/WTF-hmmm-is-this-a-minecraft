@@ -17,7 +17,7 @@ static int	create_window(t_cub3d *cub)
 		return (0);
 	cub->img_ptr = mlx_get_data_addr(cub->image, &cub->bit_pix, \
 									&cub->size_line, &cub->endian);
-	raycasting(cub);
+//	raycasting(cub);
 	if (cub->screenshot)
 	{
 		convert_bmp(cub);
@@ -47,108 +47,105 @@ static int	check_type(char *desc_file)
 	return (0);
 }
 
-void 		init_cub3d(t_cub3d *cub, char *desc)
+static void 		init(t_cub3d *cub3d)
+{
+	cub3d->mlx_ptr = NULL;
+	cub3d->win_ptr = NULL;
+	cub3d->image = NULL;
+	cub3d->img_ptr = NULL;
+	cub3d->c_spr = NULL;
+	ft_memset(&cub3d->buf, 0, sizeof(t_buf));
+	ft_memset(&cub3d->map, 0, sizeof(char**));
+	ft_memset(&cub3d->act, 0, sizeof(t_action));
+	ft_memset(&cub3d->tex, 0, sizeof(t_tex) * 7);
+	ft_memset(&cub3d->flr, 0, sizeof(t_floor));
+	ft_memset(&cub3d->spr, 0, sizeof(t_sprite));
+}
+
+static	void	set_buffer(int fd, t_cub3d *cub3d)
+{
+	char	*line;
+	int		ret;
+
+	cub3d->buf.content = ft_strdup("");
+	while ((ret = get_next_line(fd, &line)))
+	{
+		cub3d->buf.content = ft_strjoin_free(cub3d->buf.content, line, 2);
+		cub3d->buf.content = ft_strjoin_free(cub3d->buf.content, "\n", 1);
+	}
+	cub3d->buf.content = ft_strjoin_free(cub3d->buf.content, line, 2);
+	cub3d->buf.buffer = ft_split_nl(cub3d->buf.content);
+	close(fd);
+}
+
+void	assign_res(t_cub3d *cub3d)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (cub3d->buf.buffer[i] && cub3d->buf.buffer[i][0] != 'R')
+		i++;
+	j = 1;
+	cub3d->res_x = ft_atoi(&cub3d->buf.buffer[i][j]);
+	while (cub3d->buf.buffer[i][j] && cub3d->buf.buffer[i][j] == ' ')
+		j++;
+	while (cub3d->buf.buffer[i][j] \
+ 		&& (cub3d->buf.buffer[i][j] >= '0' && cub3d->buf.buffer[i][j] <= '9'))
+		j++;
+	cub3d->res_y = ft_atoi(&cub3d->buf.buffer[i][j]);
+	if (cub3d->res_x > 2560)
+		cub3d->res_x = 2560;
+	if (cub3d->res_y > 1440)
+		cub3d->res_y = 1440;
+	if (cub3d->res_x <= 0 || cub3d->res_y <= 0)
+		exception(FOUR);
+}
+
+void 		init_cub3d(t_cub3d *cub3d, char *desc)
 {
 	int		fd;
 
-//	init(cub);
-	/**
-	 * init_desc(t_cub3d *cub, char *desc);
-	 */
-		/**
-		 * init(cub);
-		 */
-			cub->mlx_ptr = NULL;
-			cub->win_ptr = NULL;
-			cub->image = NULL;
-			cub->img_ptr = NULL;
-			cub->c_spr = NULL;
-			ft_memset(&cub->buf, 0, sizeof(t_buf));
-			ft_memset(&cub->map, 0, sizeof(char**));
-			ft_memset(&cub->act, 0, sizeof(t_action));
-			ft_memset(&cub->tex, 0, sizeof(t_tex) * 7);
-			ft_memset(&cub->flr, 0, sizeof(t_floor));
-			ft_memset(&cub->spr, 0, sizeof(t_sprite));
-		/**
-		 * end of init
-		 */
-			if (!check_type(desc))
-				display_error(cub, "Description file must be *.cub type.\n");
-			if ((fd = open(desc, O_RDONLY)) < 0)
-			{
-				close(fd);
-				display_error(cub, "Could not find map description.\n");
-			}
-	//	set_buffer(fd, cub);
-		/**
-		 * set_buffer(fd, cub);
-		 */
-			char	*line;
-			int		ret;
 
-			cub->buf.content = ft_strdup("");
-			while ((ret = get_next_line(fd, &line)))
-			{
-				cub->buf.content = ft_strjoin_free(cub->buf.content, line, 2);
-				cub->buf.content = ft_strjoin_free(cub->buf.content, "\n", 1);
-			}
-			cub->buf.content = ft_strjoin_free(cub->buf.content, line, 2);
-		/**
-		 * end of set_buffer
-		 */
-		cub->buf.buffer = ft_split_nl(cub->buf.content);
+	init(cub3d);
+	if (!check_type(desc))
+		exception(TWO);
+//		display_error(cub3d, "Description file must be *.cub3d type.\n");
+	if ((fd = open(desc, O_RDONLY)) < 0)
+	{
 		close(fd);
-	/**
-	 * end of init_desc
-	 */
-	check_content(cub);
-//	assign_res(cub);
-	/**
-	 * assign_res(cub);
-	 */
-		int i;
-		int j;
-
-		i = 0;
-		while (cub->buf.buffer[i] && cub->buf.buffer[i][0] != 'R')
-			i++;
-		j = 1;
-		cub->res_x = ft_atoi(&cub->buf.buffer[i][j]);
-		while (cub->buf.buffer[i][j] && cub->buf.buffer[i][j] == ' ')
-			j++;
-		while (cub->buf.buffer[i][j] \
-			&& (cub->buf.buffer[i][j] >= '0' && cub->buf.buffer[i][j] <= '9'))
-			j++;
-		cub->res_y = ft_atoi(&cub->buf.buffer[i][j]);
-		if (cub->res_x > 2560)
-			cub->res_x = 2560;
-		if (cub->res_y > 1440)
-			cub->res_y = 1440;
-		if (cub->res_x <= 0 || cub->res_y <= 0)
-			display_error(cub, "Resolution not valid.\n");
-	/**
-	 * end of assign_res
-	 */
-	init_map(cub);
-	init_var(cub);
+		exception(THREE);
+//		display_error(cub3d, "Could not find map description.\n");
+	}
+	set_buffer(fd, cub3d);
+	check_content(cub3d);
+	assign_res(cub3d);
+	init_map(cub3d);
+	init_var(cub3d);
 }
 
 int			main(int argc, char **argv)
 {
-	t_cub3d	cub;
+	t_cub3d cub3d;
 
 	if (argc > 1)
 	{
-		init_cub3d(&cub, argv[1]);
+		init_cub3d(&cub3d, argv[1]);
 		if (argc == 3 && !ft_strcmp(argv[2], "--save"))
-			cub.screenshot = 1;
-		if (!create_window(&cub))
-			display_error(&cub, "Could not create window.\n");
-		mlx_hook(cub.win_ptr, 17, 0L, exit_prog, &cub);
-		mlx_hook(cub.win_ptr, 2, (1L << 0), key_press, &cub);
-		mlx_hook(cub.win_ptr, 3, (1L << 1), key_release, &cub);
-		mlx_loop_hook(cub.mlx_ptr, motion, &cub);
-		mlx_loop(cub.mlx_ptr);
+			cub3d.screenshot = 1;
+		if (!create_window(&cub3d))
+			exception(THIRTY);
+//			display_error(&cub3d, "Could not create window.\n");
+
+		print_structs(&cub3d);
+
+
+		mlx_hook(cub3d.win_ptr, 17, 0L, exit_prog, &cub3d);
+		mlx_hook(cub3d.win_ptr, 2, (1L << 0), key_press, &cub3d);
+		mlx_hook(cub3d.win_ptr, 3, (1L << 1), key_release, &cub3d);
+		mlx_loop_hook(cub3d.mlx_ptr, motion, &cub3d);
+		mlx_loop(cub3d.mlx_ptr);
+
 	}
 	else
 		ft_putstr_fd("Please select descriptor file.\n", 1);

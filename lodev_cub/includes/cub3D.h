@@ -4,12 +4,11 @@
 # include "mlx.h"
 # include "libft.h"
 # include <fcntl.h>
-//# include <sys/types.h>
-//# include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include "exceptions.h"
 
 # define KEY_A 0
 # define KEY_S 1
@@ -18,8 +17,6 @@
 
 # define KEY_H 4
 
-# define KEY_TAB 48
-# define KEY_SPACE 49
 # define KEY_ESC 53
 # define KEY_SHIFT 257
 
@@ -165,6 +162,9 @@ typedef struct		s_bmp
 	int				fd;
 }					t_bmp;
 
+void		print_structs(t_cub3d *cub3d);
+
+
 /*
 ** INIT_DESC.C
 */
@@ -241,7 +241,7 @@ void				draw_all(t_cub3d *cub, int x);
 /*
 ** SPRITE_SORTING.C
 */
-void				count_sprites(t_cub3d *cub);
+//void				count_sprites(t_cub3d *cub);
 void				create_sorting(t_cub3d *cub);
 void				sort_sprites(int *order, double *dist, int amount);
 
@@ -294,5 +294,7 @@ int					main(int argc, char **argv);
  * GET_NEXT_LINE.C
  */
 int					get_next_line(int fd, char **line);
+
+void 				exception(char *str);
 
 #endif

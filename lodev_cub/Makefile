@@ -2,7 +2,6 @@ NAME 				=	cub3D
 
 INCLUDES 			=	-I ./includes/ -I ./mlx/
 SRCS_DIR			=	./srcs/
-INCLUDES_DIR		=	./includes
 LIBFT_DIR			=	./libft/
 OBJS_DIR			=	./objs/
 LIBRARY				=	./libft/libft.a
@@ -23,10 +22,11 @@ SRCS_NAME			=	actions.c			\
 						motion.c			\
 						pix.c				\
 						raycasting.c		\
-						sprite_sorting.c	\
 						sprite.c			\
 						textures.c			\
 						get_next_line.c		\
+						exception.c			\
+						print_structs.c		\
 
 OBJS_NAME			=	$(SRCS_NAME:.c=.o)
 
@@ -35,7 +35,7 @@ OBJS 				=	$(addprefix $(OBJS_DIR), $(OBJS_NAME))
 
 CC					=	gcc
 
-CFLAGS				=	-Wall -Wextra -Werror -cmake
+CFLAGS				=	-Wall -Wextra -Werror
 MLX_FLAGS			=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 
 all:					$(NAME)

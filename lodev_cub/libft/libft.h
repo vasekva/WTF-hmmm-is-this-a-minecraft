@@ -51,14 +51,11 @@ void			ft_putnbr_fd(int n, int fd);
 /*
 **=============================== ADDITIONAL ===================================
 */
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
-
 int				ft_strcmp(const char *s1, const char *s2);
 void			ft_strdel(char **str);
 char			*ft_strndup(const char *src, size_t n);
 char			*ft_strjoin_free(char *s1, char *s2, int param);
+int				get_next_line(int fd, char **line);
 int				ft_atoi_base(char *str, char *base);
 char			*ft_itoa_base(unsigned int nbr, char *base);
 char			*convert_base(char *nbr, char *base_from, char *base_to);
@@ -68,4 +65,5 @@ double			ft_sqrt(double nb);
 void			ft_swap_int(int *a, int *b);
 void			ft_swap_dbl(double *a, double *b);
 char			**ft_split_nl(char const *s);
+
 #endif

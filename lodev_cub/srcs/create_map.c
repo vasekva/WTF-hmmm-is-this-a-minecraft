@@ -14,6 +14,7 @@ static int	count_x(t_cub3d *cub)
 		nb++;
 		i++;
 	}
+	printf("COUNTDD: %d\n", nb);
 	i = 0;
 	while (cub->buf.buffer[i] && cub->buf.buffer[i][0] != '1')
 		i++;
@@ -25,6 +26,7 @@ static int	count_x(t_cub3d *cub)
 			i++;
 		}
 	}
+	printf("COUNT: %d\n", count);
 	return (count);
 }
 
@@ -35,7 +37,8 @@ void		create_map(t_cub3d *cub)
 
 	cub->map_h = count_x(cub);
 	if (cub->map_h < 3 || !(cub->map = malloc(sizeof(cub->map) * cub->map_h)))
-		display_error(cub, "Map error.\n");
+		exception(EIGHT);
+//		display_error(cub, "Map error.\n");
 	i = 0;
 	while (cub->buf.buffer && cub->buf.buffer[i][0] != '1')
 		i++;
