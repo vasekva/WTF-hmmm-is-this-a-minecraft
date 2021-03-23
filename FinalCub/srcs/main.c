@@ -93,7 +93,9 @@ void	init_cub3d(t_cub3d *cub3d, char *arg)
 	ft_set_buffer(fd, cub3d);
 	ft_check_file(cub3d);
 	ft_read_screen_size(cub3d);
-	init_map(cub3d);
+	 
+	ft_init_map(cub3d);
+	// exit(0);
 	init_vars(cub3d);
 }
 

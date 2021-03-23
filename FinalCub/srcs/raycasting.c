@@ -97,5 +97,5 @@ void	raycasting(t_cub3d *cub3d)
 		cub3d->spr.distbuf[x] = cub3d->wall_dist;
 		x++;
 	}
-	// sprites(cub3d);
+	 ft_draw_sprites(cub3d);
 }

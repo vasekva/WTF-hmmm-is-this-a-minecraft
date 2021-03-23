@@ -173,7 +173,12 @@ typedef struct		s_bmp
 	int				fd;
 }					t_bmp;
 
-void		print_structs(t_cub3d *cub3d);
+void	ft_init_map(t_cub3d *cub3d);
+	int 	is_map_symbol(char c);
+	int 	is_map_line(char *line);
+
+void	print_structs(t_cub3d *cub3d);
+void	ft_found_and_fill_map(t_cub3d *cub3d);
 
 /*
 **	COLORS.C
@@ -197,6 +202,11 @@ void		print_structs(t_cub3d *cub3d);
 **	FT_DRAW_FLOOR.C
 */
 	void	ft_draw_floor(t_cub3d *cub3d, int x);
+
+/*
+**	FT_DRAW_SPRITES.C
+*/
+	void	ft_draw_sprites(t_cub3d *cub);
 
 /*
 **	FT_DRAW_WALLS.C
@@ -263,11 +273,6 @@ void		print_structs(t_cub3d *cub3d);
 ** 	GET_NEXT_LINE.C
 */
 	int	get_next_line(int fd, char **line);
-
-/*
-**	INIT_MAP.C
-*/
-	void	init_map(t_cub3d *cub3d);
 
 /*
 **	INIT_VARS.C

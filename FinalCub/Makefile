@@ -11,7 +11,6 @@ SRCS_NAME		=	main.c				\
 					exception.c			\
 					get_next_line.c		\
 					ft_check_file.c		\
-					init_map.c			\
 					ft_check_map.c		\
 					init_vars.c			\
 					event_handle.c		\
@@ -29,7 +28,10 @@ SRCS_NAME		=	main.c				\
 					ft_move_side.c		\
 					ft_convert_bmp.c	\
 					ft_free_all.c		\
-
+					ft_draw_sprites.c	\
+					ft_init_map.c		\
+					ft_count_mapline.c	\
+					
 OBJS_NAME		= $(SRCS_NAME:.c=.o)
 
 SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_NAME))

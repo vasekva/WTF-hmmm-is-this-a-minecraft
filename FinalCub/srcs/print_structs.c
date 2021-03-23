@@ -6,7 +6,7 @@ void		print_structs(t_cub3d *cub3d)
 	printf("===============================\n\n");
 
 	for (int i = 0; i < cub3d->map_h; i++)
-		printf("%s\n", cub3d->map[i]);
+		printf("%s||\n", cub3d->map[i]);
 
 	printf("===============================\n\n");
 

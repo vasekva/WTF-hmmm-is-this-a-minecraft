@@ -1,107 +1,135 @@
 #include "cub3d.h"
 
-static int	check_size(t_cub3d *cub3d)
+int		ft_check_firstspaces(t_cub3d *cub3d, int ind)
 {
-	int	x;
-	int	y;
+	int i;
 
-	x = 0;
-	y = 0;
-	if (cub3d->map_h < 3)
-		return (-1);
-	while (x < cub3d->map_h)
+	i = 0;
+	while (cub3d->map[ind][i] == ' ')
 	{
-		while (cub3d->map[x][y])
-			y++;
-		if (y < 3)
-			return (-1);
-		y = 0;
-		x++;
-	}
-	return (1);
-}
-
-static int	check_edges(t_cub3d *cub3d)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (cub3d->map[0][y] && cub3d->map[cub3d->map_h - 1][y])
-	{
-		if (cub3d->map[0][y] != '1' || cub3d->map[cub3d->map_h - 1][y] != '1')
-			return (-1);
-		y++;
-	}
-	while (x < cub3d->map_h)
-	{
-		if (cub3d->map[x][0] != '1'
-			|| cub3d->map[x][ft_strlen(cub3d->map[x]) - 1] != '1')
-			return (-1);
-		x++;
-	}
-	return (1);
-}
-
-static int	check_inside(t_cub3d *cub3d)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (x < cub3d->map_h)
-	{
-		while (cub3d->map[x][y])
+		if (cub3d->map[ind][i + 1] == '0' || cub3d->map[ind][i + 1] == '2')
 		{
-			if (cub3d->map[x][y] != '0' && cub3d->map[x][y] != '1'
-				&& cub3d->map[x][y] != '2' && cub3d->map[x][y] != 'N'
-				&& cub3d->map[x][y] != 'S' && cub3d->map[x][y] != 'E'
-				&& cub3d->map[x][y] != 'W')
-				return (-1);
-			y++;
+			printf("%s %d\n", cub3d->map[ind], ind);
+			exception(NINE);
 		}
-		y = 0;
-		x++;
+		if (ind != 0 && (cub3d->map[ind - 1][i] == '0' || cub3d->map[ind - 1][i] == '2'))
+		{
+			printf("%s %d\n", cub3d->map[ind], ind);
+			exception(NINE);
+		}
+		if ((ind != cub3d->map_h - 1) && (cub3d->map[ind + 1][i] == '0' || cub3d->map[ind + 1][i] == '2'))
+		{
+			printf("%s %d\n", cub3d->map[ind], ind);
+			exception(NINE);
+		}
+		i++;
 	}
-	return (1);
+	return (i);
 }
 
-static int	check_position(t_cub3d *cub)
+void	ft_check_top_bot_line(t_cub3d *cub3d)
 {
-	int	x;
-	int	y;
-	int	count;
+	int i;
+	int ind;
 
-	x = 0;
-	y = 0;
-	count = 0;
-	while (x < cub->map_h)
+	ind = 0;
+	i = ft_check_firstspaces(cub3d, ind);
+	while (cub3d->map[ind][i])
 	{
-		while (cub->map[x][y])
+		if (cub3d->map[ind][i] != '1' && cub3d->map[ind][i] != ' ')
 		{
-			if (cub->map[x][y] == 'N' || cub->map[x][y] == 'S'
-				|| cub->map[x][y] == 'E' || cub->map[x][y] == 'W')
-				count++;
-			y++;
+			printf("%s %d\n", cub3d->map[ind], ind);
+			exception(NINE);
 		}
-		y = 0;
-		x++;
+		i++;
 	}
-	if (count != 1)
-		return (-1);
-	return (1);
+	ind = cub3d->map_h - 1;
+	i = ft_check_firstspaces(cub3d, ind);
+	while (cub3d->map[ind][i])
+	{
+		if (cub3d->map[ind][i] != '1' && cub3d->map[ind][i] != ' ')
+		{
+			printf("%s %d\n", cub3d->map[ind], ind);
+			exception(NINE);
+		}
+		i++;
+	}	
+}
+
+void	ft_check_middle_lines(t_cub3d *cub3d)
+{
+	int	i;
+	int	ind;
+
+	ind = 1;
+	while (ind != cub3d->map_h - 2)
+	{
+		i = ft_check_firstspaces(cub3d, ind);
+		if (cub3d->map[ind][i] != '1')
+		{
+			printf("%s %d\n", cub3d->map[ind], ind);
+			exception(NINE);
+		}
+		while (cub3d->map[ind][i])
+		{
+			if (cub3d->map[ind][i] != '1')
+			{
+				if (cub3d->map[ind][i] != ' ')
+				{
+					if (cub3d->map[ind - 1][i] == ' ' || cub3d->map[ind + 1][i] == ' '
+						|| cub3d->map[ind][i - 1] == ' ' || cub3d->map[ind][i + 1] == ' ')
+					{
+						printf("%s %d\n", cub3d->map[ind], ind);
+						exception(TWENTYFIVE);
+					}
+				}
+			}
+			i++;
+		}
+		ind++;
+	}
+}
+
+void	ft_check_symbols_inside(t_cub3d *cub3d)
+{
+	int		i;
+	int		ind;
+	int		has_player;
+	char	c;
+
+	i = 0;
+	ind = 1;
+	has_player = 0;
+	c = 0;
+	while (ind != cub3d->map_h - 2)
+	{
+		while (cub3d->map[ind][i])
+		{
+			c = cub3d->map[ind][i];
+			// printf("%c", c);
+			if (!is_map_symbol(c))
+			{
+				printf("%s %d\n", cub3d->map[ind], ind);
+				exception(TEN);
+			}
+			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+			{
+				if (has_player == 1)
+					exception(ELEVEN);
+				has_player = 1;
+			}
+			i++;
+		}
+		i = 0;
+		// printf("\n");
+		// printf("%s\n", cub3d->map[ind]);
+		ind++;
+	}
 }
 
 void	ft_check_map(t_cub3d *cub3d)
 {
-	if (check_size(cub3d) != 1)
-		exception(SEVEN);
-	if (check_edges(cub3d) != 1)
-		exception(NINE);
-	if (check_inside(cub3d) != 1)
-		exception(TEN);
-	if (check_position(cub3d) != 1)
-		exception(ELEVEN);
+	ft_check_top_bot_line(cub3d);
+	ft_check_middle_lines(cub3d);
+	ft_check_symbols_inside(cub3d);
 }
