@@ -15,7 +15,7 @@
 # define TWELVE			"Ошибка при инициализации окна!"
 # define THIRTEEN		"Текстура не найдена!"
 # define FOURTEEN		"Ошибка при вызове mlx_get_data_addr!"
-# define FIFTEEN		"Неверный формат цвета! Шаблон формата: R,G,B"
+# define FIFTEEN		"Неверный формат цвета! Шаблон формата: R,G,B и могут быть разделены пробелами"
 # define SIXTEEN		"Отсутствует красный цвет!"
 # define SEVENTEEN		"Отсутствует зеленый цвет!"
 # define EIGHTEEN		"Отсутствует синий цвет!"
@@ -26,5 +26,8 @@
 # define TWENTYTHREE	"Недопустимые символы в строке!"
 # define TWENTYFOUR		"В конфиге присутствует несколько карт!"
 # define TWENTYFIVE		"Символ не равный стене или пробелу имеет рядом пробел!" 
+# define TWENTYSIX		"Значение цвета не может быть больше 255!"
+# define TWENTYSEVEN	"Значение цвета не может быть отрицательным!"
+# define TWENTYEIGHT	"Неверные символы в строке цвета!"
 
 #endif

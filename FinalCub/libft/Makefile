@@ -16,6 +16,8 @@ PART2				=	ft_memset.c			\
 						ft_atoi_base.c		\
 						ft_itoa_base.c		\
 						ft_power.c			\
+						ft_isdigit.c		\
+						ft_substr.c			\
 
 SRCS				=	$(PART2)
 

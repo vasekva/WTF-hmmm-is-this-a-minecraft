@@ -102,6 +102,14 @@ typedef struct	s_sprite
 	int			tsp_y;
 }				t_sprite;
 
+
+typedef struct		s_clr
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_clr;
+
 typedef	struct	s_cub3d
 {
 	void		*mlx_ptr;
@@ -159,7 +167,7 @@ typedef	struct	s_cub3d
 	int			bit_pix;
 
 	int			screenshot;
-
+	t_clr		color;
 }				t_cub3d;
 
 typedef struct		s_bmp
@@ -173,6 +181,12 @@ typedef struct		s_bmp
 	int				fd;
 }					t_bmp;
 
+
+
+
+int		ft_parse_color(char *line, int ind, t_cub3d *cub3d);
+
+
 void	ft_init_map(t_cub3d *cub3d);
 	int 	is_map_symbol(char c);
 	int 	is_map_line(char *line);
@@ -180,10 +194,6 @@ void	ft_init_map(t_cub3d *cub3d);
 void	print_structs(t_cub3d *cub3d);
 void	ft_found_and_fill_map(t_cub3d *cub3d);
 
-/*
-**	COLORS.C
-*/
-	void	assign_color(t_cub3d *cub3d, char *line, int ind);
 
 /*
 **	FT_UTILS_FOR_DRAW.C

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	assign_path_tex(t_cub3d *cub, char *line, int ind)
+static void	assign_path_tex(t_cub3d *cub3d, char *line, int ind)
 {
 	int	i;
 
@@ -12,13 +12,13 @@ static void	assign_path_tex(t_cub3d *cub, char *line, int ind)
 		i++;
 	if (line[i] >= '0' && line[i] <= '9')
 	{
-		assign_color(cub, &line[i], ind);
-		cub->tex[ind].texture = 0;
+		ft_parse_color(line, ind, cub3d);
+		cub3d->tex[ind].texture = 0;
 	}
 	else
 	{
-		cub->tex[ind].tex_path = ft_strtrim(&line[i], " ");
-		cub->tex[ind].texture = 1;
+		cub3d->tex[ind].tex_path = ft_strtrim(&line[i], " ");
+		cub3d->tex[ind].texture = 1;
 	}
 }
 

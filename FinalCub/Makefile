@@ -16,7 +16,6 @@ SRCS_NAME		=	main.c				\
 					event_handle.c		\
 					exit.c				\
 					ft_read_textures.c	\
-					colors.c			\
 					ft_start_game.c		\
 					raycasting.c		\
 					ft_draw.c			\
@@ -30,7 +29,8 @@ SRCS_NAME		=	main.c				\
 					ft_free_all.c		\
 					ft_draw_sprites.c	\
 					ft_init_map.c		\
-					ft_count_mapline.c	\
+					ft_found_and_fill_map.c \
+					ft_parse_color.c	\
 					
 OBJS_NAME		= $(SRCS_NAME:.c=.o)
 

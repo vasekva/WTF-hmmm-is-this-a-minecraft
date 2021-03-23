@@ -105,6 +105,9 @@ static int	create_window(t_cub3d *cub3d)
 	if (!cub3d->mlx_ptr)
 		return (0);
 	ft_read_textures(cub3d);
+
+	// exit(0);
+
 	cub3d->image = mlx_new_image(cub3d->mlx_ptr, cub3d->res_x, cub3d->res_y);
 	if (!cub3d->image)
 		return (0);
@@ -136,7 +139,7 @@ int	main(int argc, char **argv)
 		flag = create_window(&cub3d);
 		if (!flag)
 			exception(TWELVE);
-		print_structs(&cub3d);
+		// print_structs(&cub3d); // REMOVE
 		mlx_hook(cub3d.win_ptr, 17, 0L, exit_prog, &cub3d);
 		mlx_hook(cub3d.win_ptr, 2, (1L << 0), key_press, &cub3d);
 		mlx_hook(cub3d.win_ptr, 3, (1L << 1), key_release, &cub3d);

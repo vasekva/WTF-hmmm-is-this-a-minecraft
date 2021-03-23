@@ -4,8 +4,9 @@ NO                textures/memes/cat2.xpm
 EA          textures/memes/cat4.xpm
 WE    textures/memes/cat3.xpm
 S           textures/wolf/s_dog.xpm
-C       0,     255,        0
-F       255,        0,      0
+C textures/c_sky2.xpm
+
+F textures/w_whitebrick.xpm
 
                1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
           1 1 1 11111111111111111111111111 1
