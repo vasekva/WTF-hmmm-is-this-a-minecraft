@@ -187,7 +187,14 @@ typedef struct		s_bmp
 int		ft_parse_color(char *line, int ind, t_cub3d *cub3d);
 
 
-void	ft_init_map(t_cub3d *cub3d);
+/*
+** FT_UTILS_FOR_COLOR.C
+*/
+	int	create_rgb(int r, int g, int b);
+	int	ft_parse_int(char *str);
+
+
+	void	ft_init_map(t_cub3d *cub3d);
 	int 	is_map_symbol(char c);
 	int 	is_map_line(char *line);
 
