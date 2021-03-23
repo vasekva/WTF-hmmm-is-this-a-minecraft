@@ -52,23 +52,65 @@ void	init(t_cub3d *cub3d)
 	ft_memset(&cub3d->spr, 0, sizeof(t_sprite));
 }
 
+int	ft_read_width(char *str, int c, t_cub3d *cub3d)
+{
+	int	len;
+
+	len = 0;
+	while (str[c] == ' ')
+		c++;
+	if (!ft_isdigit(str[c]))
+	{
+		if (str[c] == '-')
+			exception(SIX);
+		else
+			exception(THIRTY);
+	}
+	while (ft_isdigit(str[c]))
+	{
+		len++;
+		c++;
+	}
+	cub3d->res_x = ft_parse_int(ft_substr(str, c - len, len));
+	return (c);
+}
+
+int	ft_read_height(char *str, int c, t_cub3d *cub3d)
+{
+	int	len;
+
+	len = 0;
+	while (str[c] == ' ')
+		c++;
+	if (!ft_isdigit(str[c]))
+	{
+		if (str[c] == '-')
+			exception(SIX);
+		else
+			exception(THIRTY);
+	}
+	while (ft_isdigit(str[c]))
+	{
+		len++;
+		c++;
+	}
+	cub3d->res_y = ft_parse_int(ft_substr(str, c - len, len));
+	while (str[c])
+	{
+		if (str[c] != ' ')
+			exception(THIRTY);
+		c++;
+	}
+	return (c);
+}
+
 void	ft_read_screen_size(t_cub3d *cub3d)
 {
-	int	i;
-	int	j;
+	int	c;
 
-	i = 0;
-	while (cub3d->buf.buffer[i] && cub3d->buf.buffer[i][0] != 'R')
-		i++;
-	j = 1;
-	cub3d->res_x = ft_atoi(&cub3d->buf.buffer[i][j]);
-	while (cub3d->buf.buffer[i][j] && cub3d->buf.buffer[i][j] == ' ')
-		j++;
-	while (cub3d->buf.buffer[i][j]
-		&& (cub3d->buf.buffer[i][j] >= '0'
-			&& cub3d->buf.buffer[i][j] <= '9'))
-		j++;
-	cub3d->res_y = ft_atoi(&cub3d->buf.buffer[i][j]);
+	c = 1;
+	c = ft_read_width(cub3d->buf.buffer[0], c, cub3d);
+	c = ft_read_height(cub3d->buf.buffer[0], c, cub3d);
 	if (cub3d->res_x > 2560)
 		cub3d->res_x = 2560;
 	if (cub3d->res_y > 1440)
@@ -79,12 +121,15 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 
 void	init_cub3d(t_cub3d *cub3d, char *arg)
 {
-	int	fd;
+	int		fd;
+	char	*check;
 
 	init(cub3d);
 	if (!ft_check_fileformat(arg))
 		exception(ONE);
 	fd = open(arg, O_RDONLY);
+	if (read(fd, check, 0) < 0)
+		exception(THIRTYONE);
 	if (fd < 0)
 	{
 		close(fd);
@@ -93,6 +138,7 @@ void	init_cub3d(t_cub3d *cub3d, char *arg)
 	ft_set_buffer(fd, cub3d);
 	ft_check_file(cub3d);
 	ft_read_screen_size(cub3d);
+	printf("%d %d\n", cub3d->res_x, cub3d->res_y);
 	ft_init_map(cub3d);
 	init_vars(cub3d);
 }

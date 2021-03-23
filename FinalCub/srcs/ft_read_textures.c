@@ -8,8 +8,12 @@ static void	assign_path_tex(t_cub3d *cub3d, char *line, int ind)
 	while (line[i]
 		&& (line[i] == 'N' || line[i] == 'O' || line[i] == 'S'
 			|| line[i] == 'W' || line[i] == 'E' || line[i] == 'A'
-			|| line[i] == 'F' || line[i] == 'C' || line[i] == ' '))
+			|| line[i] == 'F' || line[i] == 'C'))
 		i++;
+	if (line[i] != ' ')
+		exception(TWENTYNINE);
+	while (line[i] == ' ')
+		i++;	
 	if (line[i] >= '0' && line[i] <= '9')
 	{
 		ft_parse_color(line, ind, cub3d);

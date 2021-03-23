@@ -1,7 +1,7 @@
-R 1200 900 
+R 1200 900   
 
 SO textures/wolf/mossy.xpm
-NO textures/wolf/redbrick.xpm
+NO    textures/wolf/redbrick.xpm
 EA textures/wolf/wood.xpm
 WE textures/wolf/bluestone.xpm
 
@@ -9,7 +9,7 @@ S textures/wolf/s_dog.xpm
 
 C textures/c_sky2.xpm
 
-F textures/w_whitebrick.xpm
+F textures/w_whitebrick.xpm 
 
 11111
 11N11
