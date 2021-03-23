@@ -112,6 +112,7 @@ typedef struct		s_clr
 
 typedef	struct	s_cub3d
 {
+	char		*path;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*image;

@@ -18,22 +18,44 @@ static	int	ft_check_fileformat(char *argument)
 	return (0);
 }
 
+
 void	ft_set_buffer(int fd, t_cub3d *cub3d)
 {
 	char	*line;
+	char	*check;
 	int		cwr;
+	int		i;
 
-	cub3d->buf.content = ft_strdup("");
+	i = 0;
 	while (1)
 	{
 		cwr = get_next_line(fd, &line);
+		i++;
 		if (cwr == 0)
 			break ;
-		cub3d->buf.content = ft_strjoin(cub3d->buf.content, line, 2);
-		cub3d->buf.content = ft_strjoin(cub3d->buf.content, "\n", 1);
 	}
-	cub3d->buf.content = ft_strjoin(cub3d->buf.content, line, 2);
-	cub3d->buf.buffer = ft_split_nl(cub3d->buf.content);
+	cub3d->buf.buffer = malloc(sizeof(char *) * (i + 1));
+	cub3d->buf.buffer[i] = NULL;
+	close(fd);
+	i = 0;
+
+	fd = open(cub3d->path, O_RDONLY);
+	if (read(fd, check, 0) < 0)
+		exception(THIRTYONE);
+	if (fd < 0)
+	{
+		close(fd);
+		exception(TWO);
+	}
+	while (1)
+	{
+		cwr = get_next_line(fd, &line);
+		cub3d->buf.buffer[i] = ft_strdup(line);
+		free(line);
+		if (cwr == 0)
+			break ;
+		i++;
+	}
 	close(fd);
 }
 
@@ -119,15 +141,15 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 		exception(SIX);
 }
 
-void	init_cub3d(t_cub3d *cub3d, char *arg)
+void	init_cub3d(t_cub3d *cub3d)
 {
 	int		fd;
 	char	*check;
 
 	init(cub3d);
-	if (!ft_check_fileformat(arg))
+	if (!ft_check_fileformat(cub3d->path))
 		exception(ONE);
-	fd = open(arg, O_RDONLY);
+	fd = open(cub3d->path, O_RDONLY);
 	if (read(fd, check, 0) < 0)
 		exception(THIRTYONE);
 	if (fd < 0)
@@ -136,9 +158,9 @@ void	init_cub3d(t_cub3d *cub3d, char *arg)
 		exception(TWO);
 	}
 	ft_set_buffer(fd, cub3d);
+	int i = 0;
 	ft_check_file(cub3d);
 	ft_read_screen_size(cub3d);
-	printf("%d %d\n", cub3d->res_x, cub3d->res_y);
 	ft_init_map(cub3d);
 	init_vars(cub3d);
 }
@@ -174,7 +196,10 @@ int	main(int argc, char **argv)
 	flag = 0;
 	if (argc > 1)
 	{
-		init_cub3d(&cub3d, argv[1]);
+		cub3d.path = ft_strdup(argv[1]);
+		if (!cub3d.path)
+			exception(THIRTYTWO);
+		init_cub3d(&cub3d);
 		if (argc == 3 && !ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
 			cub3d.screenshot = 1;
 		flag = create_window(&cub3d);
