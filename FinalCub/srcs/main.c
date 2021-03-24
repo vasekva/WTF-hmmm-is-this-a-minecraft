@@ -129,10 +129,18 @@ int	ft_read_height(char *str, int c, t_cub3d *cub3d)
 void	ft_read_screen_size(t_cub3d *cub3d)
 {
 	int	c;
+	int	i;
 
+	i = 0;
+	while (cub3d->buf.buffer[i])
+	{
+		if (cub3d->buf.buffer[i][0] == 'R')
+			break ;
+		i++;
+	}
 	c = 1;
-	c = ft_read_width(cub3d->buf.buffer[0], c, cub3d);
-	c = ft_read_height(cub3d->buf.buffer[0], c, cub3d);
+	c = ft_read_width(cub3d->buf.buffer[i], c, cub3d);
+	c = ft_read_height(cub3d->buf.buffer[i], c, cub3d);
 	if (cub3d->res_x > 2560)
 		cub3d->res_x = 2560;
 	if (cub3d->res_y > 1440)
