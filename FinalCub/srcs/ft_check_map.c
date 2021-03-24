@@ -9,19 +9,16 @@ int	ft_check_firstspaces(t_cub3d *cub3d, int ind)
 	{
 		if (cub3d->map[ind][i + 1] == '0' || cub3d->map[ind][i + 1] == '2')
 		{
-			printf("%s %d\n", cub3d->map[ind], ind);
 			exception(NINE);
 		}
 		if (ind != 0
 			&& (cub3d->map[ind - 1][i] == '0' || cub3d->map[ind - 1][i] == '2'))
 		{
-			printf("%s %d\n", cub3d->map[ind], ind);
 			exception(NINE);
 		}
 		if ((ind != cub3d->map_h - 1)
 			&& (cub3d->map[ind + 1][i] == '0' || cub3d->map[ind + 1][i] == '2'))
 		{
-			printf("%s %d\n", cub3d->map[ind], ind);
 			exception(NINE);
 		}
 		i++;
@@ -40,7 +37,6 @@ void	ft_check_top_bot_line(t_cub3d *cub3d)
 	{
 		if (cub3d->map[ind][i] != '1' && cub3d->map[ind][i] != ' ')
 		{
-			printf("%s %d\n", cub3d->map[ind], ind);
 			exception(NINE);
 		}
 		i++;
@@ -51,7 +47,6 @@ void	ft_check_top_bot_line(t_cub3d *cub3d)
 	{
 		if (cub3d->map[ind][i] != '1' && cub3d->map[ind][i] != ' ')
 		{
-			printf("%s %d\n", cub3d->map[ind], ind);
 			exception(NINE);
 		}
 		i++;
@@ -69,7 +64,6 @@ void	ft_check_middle_lines(t_cub3d *cub3d)
 		i = ft_check_firstspaces(cub3d, ind);
 		if (cub3d->map[ind][i] != '1')
 		{
-			printf("%s %d\n", cub3d->map[ind], ind);
 			exception(NINE);
 		}
 		while (cub3d->map[ind][i])
@@ -100,7 +94,6 @@ void	ft_check_symbols_inside(t_cub3d *cub3d, int i, int ind)
 			c = cub3d->map[ind][i];
 			if (!is_map_symbol(c))
 			{
-				printf("%s %d\n", cub3d->map[ind], ind);
 				exception(TEN);
 			}
 			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')

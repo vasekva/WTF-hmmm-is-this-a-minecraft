@@ -6,6 +6,8 @@ SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./objs/
 LIBFT_DIR		=	./libft/
 LIBRARY			=	./libft/libft.a
+MLX_DIR			=	./mlx/
+MLX_LIB			=	./mlx/libmlx.a
 
 SRCS_NAME		=	main.c					\
 					exception.c				\
@@ -44,28 +46,30 @@ CFLAGS			= -Wall -Wextra -Werror
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 all:				$(NAME)
-					echo	"\033[32m===	CUB3D COMPILATION...	===\033[0m"
-					$(MAKE)	-C	$(LIBFT_DIR)
-					$(CC)	$(LIBRARY)	-o	$(NAME)	$(OBJS)	$(MLX_FLAGS)
-					echo	"\033[32m===	CUB3D COMPILATION OK	===\033[0m"
 
 $(NAME):			$(OBJS)
+					@echo	"\033[1m\033[35m===	CUB3D COMPILATION...	===\033[0m"
+					@($(MAKE) -C	$(MLX_DIR))
+					@($(MAKE)	-C	$(LIBFT_DIR))
+					@($(CC)	$(LIBRARY)	$(MLX_LIB)	-o	$(NAME)	$(OBJS)	$(MLX_FLAGS))
+					@echo	"\033[32m===	CUB3D COMPILATION OK	===\033[0m"
+					@echo
 
 $(OBJS):			$(SRCS)
-					$(CC)	$(INCLUDES)	-c	$(SRCS)
-					mv		$(OBJS_NAME)	$(OBJS_DIR)
+					@($(CC)	$(INCLUDES)	-c	$(SRCS))
+					@(mv		$(OBJS_NAME)	$(OBJS_DIR))
 clean:
-					@echo	"\033[34m===	ВЫПОЛНЯЕТСЯ УДАЛЕНИЕ OBJS ФАЙЛОВ...	===\033[0m"
-					make -C ./libft/
-					rm -rf	$(OBJS)
-					@echo	"\033[34m===			OBJS ФАЙЛЫ УДАЛЕНЫ			===\033[0m"
+					@(make	clean -C $(LIBFT_DIR))
+					@(make	clean -C $(MLX_DIR))
+					@(rm -rf	$(OBJS))
+					@echo	"\033[33m===	CUB3D ./OBJS/ CLEANED	===\033[0m"
 
 fclean:				clean
-					@echo	"\033[34m===	ВЫПОЛНЯЕТСЯ ЧИСТКА БИБЛЕОТЕК...		===\033[0m"
-					rm	-rf	$(NAME)
-					make	fclean	-C	$(LIBFT_DIR)
-					make	clean	-C	./mlx/
-					@echo	"\033[34m===	ВСЕ СОЗДАННЫЕ ФАЙЛЫ УСПЕШНО УДАЛЕНЫ	===\033[0m"
+					@(rm	-rf	$(NAME))
+					@(rm	-rf	$(LIBRARY))
+					@echo	"\033[33m===	LIBRARY LIBFT CLEANED	===\033[0m"
+					@echo	"\033[31m\033[1m${RED}===	ВСЕ СОЗДАННЫЕ ФАЙЛЫ УСПЕШНО УДАЛЕНЫ	===\033[0m"
+					@echo
 
 re:					fclean all
 

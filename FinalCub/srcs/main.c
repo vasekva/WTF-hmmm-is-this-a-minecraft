@@ -130,6 +130,8 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 {
 	int	c;
 	int	i;
+	int	screen_w;
+	int	screen_h;
 
 	i = 0;
 	while (cub3d->buf.buffer[i])
@@ -141,10 +143,11 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 	c = 1;
 	c = ft_read_width(cub3d->buf.buffer[i], c, cub3d);
 	c = ft_read_height(cub3d->buf.buffer[i], c, cub3d);
-	if (cub3d->res_x > 2560)
-		cub3d->res_x = 2560;
-	if (cub3d->res_y > 1440)
-		cub3d->res_y = 1440;
+	mlx_get_screen_size(&screen_w, &screen_h);
+	if (cub3d->res_x > screen_w)
+		cub3d->res_x = screen_w;
+	if (cub3d->res_y > screen_h)
+		cub3d->res_y = screen_h;
 	if (cub3d->res_x <= 0 || cub3d->res_y <= 0)
 		exception(SIX);
 }
@@ -219,12 +222,6 @@ void	init_cub3d(t_cub3d *cub3d)
 	}
 	ft_set_buffer(fd, cub3d);
 	ft_check_params(cub3d);
-	int i = 0;
-	while (cub3d->buf.buffer[i])
-	{
-		printf("%s\n", cub3d->buf.buffer[i]);
-		i++;
-	}
 	ft_check_file(cub3d);
 	ft_read_screen_size(cub3d);
 	ft_init_map(cub3d);
@@ -268,13 +265,6 @@ int	main(int argc, char **argv)
 		init_cub3d(&cub3d);
 		if (argc == 3 && !ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
 			cub3d.screenshot = 1;
-
-		// int i = 0;	
-		// while (cub3d.buf.buffer[i])
-		// {
-		// 	printf("%s\n", cub3d.buf.buffer[i]);
-		// 	i++;
-		// }	
 		flag = create_window(&cub3d);
 		if (!flag)
 			exception(TWELVE);

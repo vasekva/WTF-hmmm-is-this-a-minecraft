@@ -20,7 +20,7 @@ PART2				=	ft_memset.c			\
 						ft_substr.c			\
 						ft_isprint.c		\
 						ft_isalpha.c		\
-						
+
 SRCS				=	$(PART2)
 
 OBJS_NAME			=	$(SRCS:.c=.o)
@@ -34,10 +34,11 @@ CFLAGS				=	-Wall -Wextra -Werror -I./
 all:					$(NAME)
 
 $(NAME):				$(OBJS)
-						@echo "\033[32m===	COMPILATION LIBFT...	===\033[0m"
+						@echo "\033[1m\033[35m===	COMPILATION LIBFT...	===\033[0m"
 						@ar -rc $(NAME) $(OBJS)
 						@ranlib $(NAME)
 						@echo "\033[32m===	COMPILATION LIBFT OK	===\033[0m"
+						@echo
 
 $(OBJS):				$(SRCS)
 						@($(CC) -c $(SRCS))
@@ -45,11 +46,11 @@ $(OBJS):				$(SRCS)
 
 clean:
 						@(rm -rf $(OBJS))
-						@echo "\033[34m===	LIBFT ./OBJS/ CLEANED	===\033[0m"
+						@echo "\033[33m===	LIBFT ./OBJS/ CLEANED	===\033[0m"
 
 fclean:					clean
 						@(rm -rf $(NAME))
-						@echo "\033[34m===	LIBRARY LIBFT CLEANED	===\033[0m"
+						@echo "\033[33m===	LIBRARY LIBFT CLEANED	===\033[0m"
 
 re:						fclean all
 
