@@ -18,6 +18,8 @@ int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 int		ft_isdigit(int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+int		ft_isprint(int c);
+int		ft_isalpha(int c);
 
 /*
 **================================= PART 2 =====================================

@@ -30,7 +30,7 @@ static int	check_double_elem(char **str, char first, char second)
 	return (1);
 }
 
-static void	ft_check_amount_param(t_cub3d *cub3d)
+static void ft_check_amount_param(t_cub3d *cub3d)
 {
 	if (ft_has_no_param(cub3d->buf.buffer, 'R', ' ') != 1
 		|| ft_has_no_param(cub3d->buf.buffer, 'F', ' ') != 1

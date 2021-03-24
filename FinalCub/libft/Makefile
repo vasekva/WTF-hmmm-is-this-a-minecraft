@@ -18,7 +18,9 @@ PART2				=	ft_memset.c			\
 						ft_power.c			\
 						ft_isdigit.c		\
 						ft_substr.c			\
-
+						ft_isprint.c		\
+						ft_isalpha.c		\
+						
 SRCS				=	$(PART2)
 
 OBJS_NAME			=	$(SRCS:.c=.o)

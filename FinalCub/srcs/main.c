@@ -141,6 +141,58 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 		exception(SIX);
 }
 
+int	is_param(char c)
+{
+	char *params;
+	int i;
+	
+	i = 0;
+	params = "RSNEWCF 1";
+	while (params[i])
+	{
+		if (c == params[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	ft_check_params(t_cub3d *cub3d)
+{
+	int i;
+
+	i = 0;
+	while (cub3d->buf.buffer[i])
+	{
+		if (is_param(cub3d->buf.buffer[i][0]))
+		{
+			if (cub3d->buf.buffer[i][0] == 'R' && cub3d->buf.buffer[i][1] != ' ')
+				exception(THIRTYTHREE);
+			if (cub3d->buf.buffer[i][0] == 'C' && cub3d->buf.buffer[i][1] != ' ')
+				exception(THIRTYTHREE);
+			if (cub3d->buf.buffer[i][0] == 'F' && cub3d->buf.buffer[i][1] != ' ')
+				exception(THIRTYTHREE);
+			if (cub3d->buf.buffer[i][0] == 'W' && cub3d->buf.buffer[i][1] != 'E')
+				exception(THIRTYTHREE);																					
+			if (cub3d->buf.buffer[i][0] == 'S'
+				&& (cub3d->buf.buffer[i][1] != ' ' && cub3d->buf.buffer[i][1] != 'O'))
+				exception(THIRTYTHREE);
+			if (cub3d->buf.buffer[i][0] == 'W' && cub3d->buf.buffer[i][1] != 'E')
+				exception(THIRTYTHREE);
+			if (cub3d->buf.buffer[i][0] == 'N' && cub3d->buf.buffer[i][1] != 'O')
+				exception(THIRTYTHREE);
+			if (cub3d->buf.buffer[i][0] == 'E' && cub3d->buf.buffer[i][1] != 'A')
+				exception(THIRTYTHREE);
+		}
+		else
+		{
+			if (cub3d->buf.buffer[i][0] != '\0')
+				exception(THIRTYTHREE);
+		}
+		i++;
+	}
+}
+
 void	init_cub3d(t_cub3d *cub3d)
 {
 	int		fd;
@@ -158,7 +210,13 @@ void	init_cub3d(t_cub3d *cub3d)
 		exception(TWO);
 	}
 	ft_set_buffer(fd, cub3d);
+	ft_check_params(cub3d);
 	int i = 0;
+	while (cub3d->buf.buffer[i])
+	{
+		printf("%s\n", cub3d->buf.buffer[i]);
+		i++;
+	}
 	ft_check_file(cub3d);
 	ft_read_screen_size(cub3d);
 	ft_init_map(cub3d);
@@ -202,6 +260,13 @@ int	main(int argc, char **argv)
 		init_cub3d(&cub3d);
 		if (argc == 3 && !ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
 			cub3d.screenshot = 1;
+
+		// int i = 0;	
+		// while (cub3d.buf.buffer[i])
+		// {
+		// 	printf("%s\n", cub3d.buf.buffer[i]);
+		// 	i++;
+		// }	
 		flag = create_window(&cub3d);
 		if (!flag)
 			exception(TWELVE);
