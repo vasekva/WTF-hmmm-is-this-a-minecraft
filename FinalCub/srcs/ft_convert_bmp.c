@@ -71,16 +71,20 @@ static void	draw_bmp(t_cub3d *cub, t_bmp *bmp)
 	}
 }
 
-void	ft_convert_bmp(t_cub3d *cub)
+void	ft_convert_bmp(t_cub3d *cub3d)
 {
 	t_bmp	bmp;
-
-	bmp.filesize = 54 + 3 * cub->res_x * cub->res_y;
-	bmp.img = malloc((sizeof(char) * 3 * cub->res_x * cub->res_y));
-	ft_memset(bmp.img, 0, 3 * cub->res_x * cub->res_y);
-	bmp.fd = open("img.bmp", O_CREAT | O_WRONLY, S_IRWXU);
-	init_header(cub, &bmp);
-	draw_bmp(cub, &bmp);
+	
+	if (cub3d->res_x > 16000 || cub3d->res_y > 16000)
+	{
+		exception(cub3d, THIRTYSEVEN);
+	}
+	bmp.filesize = 54 + 3 * cub3d->res_x * cub3d->res_y;
+	bmp.img = malloc((sizeof(char) * 3 * cub3d->res_x * cub3d->res_y));
+	ft_memset(bmp.img, 0, 3 * cub3d->res_x * cub3d->res_y);
+	bmp.fd = open("YourScreenshot.bmp", O_CREAT | O_WRONLY, S_IRWXU);
+	init_header(cub3d, &bmp);
+	draw_bmp(cub3d, &bmp);
 	free(bmp.img);
 	close(bmp.fd);
 }

@@ -197,7 +197,7 @@ int		ft_parse_color(char *line, int ind, t_cub3d *cub3d);
 
 	void	ft_init_map(t_cub3d *cub3d);
 	int 	is_map_symbol(char c);
-	int 	is_map_line(char *line);
+	int 	is_map_line(t_cub3d *cub3d, char *line);
 
 void	print_structs(t_cub3d *cub3d);
 void	ft_found_and_fill_map(t_cub3d *cub3d);
@@ -245,7 +245,7 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 /*
 **	EXCEPTION.C
 */
-	void	exception(char *str);
+	void	exception(t_cub3d *cub3d, char *str);
 
 /*
 **	EXIT.C

@@ -13,7 +13,7 @@ static void	init_cub(t_cub3d *cub3d)
 	cub3d->act.hud = 1;
 	cub3d->spr.distbuf = malloc(sizeof(int *) * cub3d->res_x);
 	if (!cub3d->spr.distbuf)
-		exception(TWENTYTWO);
+		exception(cub3d, TWENTYTWO);
 }
 
 static void	init_position(t_cub3d *cub)

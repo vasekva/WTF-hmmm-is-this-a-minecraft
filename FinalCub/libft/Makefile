@@ -35,21 +35,21 @@ all:					$(NAME)
 
 $(NAME):				$(OBJS)
 						@echo "\033[1m\033[35m===	COMPILATION LIBFT...	===\033[0m"
-						@ar -rc $(NAME) $(OBJS)
-						@ranlib $(NAME)
+						@ar -rc		$(NAME)		$(OBJS)
+						@ranlib		$(NAME)
 						@echo "\033[32m===	COMPILATION LIBFT OK	===\033[0m"
 						@echo
 
 $(OBJS):				$(SRCS)
-						@($(CC) -c $(SRCS))
-						@(mv $(OBJS_NAME) $(OBJS_DIR))
+						@($(CC) -c	$(SRCS))
+						@(mv 		$(OBJS_NAME) $(OBJS_DIR))
 
 clean:
-						@(rm -rf $(OBJS))
+						@(rm -rf	$(OBJS))
 						@echo "\033[33m===	LIBFT ./OBJS/ CLEANED	===\033[0m"
 
 fclean:					clean
-						@(rm -rf $(NAME))
+						@(rm -rf	$(NAME))
 						@echo "\033[33m===	LIBRARY LIBFT CLEANED	===\033[0m"
 
 re:						fclean all

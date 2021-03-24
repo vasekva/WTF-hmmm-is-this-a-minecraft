@@ -41,11 +41,11 @@ void	ft_set_buffer(int fd, t_cub3d *cub3d)
 
 	fd = open(cub3d->path, O_RDONLY);
 	if (read(fd, check, 0) < 0)
-		exception(THIRTYONE);
+		exception(cub3d, THIRTYONE);
 	if (fd < 0)
 	{
 		close(fd);
-		exception(TWO);
+		exception(cub3d, TWO);
 	}
 	while (1)
 	{
@@ -84,15 +84,17 @@ int	ft_read_width(char *str, int c, t_cub3d *cub3d)
 	if (!ft_isdigit(str[c]))
 	{
 		if (str[c] == '-')
-			exception(SIX);
+			exception(cub3d, SIX);
 		else
-			exception(THIRTY);
+			exception(cub3d, THIRTY);
 	}
 	while (ft_isdigit(str[c]))
 	{
 		len++;
 		c++;
 	}
+	if (len > 4)
+		exception(cub3d, THIRTYSEVEN);
 	cub3d->res_x = ft_parse_int(ft_substr(str, c - len, len));
 	return (c);
 }
@@ -107,20 +109,22 @@ int	ft_read_height(char *str, int c, t_cub3d *cub3d)
 	if (!ft_isdigit(str[c]))
 	{
 		if (str[c] == '-')
-			exception(SIX);
+			exception(cub3d, SIX);
 		else
-			exception(THIRTY);
+			exception(cub3d, THIRTY);
 	}
 	while (ft_isdigit(str[c]))
 	{
 		len++;
 		c++;
 	}
+	if (len > 4)
+		exception(cub3d, THIRTYSEVEN);
 	cub3d->res_y = ft_parse_int(ft_substr(str, c - len, len));
 	while (str[c])
 	{
 		if (str[c] != ' ')
-			exception(THIRTY);
+			exception(cub3d, THIRTY);
 		c++;
 	}
 	return (c);
@@ -149,7 +153,7 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 	if (cub3d->res_y > screen_h)
 		cub3d->res_y = screen_h;
 	if (cub3d->res_x <= 0 || cub3d->res_y <= 0)
-		exception(SIX);
+		exception(cub3d, SIX);
 }
 
 int	is_param(char c)
@@ -178,27 +182,27 @@ void	ft_check_params(t_cub3d *cub3d)
 		if (is_param(cub3d->buf.buffer[i][0]))
 		{
 			if (cub3d->buf.buffer[i][0] == 'R' && cub3d->buf.buffer[i][1] != ' ')
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 			if (cub3d->buf.buffer[i][0] == 'C' && cub3d->buf.buffer[i][1] != ' ')
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 			if (cub3d->buf.buffer[i][0] == 'F' && cub3d->buf.buffer[i][1] != ' ')
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 			if (cub3d->buf.buffer[i][0] == 'W' && cub3d->buf.buffer[i][1] != 'E')
-				exception(THIRTYTHREE);																					
+				exception(cub3d, THIRTYTHREE);																					
 			if (cub3d->buf.buffer[i][0] == 'S'
 				&& (cub3d->buf.buffer[i][1] != ' ' && cub3d->buf.buffer[i][1] != 'O'))
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 			if (cub3d->buf.buffer[i][0] == 'W' && cub3d->buf.buffer[i][1] != 'E')
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 			if (cub3d->buf.buffer[i][0] == 'N' && cub3d->buf.buffer[i][1] != 'O')
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 			if (cub3d->buf.buffer[i][0] == 'E' && cub3d->buf.buffer[i][1] != 'A')
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 		}
 		else
 		{
 			if (cub3d->buf.buffer[i][0] != '\0')
-				exception(THIRTYTHREE);
+				exception(cub3d, THIRTYTHREE);
 		}
 		i++;
 	}
@@ -211,14 +215,14 @@ void	init_cub3d(t_cub3d *cub3d)
 
 	init(cub3d);
 	if (!ft_check_fileformat(cub3d->path))
-		exception(ONE);
+		exception(cub3d, ONE);
 	fd = open(cub3d->path, O_RDONLY);
 	if (read(fd, check, 0) < 0)
-		exception(THIRTYONE);
+		exception(cub3d, THIRTYONE);
 	if (fd < 0)
 	{
 		close(fd);
-		exception(TWO);
+		exception(cub3d, TWO);
 	}
 	ft_set_buffer(fd, cub3d);
 	ft_check_params(cub3d);
@@ -237,11 +241,13 @@ static int	create_window(t_cub3d *cub3d)
 	cub3d->image = mlx_new_image(cub3d->mlx_ptr, cub3d->res_x, cub3d->res_y);
 	if (!cub3d->image)
 		return (0);
-	cub3d->img_ptr = mlx_get_data_addr(cub3d->image, &cub3d->bit_pix, \
-									&cub3d->size_line, &cub3d->endian);
+	cub3d->img_ptr = mlx_get_data_addr(cub3d->image, &cub3d->bit_pix,
+		&cub3d->size_line, &cub3d->endian);
 	if (cub3d->screenshot)
 	{
+		write(1, "Creating a screenshot. Wait...\n", 32);
 		ft_convert_bmp(cub3d);
+		write(1, "Done!\n", 7);
 		exit(0);
 	}
 	cub3d->win_ptr
@@ -261,18 +267,24 @@ int	main(int argc, char **argv)
 	{
 		cub3d.path = ft_strdup(argv[1]);
 		if (!cub3d.path)
-			exception(THIRTYTWO);
+			exception(&cub3d, THIRTYTWO);
 		init_cub3d(&cub3d);
-		if (argc == 3 && !ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
+		if (argc == 3 && !flag)
+		{
+			flag = ft_strncmp(argv[2], "--save", ft_strlen(argv[2]));
+			if (flag == 1 || flag == -1)
+				exception(&cub3d, THIRTYSIX);
 			cub3d.screenshot = 1;
+		}
 		flag = create_window(&cub3d);
 		if (!flag)
-			exception(TWELVE);
+			exception(&cub3d, TWELVE);
 		mlx_hook(cub3d.win_ptr, 17, 0L, exit_prog, &cub3d);
 		mlx_hook(cub3d.win_ptr, 2, (1L << 0), key_press, &cub3d);
 		mlx_hook(cub3d.win_ptr, 3, (1L << 1), key_release, &cub3d);
 		mlx_loop_hook(cub3d.mlx_ptr, ft_start_game, &cub3d);
 		mlx_loop(cub3d.mlx_ptr);
+		mlx_do_sync(cub3d.mlx_ptr);
 	}
 	else
 		ft_putstr("Вы не передали аргументы в программу!\n");

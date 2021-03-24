@@ -49,19 +49,19 @@ all:				$(NAME)
 
 $(NAME):			$(OBJS)
 					@echo	"\033[1m\033[35m===	CUB3D COMPILATION...	===\033[0m"
-					@($(MAKE) -C	$(MLX_DIR))
-					@($(MAKE)	-C	$(LIBFT_DIR))
+					@($(MAKE)	-C		$(MLX_DIR))
+					@($(MAKE)	-C		$(LIBFT_DIR))
 					@($(CC)	$(LIBRARY)	$(MLX_LIB)	-o	$(NAME)	$(OBJS)	$(MLX_FLAGS))
 					@echo	"\033[32m===	CUB3D COMPILATION OK	===\033[0m"
 					@echo
 
 $(OBJS):			$(SRCS)
 					@($(CC)	$(INCLUDES)	-c	$(SRCS))
-					@(mv		$(OBJS_NAME)	$(OBJS_DIR))
+					@(mv	$(OBJS_NAME)	$(OBJS_DIR))
 clean:
-					@(make	clean -C $(LIBFT_DIR))
-					@(make	clean -C $(MLX_DIR))
-					@(rm -rf	$(OBJS))
+					@(make	clean -C	$(LIBFT_DIR))
+					@(make	clean -C	$(MLX_DIR))
+					@(rm -rf			$(OBJS))
 					@echo	"\033[33m===	CUB3D ./OBJS/ CLEANED	===\033[0m"
 
 fclean:				clean

@@ -31,7 +31,7 @@ int	ft_skiplines(t_cub3d *cub3d, char *line, int i)
 	while (cub3d->buf.buffer[i][0] != '0' && cub3d->buf.buffer[i][0] != '1'
 		&& cub3d->buf.buffer[i][0] != '2')
 	{
-		if (cub3d->buf.buffer[i][0] == ' ' && is_map_line(cub3d->buf.buffer[i]))
+		if (cub3d->buf.buffer[i][0] == ' ' && is_map_line(cub3d, cub3d->buf.buffer[i]))
 			break ;
 		i++;
 	}
