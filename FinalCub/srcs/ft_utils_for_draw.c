@@ -47,9 +47,10 @@ void	color_dist(t_cub3d *cub, int ind, double dis)
 	}
 }
 
-void	draw_pix(t_cub3d *cub, int ind, int x, int y)
+void	draw_pix(t_cub3d *cub3d, int ind, int x, int y)
 {
-	if (x >= 0 && x < cub->res_x && y >= 0 && y < cub->res_y)
-		*(int *)(cub->img_ptr + (cub->res_x * y + x) * cub->bit_pix / 8)
-			= cub->tex[ind].color;
+	if (x >= 0 && x < cub3d->res_x && y >= 0 && y < cub3d->res_y)
+		*(int *)(cub3d->mlx->img_ptr + (cub3d->res_x * y + x)
+				* cub3d->mlx->bit_pix / 8)
+			= cub3d->tex[ind].color;
 }

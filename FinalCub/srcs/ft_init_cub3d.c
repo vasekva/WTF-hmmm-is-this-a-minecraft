@@ -52,10 +52,15 @@ void	ft_set_buffer(int fd, t_cub3d *cub3d)
 
 void	ft_init_vars01(t_cub3d *cub3d)
 {
-	cub3d->mlx_ptr = NULL;
-	cub3d->win_ptr = NULL;
-	cub3d->image = NULL;
-	cub3d->img_ptr = NULL;
+	cub3d->mlx = malloc(sizeof(t_mlx));
+	cub3d->mlx->mlx_ptr = NULL;
+	cub3d->mlx->win_ptr = NULL;
+	cub3d->mlx->image = NULL;
+	cub3d->mlx->img_ptr = NULL;
+	cub3d->mlx->addr = NULL;
+	cub3d->mlx->bit_pix = 0;
+	cub3d->mlx->size_line = 0;
+	cub3d->mlx->endian = 0;
 	cub3d->c_spr = NULL;
 	ft_memset(&cub3d->buf, 0, sizeof(t_buf));
 	ft_memset(&cub3d->map, 0, sizeof(char **));

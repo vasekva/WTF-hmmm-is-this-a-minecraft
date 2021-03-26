@@ -1,15 +1,15 @@
 R 1920 1080
 
-SO textures/minecraft/cobblestone.xpm
-NO textures/minecraft/diamond_block.xpm
-EA textures/minecraft/plank_birch.xpm
+SO textures/minecraft/w_dark_prismarine.xpm
+NO textures/minecraft/w_stonebrick_cracked.xpm
+EA textures/minecraft/w_nether_brick.xpm
 WE textures/minecraft/черешня.xpm
 
 S textures/wolf/s_dog.xpm
 
 C textures/c_sky2.xpm
 
-F textures/minecraft/podzol_top.xpm
+F textures/f_whitetile.xpm
 
 11111111111111111111111111111
 10000000001100000000000000001

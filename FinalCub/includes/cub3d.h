@@ -110,18 +110,26 @@ typedef struct		s_clr
 	int				b;
 }					t_clr;
 
+typedef struct		s_mlx
+{
+	void			*mlx_ptr;
+	void			*win_ptr;
+	 char			*addr;
+	void			*image;
+	void			*img_ptr;
+	int				bit_pix;
+	int				size_line;
+	int				endian;
+}					t_mlx;
+
+
 typedef	struct	s_cub3d
 {
-	char		*path;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*image;
-	char		*addr;
-	int			bits_pix;
-	int			size_line;
-	int			endian;
+	t_mlx		*mlx;
 
-	void		*img_ptr;
+	char		*path;
+
+	int			bits_pix;
 	t_buf		buf; // структура с прочитанным файлом
 	char		**map;
 	int			map_h; // кол-во строк карты
@@ -164,8 +172,6 @@ typedef	struct	s_cub3d
 	double		wall_x;
 	int			x_coor;
 	int			y_coor;
-
-	int			bit_pix;
 
 	int			screenshot;
 	t_clr		color;

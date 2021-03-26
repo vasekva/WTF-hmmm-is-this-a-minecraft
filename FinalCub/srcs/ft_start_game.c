@@ -8,19 +8,20 @@ int	ft_start_game(t_cub3d *cub3d)
 		|| cub3d->act.r_left == 1 || cub3d->act.r_right == 1)
 		ft_move_side(cub3d);
 	raycasting(cub3d);
-	mlx_put_image_to_window(cub3d->mlx_ptr, cub3d->win_ptr, cub3d->image, 0, 0);
+	mlx_put_image_to_window(cub3d->mlx->mlx_ptr,
+		cub3d->mlx->win_ptr, cub3d->mlx->image, 0, 0);
 	if (cub3d->act.hud == 1)
 	{
-		mlx_string_put(cub3d->mlx_ptr, cub3d->win_ptr, 20, 20, 0xFFFFFF,
-			"W, A, S, D : move");
-		mlx_string_put(cub3d->mlx_ptr, cub3d->win_ptr, 20, 40, 0xFFFFFF,
-			"<- & -> : rotate");
-		mlx_string_put(cub3d->mlx_ptr, cub3d->win_ptr, 20, 60, 0xFFFFFF,
-			"SHIFT : sprint");
-		mlx_string_put(cub3d->mlx_ptr, cub3d->win_ptr, 20, 80, 0xFFFFFF,
-			"H : Hide the menu");
-		mlx_string_put(cub3d->mlx_ptr, cub3d->win_ptr, 20, 100, 0xFFFFFF,
-			"ESC : exit");
+		mlx_string_put(cub3d->mlx->mlx_ptr, cub3d->mlx->win_ptr, 20, 20,
+			0xFFFFFF, "W, A, S, D : move");
+		mlx_string_put(cub3d->mlx->mlx_ptr, cub3d->mlx->win_ptr, 20, 40,
+			0xFFFFFF, "<- & -> : rotate");
+		mlx_string_put(cub3d->mlx->mlx_ptr, cub3d->mlx->win_ptr, 20, 60,
+			0xFFFFFF, "SHIFT : sprint");
+		mlx_string_put(cub3d->mlx->mlx_ptr, cub3d->mlx->win_ptr, 20, 80,
+			0xFFFFFF, "H : Hide the menu");
+		mlx_string_put(cub3d->mlx->mlx_ptr, cub3d->mlx->win_ptr, 20, 100,
+			0xFFFFFF, "ESC : exit");
 	}
 	return (0);
 }

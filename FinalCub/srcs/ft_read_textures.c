@@ -32,7 +32,7 @@ static void	assign_tex(t_cub3d *cub3d, char *line, int i)
 	if (cub3d->tex[i].texture == 1)
 	{
 		cub3d->tex[i].image
-			= mlx_xpm_file_to_image(cub3d->mlx_ptr, cub3d->tex[i].tex_path,
+			= mlx_xpm_file_to_image(cub3d->mlx->mlx_ptr, cub3d->tex[i].tex_path,
 				&cub3d->tex[i].width, &cub3d->tex[i].height);
 		if (!cub3d->tex[i].image)
 			exception(cub3d, THIRTEEN);
