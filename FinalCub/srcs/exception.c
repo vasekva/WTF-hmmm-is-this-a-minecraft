@@ -12,6 +12,5 @@ void	exception(t_cub3d *cub3d, char *str)
 		i++;
 	}
 	write(1, "\n", 1);
-	ft_free_all(cub3d);
 	exit(0);
 }

@@ -21,8 +21,6 @@ char	*ft_add_spaces(char *str, int add)
 		add--;
 		i++;
 	}
-	if (str)
-		free(str);
 	return (dst);
 }
 
@@ -31,30 +29,31 @@ int	ft_skiplines(t_cub3d *cub3d, char *line, int i)
 	while (cub3d->buf.buffer[i][0] != '0' && cub3d->buf.buffer[i][0] != '1'
 		&& cub3d->buf.buffer[i][0] != '2')
 	{
-		if (cub3d->buf.buffer[i][0] == ' ' && is_map_line(cub3d, cub3d->buf.buffer[i]))
+		if (cub3d->buf.buffer[i][0]
+			== ' ' && is_map_line(cub3d, cub3d->buf.buffer[i]))
 			break ;
 		i++;
 	}
 	return (i);
 }
 
-void	ft_fill_map(t_cub3d *cub3d, int i)
+void	ft_fill_map(t_cub3d *cub3d, int i, int len, int ind)
 {
-	int	len;
-	int	ind;
-	int	diff;
+	int		diff;
+	char	*tmp;
 
-	len = 0;
-	ind = 0;
 	diff = 0;
+	tmp = NULL;
 	while (cub3d->buf.buffer[i])
 	{
 		len = ft_strlen(cub3d->buf.buffer[i]);
 		if (len < cub3d->map_w)
 		{
 			diff = cub3d->map_w - len;
+			tmp = ft_add_spaces(cub3d->buf.buffer[i], diff);
 			cub3d->map[ind]
-				= ft_strdup(ft_add_spaces(cub3d->buf.buffer[i], diff));
+				= ft_strdup(tmp);
+			free(tmp);
 		}
 		else
 		{
@@ -82,5 +81,5 @@ void	ft_found_and_fill_map(t_cub3d *cub3d)
 		j++;
 	}
 	cub3d->map_w = len;
-	ft_fill_map(cub3d, i);
+	ft_fill_map(cub3d, i, 0, 0);
 }

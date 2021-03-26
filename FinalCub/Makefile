@@ -14,9 +14,8 @@ SRCS_NAME		=	main.c					\
 					get_next_line.c			\
 					ft_check_file.c			\
 					ft_check_map.c			\
-					init_vars.c				\
+					ft_init_vars02.c		\
 					event_handle.c			\
-					exit.c					\
 					ft_read_textures.c		\
 					ft_start_game.c			\
 					raycasting.c			\
@@ -24,17 +23,20 @@ SRCS_NAME		=	main.c					\
 					ft_draw_walls.c			\
 					ft_draw_floor.c			\
 					ft_utils_for_draw.c		\
-					print_structs.c			\
 					ft_move_forw_bacw.c		\
 					ft_move_side.c			\
 					ft_convert_bmp.c		\
-					ft_free_all.c			\
 					ft_draw_sprites.c		\
 					ft_init_map.c			\
 					ft_found_and_fill_map.c \
 					ft_parse_color.c		\
 					ft_utils_for_color.c	\
-					
+					ft_def_sprites.c		\
+					ft_utils_for_sprites.c	\
+					ft_read_screen_size.c	\
+					ft_check_params.c		\
+					ft_init_cub3d.c			\
+
 OBJS_NAME		= $(SRCS_NAME:.c=.o)
 
 SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_NAME))

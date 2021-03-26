@@ -13,7 +13,7 @@ static void	assign_path_tex(t_cub3d *cub3d, char *line, int ind)
 	if (line[i] != ' ')
 		exception(cub3d, TWENTYNINE);
 	while (line[i] == ' ')
-		i++;	
+		i++;
 	if (line[i] >= '0' && line[i] <= '9')
 	{
 		ft_parse_color(line, ind, cub3d);

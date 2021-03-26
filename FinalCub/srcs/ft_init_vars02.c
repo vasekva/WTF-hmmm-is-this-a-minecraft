@@ -83,36 +83,13 @@ static void	init_plane(t_cub3d *cub3d)
 	cub3d->map[(int)cub3d->pos_x][(int)cub3d->pos_y] = '0';
 }
 
-static void	count_sprites(t_cub3d *cub)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	cub->spr.nb_sprite = 0;
-	while (x < cub->map_h)
-	{
-		y = 0;
-		while (cub->map[x][y])
-		{
-			if (cub->map[x][y] == '2')
-				cub->spr.nb_sprite++;
-			y++;
-		}
-		x++;
-	}
-	cub->c_spr = malloc(sizeof(*cub->c_spr) * cub->spr.nb_sprite);
-	cub->spr.sp_order = malloc(sizeof(int) * cub->spr.nb_sprite);
-	cub->spr.sp_dist = malloc(sizeof(double) * cub->spr.nb_sprite);
-}
-
-void	init_vars(t_cub3d *cub3d)
+void	ft_init_vars02(t_cub3d *cub3d)
 {
 	init_cub(cub3d);
 	init_position(cub3d);
 	init_direction(cub3d);
 	init_plane(cub3d);
-	count_sprites(cub3d);
+	ft_count_sprites(cub3d);
 }
 
 /*

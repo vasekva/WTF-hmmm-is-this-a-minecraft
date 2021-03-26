@@ -98,15 +98,15 @@ void	ft_check_symbols_inside(t_cub3d *cub3d, int i, int ind)
 			}
 			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 			{
-				if (has_player == 1)
-					exception(cub3d, ELEVEN);
-				has_player = 1;
+				has_player += 1;
 			}
 			i++;
 		}
 		i = 0;
 		ind++;
 	}
+	if (has_player > 1 || has_player == 0)
+		exception(cub3d, ELEVEN);
 }
 
 void	ft_check_map(t_cub3d *cub3d)

@@ -8,7 +8,7 @@ static void	set_header(unsigned char *header, int param)
 	header[3] = (unsigned char)(param >> 24);
 }
 
-static void	init_header(t_cub3d *cub, t_bmp *bmp)
+static void	init_header(t_cub3d *cub3d, t_bmp *bmp)
 {
 	int	i;
 
@@ -28,41 +28,42 @@ static void	init_header(t_cub3d *cub, t_bmp *bmp)
 	while (i < 3)
 		bmp->pad[i++] = 0;
 	set_header(&bmp->fileheader[2], bmp->filesize);
-	set_header(&bmp->infoheader[4], cub->res_x);
-	set_header(&bmp->infoheader[8], cub->res_y);
+	set_header(&bmp->infoheader[4], cub3d->res_x);
+	set_header(&bmp->infoheader[8], cub3d->res_y);
 	write(bmp->fd, bmp->fileheader, 14);
 	write(bmp->fd, bmp->infoheader, 40);
 }
 
-static void	get_color_bmp(t_cub3d *cub, t_bmp *bmp, int j)
+static void	get_color_bmp(t_cub3d *cub3d, t_bmp *bmp, int j)
 {
 	int	i;
 	int	x;
 	int	y;
 
 	i = 0;
-	while (i < cub->res_x)
+	while (i < cub3d->res_x)
 	{
 		x = i;
-		y = cub->res_y - 1 - j;
+		y = cub3d->res_y - 1 - j;
 		bmp->color
-			= *(int *)(cub->img_ptr + (cub->res_x * y + x) * cub->bit_pix / 8);
+			= *(int *)
+			(cub3d->img_ptr + (cub3d->res_x * y + x) * cub3d->bit_pix / 8);
 		write(bmp->fd, &bmp->color, 3);
 		i++;
 	}
 }
 
-static void	draw_bmp(t_cub3d *cub, t_bmp *bmp)
+static void	draw_bmp(t_cub3d *cub3d, t_bmp *bmp)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	while (j < cub->res_y)
+	while (j < cub3d->res_y)
 	{
-		get_color_bmp(cub, bmp, j);
+		get_color_bmp(cub3d, bmp, j);
 		i = 0;
-		while (i < (4 - (cub->res_x * 3) % 4) % 4)
+		while (i < (4 - (cub3d->res_x * 3) % 4) % 4)
 		{
 			write(bmp->fd, &bmp->pad, 1);
 			i++;
@@ -74,7 +75,7 @@ static void	draw_bmp(t_cub3d *cub, t_bmp *bmp)
 void	ft_convert_bmp(t_cub3d *cub3d)
 {
 	t_bmp	bmp;
-	
+
 	if (cub3d->res_x > 16000 || cub3d->res_y > 16000)
 	{
 		exception(cub3d, THIRTYSEVEN);

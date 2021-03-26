@@ -67,6 +67,7 @@ static int	ft_read_color(char *str, int i, char value, t_cub3d *cub3d)
 {
 	int		len;
 	int		color;
+	char	*tmp;
 
 	len = 0;
 	i = ft_skip_spaces_and_zeros(cub3d, str, i) - 1;
@@ -74,7 +75,9 @@ static int	ft_read_color(char *str, int i, char value, t_cub3d *cub3d)
 		len++;
 	if (len > 4)
 		exception(cub3d, THIRTYFOUR);
-	color = ft_atoi(ft_substr(str, i - len, len));
+	tmp = ft_substr(str, i - len, len);
+	color = ft_atoi(tmp);
+	free(tmp);
 	if (color > 255)
 	{
 		exception(cub3d, TWENTYSIX);

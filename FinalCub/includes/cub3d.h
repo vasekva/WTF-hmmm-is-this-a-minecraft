@@ -204,6 +204,14 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 
 
 /*
+**	FT_DEF_SPRITES.C
+*/
+	void 	ft_spr_sort(int *order, double *dist, int number);
+	void 	ft_def_spr_dist(t_cub3d *cub3d);
+
+
+
+/*
 **	FT_UTILS_FOR_DRAW.C
 */
 	void	get_color(t_cub3d *cub, int ind, int x, int y);
@@ -263,6 +271,11 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 	void	ft_check_map(t_cub3d *cub3d);
 
 /*
+**	FT_CHECK_PARAMS.C
+*/
+	void	ft_check_params01(t_cub3d *cub3d);
+
+/*
 **	FT_CONVERT_BMP.C
 */
 	void	ft_convert_bmp(t_cub3d *cub3d);
@@ -278,6 +291,11 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 	void	ft_move_side(t_cub3d *cub3d);
 
 /*
+**	FT_READ_SCREENSIZE.C
+*/
+	void	ft_read_screen_size(t_cub3d *cub3d);
+
+/*
 **	FT_READ_TEXTURES.C
 */
 	void	ft_read_textures(t_cub3d *cub3d);
@@ -288,19 +306,33 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 	int	ft_start_game(t_cub3d *cub3d);
 
 /*
+**	FT_UTILS_FOR_SPRITES.C
+*/
+	void	ft_count_sprites(t_cub3d *cub3d);
+
+
+/*
 ** 	GET_NEXT_LINE.C
 */
 	int	get_next_line(int fd, char **line);
 
 /*
-**	INIT_VARS.C
+**	FT_INIT_CUB3D.C
 */
-	void	init_vars(t_cub3d *cub3d);
+	void	ft_init_cub3d(t_cub3d *cub3d);
+
+
+
+/*
+**	FT_INIT_VARS.C
+*/
+	void	ft_init_vars02(t_cub3d *cub3d);
 
 /*
 **	MAIN.C
 */
 	int	main(int argc, char **argv);
+	int	ft_check_fileformat(char *argument);
 
 /*
 **	RAYCASTING.C
