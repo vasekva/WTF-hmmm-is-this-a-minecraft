@@ -5,8 +5,8 @@ void	ft_vector_init(t_cub3d *cub3d, int x)
 	double	camera_x;
 
 	camera_x = (double)(2 * x / (double)cub3d->scr_w) - 1;
-	cub3d->dda2d.raydir_x = cub3d->player.dir_x + cub3d->plane_x * camera_x;
-	cub3d->dda2d.raydir_y = cub3d->player.dir_y + cub3d->plane_y * camera_x;
+	cub3d->dda2d.raydir_x = cub3d->player.dir_x + cub3d->move.plane_x * camera_x;
+	cub3d->dda2d.raydir_y = cub3d->player.dir_y + cub3d->move.plane_y * camera_x;
 	cub3d->dda2d.map_x = cub3d->player.pos_x;
 	cub3d->dda2d.map_y = cub3d->player.pos_y;
 	cub3d->dda2d.delta_dx = fabs(1 / cub3d->dda2d.raydir_x);
@@ -99,7 +99,7 @@ void	raycasting(t_cub3d *cub3d)
 		ft_found_walls(cub3d);
 		ft_calc_distance(cub3d);
 		draw_all(cub3d, x);
-		cub3d->spr.distbuf[x] = cub3d->dda3d.wall_dist;
+		cub3d->sprite.distbuf[x] = cub3d->dda3d.wall_dist;
 		x++;
 	}
 	 ft_draw_sprites(cub3d);

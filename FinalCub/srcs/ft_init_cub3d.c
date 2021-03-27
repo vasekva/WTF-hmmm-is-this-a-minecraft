@@ -20,7 +20,7 @@ int 	ft_fill_buff(t_cub3d *cub3d)
 	while (1)
 	{
 		cwr = get_next_line(fd, &line);
-		cub3d->buf.buffer[i] = ft_strdup(line);
+		cub3d->buff[i] = ft_strdup(line);
 		free(line);
 		if (cwr == 0)
 			break ;
@@ -45,29 +45,27 @@ void	ft_set_buffer(int fd, t_cub3d *cub3d)
 			break ;
 	}
 	close(fd);
-	cub3d->buf.buffer = malloc(sizeof(char *) * (i + 1));
-	cub3d->buf.buffer[i] = NULL;
+	cub3d->buff = malloc(sizeof(char *) * (i + 1));
+	cub3d->buff[i] = NULL;
 	ft_fill_buff(cub3d);
 }
 
 void	ft_init_vars01(t_cub3d *cub3d)
 {
 	cub3d->mlx = malloc(sizeof(t_mlx));
-	cub3d->mlx->mlx_ptr = NULL;
-	cub3d->mlx->win_ptr = NULL;
+	cub3d->mlx->p_mlx = NULL;
+	cub3d->mlx->p_win = NULL;
 	cub3d->mlx->image = NULL;
-	cub3d->mlx->img_ptr = NULL;
-	// cub3d->mlx->addr = NULL;
+	cub3d->mlx->p_img = NULL;
 	cub3d->mlx->bit_pix = 0;
 	cub3d->mlx->size_line = 0;
 	cub3d->mlx->endian = 0;
 	cub3d->c_spr = NULL;
-	ft_memset(&cub3d->buf, 0, sizeof(t_buf));
 	ft_memset(&cub3d->map, 0, sizeof(char **));
 	ft_memset(&cub3d->act, 0, sizeof(t_action));
 	ft_memset(&cub3d->tex, 0, sizeof(t_tex) * 7);
-	ft_memset(&cub3d->flr, 0, sizeof(t_floor));
-	ft_memset(&cub3d->spr, 0, sizeof(t_sprite));
+	ft_memset(&cub3d->floor, 0, sizeof(t_floor));
+	ft_memset(&cub3d->sprite, 0, sizeof(t_sprite));
 }
 
 void	ft_init_cub3d(t_cub3d *cub3d)

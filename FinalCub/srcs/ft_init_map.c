@@ -43,9 +43,9 @@ int	ft_add_mapsize(t_cub3d *cub3d, char *line, int i)
 	size = 0;
 	has_empty_line = 0;
 	c = line[0];
-	if (cub3d->buf.buffer[i][0] == ' ')
+	if (cub3d->buff[i][0] == ' ')
 	{
-		if (is_map_line(cub3d, cub3d->buf.buffer[i]))
+		if (is_map_line(cub3d, cub3d->buff[i]))
 			size++;
 		else
 			has_empty_line = 1;
@@ -66,20 +66,20 @@ int 	ft_count_mapline(t_cub3d *cub3d, int size, int i, char c)
 
 	has_map = 0;
 	has_empty_line = 0;
-	while (cub3d->buf.buffer[i])
+	while (cub3d->buff[i])
 	{
-		c = cub3d->buf.buffer[i][0];
+		c = cub3d->buff[i][0];
 		if (size != 0 && has_map == 0)
 			has_map = 1;
 		if (has_empty_line && has_map
 			&& (c == '1' || c == '2'
-				|| c == '0' || is_map_line(cub3d, cub3d->buf.buffer[i])))
+				|| c == '0' || is_map_line(cub3d, cub3d->buff[i])))
 			exception(cub3d, TWENTYFOUR);
-		if (ft_add_mapsize(cub3d, cub3d->buf.buffer[i], i) == -1)
+		if (ft_add_mapsize(cub3d, cub3d->buff[i], i) == -1)
 			has_empty_line = 1;
-		if (ft_add_mapsize(cub3d, cub3d->buf.buffer[i], i) == 1)
+		if (ft_add_mapsize(cub3d, cub3d->buff[i], i) == 1)
 			size++;
-		if (cub3d->buf.buffer[i][0] == '\0' && has_map)
+		if (cub3d->buff[i][0] == '\0' && has_map)
 			has_empty_line = 1;
 		if (has_empty_line == 1)
 			exception(cub3d, THIRTYFIVE);

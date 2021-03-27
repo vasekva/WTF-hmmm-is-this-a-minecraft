@@ -32,7 +32,7 @@ static void	assign_tex(t_cub3d *cub3d, char *line, int i)
 	if (cub3d->tex[i].texture == 1)
 	{
 		cub3d->tex[i].image
-			= mlx_xpm_file_to_image(cub3d->mlx->mlx_ptr, cub3d->tex[i].tex_path,
+			= mlx_xpm_file_to_image(cub3d->mlx->p_mlx, cub3d->tex[i].tex_path,
 				&cub3d->tex[i].width, &cub3d->tex[i].height);
 		if (!cub3d->tex[i].image)
 			exception(cub3d, THIRTEEN);
@@ -50,22 +50,22 @@ void	ft_read_textures(t_cub3d *cub3d)
 	int	i;
 
 	i = 0;
-	while (cub3d->buf.buffer[i])
+	while (cub3d->buff[i])
 	{
-		if (cub3d->buf.buffer[i][0] == 'S' && cub3d->buf.buffer[i][1] == 'O')
-			assign_tex(cub3d, cub3d->buf.buffer[i], 0);
-		if (cub3d->buf.buffer[i][0] == 'N' && cub3d->buf.buffer[i][1] == 'O')
-			assign_tex(cub3d, cub3d->buf.buffer[i], 1);
-		if (cub3d->buf.buffer[i][0] == 'E' && cub3d->buf.buffer[i][1] == 'A')
-			assign_tex(cub3d, cub3d->buf.buffer[i], 2);
-		if (cub3d->buf.buffer[i][0] == 'W' && cub3d->buf.buffer[i][1] == 'E')
-			assign_tex(cub3d, cub3d->buf.buffer[i], 3);
-		if (cub3d->buf.buffer[i][0] == 'F' && cub3d->buf.buffer[i][1] == ' ')
-			assign_tex(cub3d, cub3d->buf.buffer[i], 4);
-		if (cub3d->buf.buffer[i][0] == 'C' && cub3d->buf.buffer[i][1] == ' ')
-			assign_tex(cub3d, cub3d->buf.buffer[i], 5);
-		if (cub3d->buf.buffer[i][0] == 'S' && cub3d->buf.buffer[i][1] == ' ')
-			assign_tex(cub3d, cub3d->buf.buffer[i], 6);
+		if (cub3d->buff[i][0] == 'S' && cub3d->buff[i][1] == 'O')
+			assign_tex(cub3d, cub3d->buff[i], 0);
+		if (cub3d->buff[i][0] == 'N' && cub3d->buff[i][1] == 'O')
+			assign_tex(cub3d, cub3d->buff[i], 1);
+		if (cub3d->buff[i][0] == 'E' && cub3d->buff[i][1] == 'A')
+			assign_tex(cub3d, cub3d->buff[i], 2);
+		if (cub3d->buff[i][0] == 'W' && cub3d->buff[i][1] == 'E')
+			assign_tex(cub3d, cub3d->buff[i], 3);
+		if (cub3d->buff[i][0] == 'F' && cub3d->buff[i][1] == ' ')
+			assign_tex(cub3d, cub3d->buff[i], 4);
+		if (cub3d->buff[i][0] == 'C' && cub3d->buff[i][1] == ' ')
+			assign_tex(cub3d, cub3d->buff[i], 5);
+		if (cub3d->buff[i][0] == 'S' && cub3d->buff[i][1] == ' ')
+			assign_tex(cub3d, cub3d->buff[i], 6);
 		i++;
 	}
 }

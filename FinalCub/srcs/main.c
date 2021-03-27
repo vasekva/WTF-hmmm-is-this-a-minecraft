@@ -20,15 +20,15 @@ int	ft_check_fileformat(char *argument)
 
 static int	create_window(t_cub3d *cub3d)
 {
-	cub3d->mlx->mlx_ptr = mlx_init();
-	if (!cub3d->mlx->mlx_ptr)
+	cub3d->mlx->p_mlx = mlx_init();
+	if (!cub3d->mlx->p_mlx)
 		return (0);
 	ft_read_textures(cub3d);
 	cub3d->mlx->image
-		= mlx_new_image(cub3d->mlx->mlx_ptr, cub3d->scr_w, cub3d->scr_h);
+		= mlx_new_image(cub3d->mlx->p_mlx, cub3d->scr_w, cub3d->scr_h);
 	if (!cub3d->mlx->image)
 		return (0);
-	cub3d->mlx->img_ptr
+	cub3d->mlx->p_img
 		= mlx_get_data_addr(cub3d->mlx->image, &cub3d->mlx->bit_pix,
 			&cub3d->mlx->size_line, &cub3d->mlx->endian);
 	if (cub3d->screenshot)
@@ -38,10 +38,10 @@ static int	create_window(t_cub3d *cub3d)
 		write(1, "Done!\n", 7);
 		exit(0);
 	}
-	cub3d->mlx->win_ptr
-		= mlx_new_window(cub3d->mlx->mlx_ptr, cub3d->scr_w,
+	cub3d->mlx->p_win
+		= mlx_new_window(cub3d->mlx->p_mlx, cub3d->scr_w,
 			cub3d->scr_h, "cub3d");
-	if (!cub3d->mlx->win_ptr)
+	if (!cub3d->mlx->p_win)
 		return (0);
 	return (1);
 }
@@ -73,10 +73,10 @@ int	main(int argc, char **argv)
 		flag = create_window(&cub3d);
 		if (!flag)
 			exception(&cub3d, TWELVE);
-		mlx_hook(cub3d.mlx->win_ptr, 2, (1L << 0), key_press, &cub3d);
-		mlx_hook(cub3d.mlx->win_ptr, 3, (1L << 1), key_release, &cub3d);
-		mlx_loop_hook(cub3d.mlx->mlx_ptr, ft_start_game, &cub3d);
-		mlx_loop(cub3d.mlx->mlx_ptr);
+		mlx_hook(cub3d.mlx->p_win, 2, (1L << 0), key_press, &cub3d);
+		mlx_hook(cub3d.mlx->p_win, 3, (1L << 1), key_release, &cub3d);
+		mlx_loop_hook(cub3d.mlx->p_mlx, ft_start_game, &cub3d);
+		mlx_loop(cub3d.mlx->p_mlx);
 	}
 	else
 		ft_putstr("Вы не передали аргументы в программу!\n");

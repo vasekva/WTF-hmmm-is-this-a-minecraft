@@ -27,15 +27,15 @@ void	ft_draw_ceiling(t_cub3d *cub3d, int x)
 	y = 0;
 	while (y < cub3d->dda3d.draw_start)
 	{
-		cub3d->flr.cur_dist = -cub3d->scr_h / (2.0 * y - cub3d->scr_h);
+		cub3d->floor.cur_dist = -cub3d->scr_h / (2.0 * y - cub3d->scr_h);
 		if (cub3d->tex[5].texture == 1)
 		{
 			ft_set_tex_coor(cub3d, 5);
-			get_color(cub3d, 5, cub3d->flr.fl_tex_x, cub3d->flr.fl_tex_y);
+			get_color(cub3d, 5, cub3d->floor.fl_tex_x, cub3d->floor.fl_tex_y);
 		}
 		else
 			cub3d->tex[5].color = cub3d->tex[5].col;
-		color_dist(cub3d, 5, cub3d->flr.cur_dist);
+		color_dist(cub3d, 5, cub3d->floor.cur_dist);
 		draw_pix(cub3d, 5, x, y);
 		y++;
 	}

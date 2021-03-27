@@ -23,11 +23,6 @@
 # define KEY_DOWN 125
 # define KEY_UP 126
 
-typedef	struct	s_buf
-{
-	char		**buffer;
-}				t_buf;
-
 typedef	struct	s_coor
 {
 	double		x;
@@ -106,10 +101,10 @@ typedef struct		s_clr
 
 typedef struct		s_mlx
 {
-	void			*mlx_ptr;
-	void			*win_ptr;
+	void			*p_mlx;
+	void			*p_win;
 	void			*image;
-	void			*img_ptr;
+	void			*p_img;
 	int				bit_pix;
 	int				size_line;
 	int				endian;
@@ -117,10 +112,10 @@ typedef struct		s_mlx
 
 typedef struct	s_player
 {
-	double		pos_x; // поз-я персонажа по иксу
-	double		pos_y; // поз-я персонажа по игрику
-	double		dir_x; // направление перса по иксу
-	double		dir_y; // направление перса по игрику		
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
 }				t_player;
 
 typedef struct	s_dda2d
@@ -146,35 +141,36 @@ typedef struct	s_dda3d
 	int			draw_end;
 }				t_dda3d;
 
-typedef	struct	s_cub3d
+typedef struct	s_move
 {
-	t_mlx		*mlx;
-	t_player	player;
-	t_dda2d		dda2d;
-	t_dda3d		dda3d;
-	
-	char		*path;
-	t_buf		buf; // структура с прочитанным файлом
-	char		**map;
-	int			map_h; // кол-во строк карты
-	int			map_w; // кол-во символов в карте
-	t_action	act; // структура клавиш
-	t_tex		tex[7]; // массив текстур
-	t_floor		flr; // структура пола
-	t_sprite	spr; // структура спрайтов
-	t_coor		*c_spr; // координаты спрайтов
-	int			scr_w; // ширина экрана
-	int			scr_h; // высота экрана
-
 	double		olddir_x;
 	double		oldplane_x;
 	double		plane_x;
 	double		plane_y;
+}				t_move;
 
-	double		wall_x;
-
-	int			screenshot;
+typedef	struct	s_cub3d
+{
+	char 		**buff;
+	t_mlx		*mlx;
+	t_coor		*c_spr;
+	t_sprite	sprite;
+	t_player	player;
+	t_dda2d		dda2d;
+	t_dda3d		dda3d;
+	t_move		move;
+	t_action	act;
+	t_floor		floor;
+	t_tex		tex[7];
 	t_clr		color;
+	char		*path;
+	char		**map;
+	int			map_h; // кол-во строк карты
+	int			map_w; // кол-во символов в карте
+	int			scr_w; // ширина экрана
+	int			scr_h; // высота экрана
+	double		wall_x;
+	int			screenshot;
 }				t_cub3d;
 
 typedef struct		s_bmp

@@ -86,15 +86,15 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 	int	c;
 
 	i = 0;
-	while (cub3d->buf.buffer[i])
+	while (cub3d->buff[i])
 	{
-		if (cub3d->buf.buffer[i][0] == 'R')
+		if (cub3d->buff[i][0] == 'R')
 			break ;
 		i++;
 	}
 	c = 1;
-	c = ft_read_width(cub3d->buf.buffer[i], c, cub3d);
-	c = ft_read_height(cub3d->buf.buffer[i], c, cub3d);
+	c = ft_read_width(cub3d->buff[i], c, cub3d);
+	c = ft_read_height(cub3d->buff[i], c, cub3d);
 	mlx_get_screen_size(&screen_w, &screen_h);
 	if (cub3d->scr_w > screen_w)
 		cub3d->scr_w = screen_w;
