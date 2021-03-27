@@ -40,7 +40,7 @@ static void	ft_check_amount_param(t_cub3d *cub3d)
 		|| ft_has_no_param(cub3d->buff, 'N', 'O') != 1
 		|| ft_has_no_param(cub3d->buff, 'E', 'A') != 1
 		|| ft_has_no_param(cub3d->buff, 'W', 'E') != 1)
-		exception(cub3d, THREE);
+		exception(THREE);
 	if (check_double_elem(cub3d->buff, 'R', ' ') != 1
 		|| check_double_elem(cub3d->buff, 'F', ' ') != 1
 		|| check_double_elem(cub3d->buff, 'C', ' ') != 1
@@ -49,7 +49,7 @@ static void	ft_check_amount_param(t_cub3d *cub3d)
 		|| check_double_elem(cub3d->buff, 'N', 'O') != 1
 		|| check_double_elem(cub3d->buff, 'E', 'A') != 1
 		|| check_double_elem(cub3d->buff, 'W', 'E') != 1)
-		exception(cub3d, FOUR);
+		exception(FOUR);
 }
 
 static void	ft_check_pos_of_map(t_cub3d *cub3d)
@@ -65,7 +65,7 @@ static void	ft_check_pos_of_map(t_cub3d *cub3d)
 			|| cub3d->buff[i][0] == 'N' || cub3d->buff[i][0] == 'E'
 			|| cub3d->buff[i][0] == 'W' || cub3d->buff[i][0] == 'F'
 			|| cub3d->buff[i][0] == 'C' || cub3d->buff[i][0] == 'S')
-			exception(cub3d, FIVE);
+			exception(FIVE);
 		i++;
 	}
 }

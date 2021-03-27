@@ -52,7 +52,7 @@ void	ft_has_screen(t_cub3d *cub3d, char *arg, int argc, int flag)
 	{
 		flag = ft_strncmp(arg, "--save", ft_strlen(arg));
 		if (flag == 1 || flag == -1)
-			exception(cub3d, THIRTYSIX);
+			exception(THIRTYSIX);
 		cub3d->screenshot = 1;
 	}
 }
@@ -67,12 +67,12 @@ int	main(int argc, char **argv)
 	{
 		cub3d.file_path = ft_strdup(argv[1]);
 		if (!cub3d.file_path)
-			exception(&cub3d, THIRTYTWO);
+			exception(THIRTYTWO);
 		ft_init_cub3d(&cub3d);
 		ft_has_screen(&cub3d, argv[2], argc, flag);
 		flag = create_window(&cub3d);
 		if (!flag)
-			exception(&cub3d, TWELVE);
+			exception(TWELVE);
 		mlx_hook(cub3d.mlx->p_win, 2, (1L << 0), key_press, &cub3d);
 		mlx_hook(cub3d.mlx->p_win, 3, (1L << 1), key_release, &cub3d);
 		mlx_loop_hook(cub3d.mlx->p_mlx, ft_start_game, &cub3d);

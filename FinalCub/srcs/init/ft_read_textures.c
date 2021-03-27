@@ -40,8 +40,7 @@ static void	assign_tex(t_cub3d *cub3d, char *line, int i)
 		cub3d->texture[i].ptr_texture
 			= mlx_get_data_addr(cub3d->texture[i].image,
 				&cub3d->texture[i].bits_per_pixel,
-				&cub3d->texture[i].line_length,
-				&cub3d->texture[i].endian);
+				&cub3d->texture[i].line_length, &cub3d->texture[i].endian);
 		if (!cub3d->texture[i].ptr_texture)
 			exception(FOURTEEN);
 	}

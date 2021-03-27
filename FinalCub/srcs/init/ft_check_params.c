@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	is_param(char c)
+static int	is_param(char c)
 {
 	char	*params;
 	int		i;
@@ -16,7 +16,7 @@ int	is_param(char c)
 	return (0);
 }
 
-void 	ft_check_params02(t_cub3d *cub3d, int i)
+static void	ft_check_params02(t_cub3d *cub3d, int i)
 {
 	if (cub3d->buff[i][0] == 'W'
 		&& cub3d->buff[i][1] != 'E')

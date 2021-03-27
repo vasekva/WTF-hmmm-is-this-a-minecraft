@@ -79,10 +79,12 @@ void	ft_convert_bmp(t_cub3d *cub3d)
 
 	if (cub3d->scr_w > 16000 || cub3d->scr_h > 16000)
 	{
-		exception(cub3d, THIRTYSEVEN);
+		exception(THIRTYSEVEN);
 	}
 	bmp.filesize = 54 + 3 * cub3d->scr_w * cub3d->scr_h;
 	bmp.img = malloc((sizeof(char) * 3 * cub3d->scr_w * cub3d->scr_h));
+	if (!bmp.img)
+		exception(TWENTY);
 	ft_memset(bmp.img, 0, 3 * cub3d->scr_w * cub3d->scr_h);
 	bmp.fd = open("YourScreenshot.bmp", O_CREAT | O_WRONLY, S_IRWXU);
 	init_header(cub3d, &bmp);

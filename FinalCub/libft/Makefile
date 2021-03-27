@@ -8,7 +8,6 @@ PART2				=	ft_memset.c			\
 						ft_strlen.c			\
 						ft_strjoin.c		\
 						ft_strdup.c			\
-						ft_split_nl.c		\
 						ft_strdel.c			\
 						ft_atoi.c			\
 						ft_calloc.c			\

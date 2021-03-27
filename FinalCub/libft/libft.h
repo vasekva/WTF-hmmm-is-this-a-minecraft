@@ -30,7 +30,6 @@ char	*ft_strtrim(char const *s1, char const *s2);
 /*
 **=============================== ADDITIONAL ===================================
 */
-char	**ft_split_nl(char const *s);
 void	ft_strdel(char **str);
 int		ft_atoi_base(char *str, char *base);
 char	*ft_itoa_base(unsigned int nbr, char *base);

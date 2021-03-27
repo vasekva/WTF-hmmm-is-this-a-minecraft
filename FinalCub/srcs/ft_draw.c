@@ -11,11 +11,11 @@ void	ft_draw_sky(t_cub3d *cub3d, int x)
 		skytex
 			= abs((int)(x - cub3d->texture[5].width * (M_PI / 2)
 					* atan(cub3d->player.dir_y / (cub3d->player.dir_x + 0.01)))
-				*cub3d->texture[5].bits_per_pixel / 8 + y * cub3d->texture[5].line_length);
-		cub3d->texture[5].color = *(int *)(cub3d->texture[5].ptr_texture + skytex);
-		{
-			draw_pix(cub3d, 5, x, y);
-		}
+				*cub3d->texture[5].bits_per_pixel / 8
+				+ y * cub3d->texture[5].line_length);
+		cub3d->texture[5].color
+			= *(int *)(cub3d->texture[5].ptr_texture + skytex);
+		draw_pix(cub3d, 5, x, y);
 		y++;
 	}
 }

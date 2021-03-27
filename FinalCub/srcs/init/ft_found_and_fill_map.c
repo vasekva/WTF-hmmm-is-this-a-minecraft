@@ -9,6 +9,8 @@ char	*ft_add_spaces(char *str, int add)
 	i = 0;
 	len = ft_strlen(str);
 	dst = malloc(len + add + 1);
+	if (!dst)
+		exception(TWENTYONE);
 	dst[len + add] = '\0';
 	while (i < len)
 	{

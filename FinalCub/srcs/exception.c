@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	exception(t_cub3d *cub3d, char *str)
+void	exception(char *str)
 {
 	int	i;
 

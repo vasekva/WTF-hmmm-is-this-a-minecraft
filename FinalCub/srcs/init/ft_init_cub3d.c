@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int 	ft_fill_buff(t_cub3d *cub3d)
+void	ft_fill_buff(t_cub3d *cub3d)
 {
 	int		i;
 	int		fd;
@@ -11,11 +11,11 @@ int 	ft_fill_buff(t_cub3d *cub3d)
 	i = 0;
 	fd = open(cub3d->file_path, O_RDONLY);
 	if (read(fd, buff, 0) < 0)
-		exception(cub3d, THIRTYONE);
+		exception(THIRTYONE);
 	if (fd < 0)
 	{
 		close(fd);
-		exception(cub3d, TWO);
+		exception(TWO);
 	}
 	while (1)
 	{
@@ -46,6 +46,8 @@ void	ft_set_buffer(int fd, t_cub3d *cub3d)
 	}
 	close(fd);
 	cub3d->buff = malloc(sizeof(char *) * (i + 1));
+	if (!cub3d->buff)
+		exception(THIRTYNINE);
 	cub3d->buff[i] = NULL;
 	ft_fill_buff(cub3d);
 }
@@ -53,6 +55,8 @@ void	ft_set_buffer(int fd, t_cub3d *cub3d)
 void	ft_init_vars01(t_cub3d *cub3d)
 {
 	cub3d->mlx = malloc(sizeof(t_mlx));
+	if (!cub3d->mlx)
+		exception(THIRTYEIGHT);
 	cub3d->mlx->p_mlx = NULL;
 	cub3d->mlx->p_win = NULL;
 	cub3d->mlx->image = NULL;
@@ -75,14 +79,14 @@ void	ft_init_cub3d(t_cub3d *cub3d)
 
 	ft_init_vars01(cub3d);
 	if (!ft_check_fileformat(cub3d->file_path))
-		exception(cub3d, ONE);
+		exception(ONE);
 	fd = open(cub3d->file_path, O_RDONLY);
 	if (read(fd, check, 0) < 0)
-		exception(cub3d, THIRTYONE);
+		exception(THIRTYONE);
 	if (fd < 0)
 	{
 		close(fd);
-		exception(cub3d, TWO);
+		exception(TWO);
 	}
 	ft_set_buffer(fd, cub3d);
 	ft_check_params01(cub3d);

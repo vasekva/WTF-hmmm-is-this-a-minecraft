@@ -18,7 +18,8 @@ void	ft_set_tex_coor(t_cub3d *cub3d, int i)
 
 void	get_color(t_cub3d *cub3d, int ind, int x, int y)
 {
-	if (x >= 0 && x < cub3d->texture[ind].width && y >= 0 && y < cub3d->texture[ind].height)
+	if (x >= 0 && x < cub3d->texture[ind].width
+		&& y >= 0 && y < cub3d->texture[ind].height)
 	{
 		cub3d->texture[ind].color
 			= *(int *)(cub3d->texture[ind].ptr_texture

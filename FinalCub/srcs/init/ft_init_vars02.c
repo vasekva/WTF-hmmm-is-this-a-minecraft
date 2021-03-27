@@ -12,7 +12,7 @@ static void	init_cub(t_cub3d *cub3d)
 	cub3d->keys.r_speed = 0.10;
 	cub3d->sprite.buf_distance = malloc(sizeof(int *) * cub3d->scr_w);
 	if (!cub3d->sprite.buf_distance)
-		exception(cub3d, TWENTYTWO);
+		exception(TWENTYTWO);
 }
 
 static void	init_position(t_cub3d *cub3d)
@@ -48,17 +48,20 @@ static void	init_direction(t_cub3d *cub3d)
 		cub3d->player.dir_x = -1;
 		cub3d->player.dir_y = 0;
 	}
-	else if (cub3d->map[(int)cub3d->player.pos_x][(int)cub3d->player.pos_y] == 'S')
+	else if (cub3d->map[(int)cub3d->player.pos_x]
+		[(int)cub3d->player.pos_y] == 'S')
 	{
 		cub3d->player.dir_x = 1;
 		cub3d->player.dir_y = 0;
 	}
-	else if (cub3d->map[(int)cub3d->player.pos_x][(int)cub3d->player.pos_y] == 'E')
+	else if (cub3d->map[(int)cub3d->player.pos_x]
+		[(int)cub3d->player.pos_y] == 'E')
 	{
 		cub3d->player.dir_x = 0;
 		cub3d->player.dir_y = 1;
 	}
-	else if (cub3d->map[(int)cub3d->player.pos_x][(int)cub3d->player.pos_y] == 'W')
+	else if (cub3d->map[(int)cub3d->player.pos_x]
+		[(int)cub3d->player.pos_y] == 'W')
 	{
 		cub3d->player.dir_x = 0;
 		cub3d->player.dir_y = -1;
@@ -68,13 +71,16 @@ static void	init_direction(t_cub3d *cub3d)
 static void	init_plane(t_cub3d *cub3d)
 {
 	if (cub3d->map[(int)cub3d->player.pos_x][(int)cub3d->player.pos_y] == 'N'
-		|| cub3d->map[(int)cub3d->player.pos_x][(int)cub3d->player.pos_y] == 'S')
+		|| cub3d->map[(int)cub3d->player.pos_x]
+		[(int)cub3d->player.pos_y] == 'S')
 	{
 		cub3d->move.plane_x = -cub3d->player.dir_y * tan(M_PI * 33 / 180);
 		cub3d->move.plane_y = -cub3d->player.dir_x * tan(M_PI * 33 / 180);
 	}
-	else if (cub3d->map[(int)cub3d->player.pos_x][(int)cub3d->player.pos_y] == 'E'
-		|| cub3d->map[(int)cub3d->player.pos_x][(int)cub3d->player.pos_y] == 'W')
+	else if (cub3d->map[(int)cub3d->player.pos_x]
+		[(int)cub3d->player.pos_y] == 'E'
+		|| cub3d->map[(int)cub3d->player.pos_x]
+		[(int)cub3d->player.pos_y] == 'W')
 	{
 		cub3d->move.plane_x = cub3d->player.dir_y * tan(M_PI * 33 / 180);
 		cub3d->move.plane_y = cub3d->player.dir_x * tan(M_PI * 33 / 180);

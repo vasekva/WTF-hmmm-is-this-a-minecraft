@@ -46,11 +46,11 @@ static int	ft_skip_spaces_and_zeros(t_cub3d *cub3d, char *str, int i)
 	{
 		if (str[i] == '-')
 		{
-			exception(cub3d, TWENTYSEVEN);
+			exception(TWENTYSEVEN);
 		}
 		else
 		{
-			exception(cub3d, TWENTYEIGHT);
+			exception(TWENTYEIGHT);
 		}
 	}
 	if (str[i] == '0')
@@ -74,17 +74,17 @@ static int	ft_read_color(char *str, int i, char value, t_cub3d *cub3d)
 	while (ft_isdigit(str[++i]))
 		len++;
 	if (len > 4)
-		exception(cub3d, THIRTYFOUR);
+		exception(THIRTYFOUR);
 	tmp = ft_substr(str, i - len, len);
 	color = ft_atoi(tmp);
 	free(tmp);
 	if (color > 255)
 	{
-		exception(cub3d, TWENTYSIX);
+		exception(TWENTYSIX);
 	}
 	if (str[i] != ',' && str[i] != '\0')
 	{
-		exception(cub3d, FIFTEEN);
+		exception(FIFTEEN);
 	}
 	else
 		i++;

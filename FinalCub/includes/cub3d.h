@@ -55,7 +55,6 @@ typedef struct	s_texture
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	// int			pix;
 }				t_texture;
 
 typedef struct	s_floor
@@ -123,12 +122,12 @@ typedef struct	s_dda2d
 {
 	double		ray_dir_x;
 	double		ray_dir_y;
-	double		delta_dist_x;
-	double		delta_dist_y;
+	double		delta_dx;
+	double		delta_dy;
 	int			map_x;
 	int			map_y;
-	double		side_dist_x;
-	double		side_dist_y;
+	double		side_dx;
+	double		side_dy;
 	int			step_x;
 	int			step_y;
 }				t_dda2d;
@@ -250,7 +249,7 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 /*
 **	EXCEPTION.C
 */
-	void	exception(t_cub3d *cub3d, char *str);
+	void	exception(char *str);
 
 /*
 **	FT_CHECK_FILE.C
@@ -329,6 +328,6 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 /*
 **	RAYCASTING.C
 */
-	void	raycasting(t_cub3d *cub3d);
+	void	start_raycast(t_cub3d *cub3d);
 
 #endif

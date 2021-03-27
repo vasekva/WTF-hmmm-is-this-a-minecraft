@@ -27,15 +27,15 @@ int	ft_read_width(char *str, int c, t_cub3d *cub3d)
 	if (!ft_isdigit(str[c]))
 	{
 		if (str[c] == '-')
-			exception(cub3d, SIX);
+			exception(SIX);
 		else
-			exception(cub3d, THIRTY);
+			exception(THIRTY);
 	}
 	while (str[c] == '0')
 		c++;
 	len = ft_numlen(str, &c);
 	if (len > 4)
-		exception(cub3d, THIRTYSEVEN);
+		exception(THIRTYSEVEN);
 	tmp = ft_substr(str, c - len, len);
 	cub3d->scr_w = ft_parse_int(tmp);
 	free(tmp);
@@ -47,7 +47,7 @@ void	ft_check_end_of_str(t_cub3d *cub3d, char *str, int c)
 	while (str[c])
 	{
 		if (str[c] != ' ')
-			exception(cub3d, THIRTY);
+			exception(THIRTY);
 		c++;
 	}
 }
@@ -63,15 +63,15 @@ int	ft_read_height(char *str, int c, t_cub3d *cub3d)
 	if (!ft_isdigit(str[c]))
 	{
 		if (str[c] == '-')
-			exception(cub3d, SIX);
+			exception(SIX);
 		else
-			exception(cub3d, THIRTY);
+			exception(THIRTY);
 	}
 	while (str[c] == '0')
 		c++;
 	len = ft_numlen(str, &c);
 	if (len > 4)
-		exception(cub3d, THIRTYSEVEN);
+		exception(THIRTYSEVEN);
 	tmp = ft_substr(str, c - len, len);
 	cub3d->scr_h = ft_parse_int(tmp);
 	free(tmp);
@@ -101,5 +101,5 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 	if (cub3d->scr_h > screen_h)
 		cub3d->scr_h = screen_h;
 	if (cub3d->scr_w <= 0 || cub3d->scr_h <= 0)
-		exception(cub3d, SIX);
+		exception(SIX);
 }
