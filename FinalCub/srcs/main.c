@@ -29,8 +29,8 @@ static int	create_window(t_cub3d *cub3d)
 	if (!cub3d->mlx->image)
 		return (0);
 	cub3d->mlx->p_img
-		= mlx_get_data_addr(cub3d->mlx->image, &cub3d->mlx->bit_pix,
-			&cub3d->mlx->size_line, &cub3d->mlx->endian);
+		= mlx_get_data_addr(cub3d->mlx->image, &cub3d->mlx->bits_per_pixel,
+			&cub3d->mlx->line_length, &cub3d->mlx->endian);
 	if (cub3d->screenshot)
 	{
 		write(1, "Creating a screenshot. Wait...\n", 32);
@@ -65,8 +65,8 @@ int	main(int argc, char **argv)
 	flag = 0;
 	if (argc > 1)
 	{
-		cub3d.path = ft_strdup(argv[1]);
-		if (!cub3d.path)
+		cub3d.file_path = ft_strdup(argv[1]);
+		if (!cub3d.file_path)
 			exception(&cub3d, THIRTYTWO);
 		ft_init_cub3d(&cub3d);
 		ft_has_screen(&cub3d, argv[2], argc, flag);

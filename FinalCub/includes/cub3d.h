@@ -10,105 +10,106 @@
 # include <stdio.h>
 # include <math.h>
 
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_W 13
+# define W 13
+# define A 0
+# define S 1
+# define D 2
 
-# define KEY_ESC 53
-# define KEY_SHIFT 257
+# define LEFT 123
+# define RIGHT 124
+# define UP 126
+# define DOWN 125
 
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_DOWN 125
-# define KEY_UP 126
+# define ESC 53
+# define SHIFT 257
 
-typedef	struct	s_coor
+
+typedef	struct	s_crds
 {
 	double		x;
 	double		y;
-}				t_coor;
+}				t_crds;
 
-typedef	struct	s_action
+typedef	struct	s_keys
 {
 	int			up;
 	int			down;
-	int			r_left;
-	int			m_left;
-	int			r_right;
-	int			m_right;
+	int			left;
+	int			right;
+	int			key_a;
+	int			key_d;
 	double		m_speed;
 	double		r_speed;
-}				t_action;
+}				t_keys;
 
-typedef struct	s_tex
+typedef struct	s_texture
 {
 	int			texture;
-	int			col;
+	void		*ptr_texture;
+	char		*path_texture;
+	int			column;
 	int			color;
 	int			width;
 	int			height;
-	char		*tex_path;
 	void		*image;
-	void		*tex_ptr;
-	int			bit_pix;
-	int			size_line;
+	int			bits_per_pixel;
+	int			line_length;
 	int			endian;
-	int			pix;
-}				t_tex;
+	// int			pix;
+}				t_texture;
 
 typedef struct	s_floor
 {
-	double		fl_x_wall;
-	double		fl_y_wall;
-	double		cur_dist;
+	double		wall_x;
+	double		wall_y;
 	double		weight;
-	double		cur_fl_x;
-	double		cur_fl_y;
-	int			fl_tex_x;
-	int			fl_tex_y;
+	double		distance;
+	double		x;
+	double		y;
+	int			texture_x;
+	int			texture_y;
 }				t_floor;
 
 typedef struct	s_sprite
 {
-	double		*distbuf;
-	int			nb_sprite;
-	int			*sp_order;
-	double		*sp_dist;
-	double		sp_x;
-	double		sp_y;
+	double		*buf_distance;
+	double		*distance;
+	int			num_of_sprites;
+	int			*sprite_order;
+	double		x;
+	double		y;
 	double		inv_det;
-	double		trans_x;
-	double		trans_y;
-	int			sp_screen;
-	int			sp_h;
-	int			sp_w;
-	int			draw_startx;
-	int			draw_endx;
-	int			draw_starty;
-	int			draw_endy;
-	int			tsp_x;
-	int			tsp_y;
+	double		trans_form_x;
+	double		trans_form_y;
+	int			sprite_screen;
+	int			height;
+	int			widht;
+	int			start_draw_x;
+	int			start_draw_y;
+	int			end_draw_x;
+	int			end_draw_y;
+	int			sprite_text_x;
+	int			sprite_text_y;
 }				t_sprite;
 
 
-typedef struct		s_clr
+typedef struct	s_clr
 {
-	int				r;
-	int				g;
-	int				b;
-}					t_clr;
+	int			r;
+	int			g;
+	int			b;
+}				t_clr;
 
-typedef struct		s_mlx
+typedef struct	s_mlx
 {
-	void			*p_mlx;
-	void			*p_win;
-	void			*image;
-	void			*p_img;
-	int				bit_pix;
-	int				size_line;
-	int				endian;
-}					t_mlx;
+	void		*p_mlx;
+	void		*p_win;
+	void		*image;
+	void		*p_img;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_mlx;
 
 typedef struct	s_player
 {
@@ -120,14 +121,14 @@ typedef struct	s_player
 
 typedef struct	s_dda2d
 {
-	double		raydir_x;
-	double		raydir_y;
-	double		delta_dx;
-	double		delta_dy;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
 	int			map_x;
 	int			map_y;
-	double		side_dx;
-	double		side_dy;
+	double		side_dist_x;
+	double		side_dist_y;
 	int			step_x;
 	int			step_y;
 }				t_dda2d;
@@ -153,17 +154,17 @@ typedef	struct	s_cub3d
 {
 	char 		**buff;
 	t_mlx		*mlx;
-	t_coor		*c_spr;
+	t_crds		*spr_crds;
 	t_sprite	sprite;
 	t_player	player;
 	t_dda2d		dda2d;
 	t_dda3d		dda3d;
 	t_move		move;
-	t_action	act;
+	t_keys		keys;
 	t_floor		floor;
-	t_tex		tex[7];
+	t_texture	texture[7];
 	t_clr		color;
-	char		*path;
+	char		*file_path;
 	char		**map;
 	int			map_h; // кол-во строк карты
 	int			map_w; // кол-во символов в карте

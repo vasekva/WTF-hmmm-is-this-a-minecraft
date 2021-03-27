@@ -60,12 +60,12 @@ void 	ft_def_spr_dist(t_cub3d *cub3d)
 	int	i;
 
 	i = 0;
-	while (i < cub3d->sprite.nb_sprite)
+	while (i < cub3d->sprite.num_of_sprites)
 	{
-		cub3d->sprite.sp_order[i] = i;
-		cub3d->sprite.sp_dist[i]
-			= ft_power(cub3d->player.pos_x - cub3d->c_spr[i].x, 2)
-			+ ft_power(cub3d->player.pos_y - cub3d->c_spr[i].y, 2);
+		cub3d->sprite.sprite_order[i] = i;
+		cub3d->sprite.distance[i]
+			= ft_power(cub3d->player.pos_x - cub3d->spr_crds[i].x, 2)
+			+ ft_power(cub3d->player.pos_y - cub3d->spr_crds[i].y, 2);
 		i++;
 	}
 }

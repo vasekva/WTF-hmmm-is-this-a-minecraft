@@ -100,7 +100,7 @@ int	ft_parse_color(char *line, int ind, t_cub3d *cub3d)
 	i = ft_read_color(line, i, 'R', cub3d);
 	i = ft_read_color(line, i, 'G', cub3d);
 	i = ft_read_color(line, i, 'B', cub3d);
-	cub3d->tex[ind].col
+	cub3d->texture[ind].column
 		= create_rgb(cub3d->color.r, cub3d->color.g, cub3d->color.b);
 	return (0);
 }

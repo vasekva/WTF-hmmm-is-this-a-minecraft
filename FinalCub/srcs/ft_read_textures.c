@@ -17,30 +17,30 @@ static void	assign_path_tex(t_cub3d *cub3d, char *line, int ind)
 	if (line[i] >= '0' && line[i] <= '9')
 	{
 		ft_parse_color(line, ind, cub3d);
-		cub3d->tex[ind].texture = 0;
+		cub3d->texture[ind].texture = 0;
 	}
 	else
 	{
-		cub3d->tex[ind].tex_path = ft_strtrim(&line[i], " ");
-		cub3d->tex[ind].texture = 1;
+		cub3d->texture[ind].path_texture = ft_strtrim(&line[i], " ");
+		cub3d->texture[ind].texture = 1;
 	}
 }
 
 static void	assign_tex(t_cub3d *cub3d, char *line, int i)
 {
 	assign_path_tex(cub3d, line, i);
-	if (cub3d->tex[i].texture == 1)
+	if (cub3d->texture[i].texture == 1)
 	{
-		cub3d->tex[i].image
-			= mlx_xpm_file_to_image(cub3d->mlx->p_mlx, cub3d->tex[i].tex_path,
-				&cub3d->tex[i].width, &cub3d->tex[i].height);
-		if (!cub3d->tex[i].image)
+		cub3d->texture[i].image
+			= mlx_xpm_file_to_image(cub3d->mlx->p_mlx, cub3d->texture[i].path_texture,
+				&cub3d->texture[i].width, &cub3d->texture[i].height);
+		if (!cub3d->texture[i].image)
 			exception(cub3d, THIRTEEN);
-		cub3d->tex[i].tex_ptr
-			= mlx_get_data_addr(cub3d->tex[i].image,
-				&cub3d->tex[i].bit_pix, &cub3d->tex[i].size_line,
-				&cub3d->tex[i].endian);
-		if (!cub3d->tex[i].tex_ptr)
+		cub3d->texture[i].ptr_texture
+			= mlx_get_data_addr(cub3d->texture[i].image,
+				&cub3d->texture[i].bits_per_pixel, &cub3d->texture[i].line_length,
+				&cub3d->texture[i].endian);
+		if (!cub3d->texture[i].ptr_texture)
 			exception(cub3d, FOURTEEN);
 	}
 }

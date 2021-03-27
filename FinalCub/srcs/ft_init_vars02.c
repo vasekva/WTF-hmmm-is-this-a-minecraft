@@ -2,16 +2,16 @@
 
 static void	init_cub(t_cub3d *cub3d)
 {
-	cub3d->act.up = 0;
-	cub3d->act.down = 0;
-	cub3d->act.r_left = 0;
-	cub3d->act.m_left = 0;
-	cub3d->act.r_right = 0;
-	cub3d->act.m_right = 0;
-	cub3d->act.m_speed = 0.10;
-	cub3d->act.r_speed = 0.10;
-	cub3d->sprite.distbuf = malloc(sizeof(int *) * cub3d->scr_w);
-	if (!cub3d->sprite.distbuf)
+	cub3d->keys.up = 0;
+	cub3d->keys.down = 0;
+	cub3d->keys.left = 0;
+	cub3d->keys.key_a = 0;
+	cub3d->keys.right = 0;
+	cub3d->keys.key_d = 0;
+	cub3d->keys.m_speed = 0.10;
+	cub3d->keys.r_speed = 0.10;
+	cub3d->sprite.buf_distance = malloc(sizeof(int *) * cub3d->scr_w);
+	if (!cub3d->sprite.buf_distance)
 		exception(cub3d, TWENTYTWO);
 }
 

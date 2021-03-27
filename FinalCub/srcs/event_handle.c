@@ -2,40 +2,40 @@
 
 int	key_press(int key, t_cub3d *cub3d)
 {
-	if (key == KEY_W || key == KEY_UP)
-		cub3d->act.up = 1;
-	if (key == KEY_S || key == KEY_DOWN)
-		cub3d->act.down = 1;
-	if (key == KEY_LEFT)
-		cub3d->act.r_left = 1;
-	if (key == KEY_A)
-		cub3d->act.m_left = 1;
-	if (key == KEY_RIGHT)
-		cub3d->act.r_right = 1;
-	if (key == KEY_D)
-		cub3d->act.m_right = 1;
-	if (key == KEY_SHIFT)
-		cub3d->act.m_speed = 0.20;
-	if (key == KEY_ESC)
+	if (key == W || key == UP)
+		cub3d->keys.up = 1;
+	if (key == S || key == DOWN)
+		cub3d->keys.down = 1;
+	if (key == LEFT)
+		cub3d->keys.left = 1;
+	if (key == A)
+		cub3d->keys.key_a = 1;
+	if (key == RIGHT)
+		cub3d->keys.right = 1;
+	if (key == D)
+		cub3d->keys.key_d = 1;
+	if (key == SHIFT)
+		cub3d->keys.m_speed = 0.20;
+	if (key == ESC)
 		 exit(0);
 	return (0);
 }
 
 int	key_release(int key, t_cub3d *cub3d)
 {
-	if (key == KEY_W || key == KEY_UP)
-		cub3d->act.up = 0;
-	if (key == KEY_S || key == KEY_DOWN)
-		cub3d->act.down = 0;
-	if (key == KEY_LEFT)
-		cub3d->act.r_left = 0;
-	if (key == KEY_A)
-		cub3d->act.m_left = 0;
-	if (key == KEY_RIGHT)
-		cub3d->act.r_right = 0;
-	if (key == KEY_D)
-		cub3d->act.m_right = 0;
-	if (key == KEY_SHIFT)
-		cub3d->act.m_speed = 0.10;
+	if (key == W || key == UP)
+		cub3d->keys.up = 0;
+	if (key == S || key == DOWN)
+		cub3d->keys.down = 0;
+	if (key == LEFT)
+		cub3d->keys.left = 0;
+	if (key == A)
+		cub3d->keys.key_a = 0;
+	if (key == RIGHT)
+		cub3d->keys.right = 0;
+	if (key == D)
+		cub3d->keys.key_d = 0;
+	if (key == SHIFT)
+		cub3d->keys.m_speed = 0.10;
 	return (0);
 }

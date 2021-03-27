@@ -48,7 +48,7 @@ static void	get_color_bmp(t_cub3d *cub3d, t_bmp *bmp, int j)
 		bmp->color
 			= *(int *)
 			(cub3d->mlx->p_img + (cub3d->scr_w * y + x)
-				* cub3d->mlx->bit_pix / 8);
+				* cub3d->mlx->bits_per_pixel / 8);
 		write(bmp->fd, &bmp->color, 3);
 		i++;
 	}

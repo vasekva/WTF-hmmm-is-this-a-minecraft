@@ -9,7 +9,7 @@ int 	ft_fill_buff(t_cub3d *cub3d)
 	int		cwr;
 
 	i = 0;
-	fd = open(cub3d->path, O_RDONLY);
+	fd = open(cub3d->file_path, O_RDONLY);
 	if (read(fd, buff, 0) < 0)
 		exception(cub3d, THIRTYONE);
 	if (fd < 0)
@@ -57,13 +57,13 @@ void	ft_init_vars01(t_cub3d *cub3d)
 	cub3d->mlx->p_win = NULL;
 	cub3d->mlx->image = NULL;
 	cub3d->mlx->p_img = NULL;
-	cub3d->mlx->bit_pix = 0;
-	cub3d->mlx->size_line = 0;
+	cub3d->mlx->bits_per_pixel = 0;
+	cub3d->mlx->line_length = 0;
 	cub3d->mlx->endian = 0;
-	cub3d->c_spr = NULL;
+	cub3d->spr_crds = NULL;
 	ft_memset(&cub3d->map, 0, sizeof(char **));
-	ft_memset(&cub3d->act, 0, sizeof(t_action));
-	ft_memset(&cub3d->tex, 0, sizeof(t_tex) * 7);
+	ft_memset(&cub3d->keys, 0, sizeof(t_keys));
+	ft_memset(&cub3d->texture, 0, sizeof(t_texture) * 7);
 	ft_memset(&cub3d->floor, 0, sizeof(t_floor));
 	ft_memset(&cub3d->sprite, 0, sizeof(t_sprite));
 }
@@ -74,9 +74,9 @@ void	ft_init_cub3d(t_cub3d *cub3d)
 	char	*check;
 
 	ft_init_vars01(cub3d);
-	if (!ft_check_fileformat(cub3d->path))
+	if (!ft_check_fileformat(cub3d->file_path))
 		exception(cub3d, ONE);
-	fd = open(cub3d->path, O_RDONLY);
+	fd = open(cub3d->file_path, O_RDONLY);
 	if (read(fd, check, 0) < 0)
 		exception(cub3d, THIRTYONE);
 	if (fd < 0)
