@@ -2,7 +2,7 @@
 
 void	ft_set_tex_coor(t_cub3d *cub3d, int i)
 {
-	cub3d->flr.weight = cub3d->flr.cur_dist / cub3d->wall_dist;
+	cub3d->flr.weight = cub3d->flr.cur_dist / cub3d->dda3d.wall_dist;
 	cub3d->flr.cur_fl_x
 		= cub3d->flr.weight * cub3d->flr.fl_x_wall
 		+ (1.0 - cub3d->flr.weight) * cub3d->player.pos_x;

@@ -50,18 +50,18 @@ void	ft_found_walls(t_cub3d *cub3d)
 			cub3d->dda2d.side_dx = cub3d->dda2d.side_dx + cub3d->dda2d.delta_dx;
 			cub3d->dda2d.map_x = cub3d->dda2d.map_x + cub3d->dda2d.step_x;
 			if (cub3d->dda2d.step_x > 0)
-				cub3d->side = 0;
+				cub3d->dda3d.side = 0;
 			else
-				cub3d->side = 1;
+				cub3d->dda3d.side = 1;
 		}
 		else if (cub3d->dda2d.side_dx >= cub3d->dda2d.side_dy)
 		{
 			cub3d->dda2d.side_dy = cub3d->dda2d.side_dy + cub3d->dda2d.delta_dy;
 			cub3d->dda2d.map_y = cub3d->dda2d.map_y + cub3d->dda2d.step_y;
 			if (cub3d->dda2d.step_y > 0)
-				cub3d->side = 2;
+				cub3d->dda3d.side = 2;
 			else
-				cub3d->side = 3;
+				cub3d->dda3d.side = 3;
 		}
 		if (cub3d->map[cub3d->dda2d.map_x][cub3d->dda2d.map_y] == '1')
 			hit = 1;
@@ -70,21 +70,21 @@ void	ft_found_walls(t_cub3d *cub3d)
 
 void 	ft_calc_distance(t_cub3d *cub3d)
 {
-	if (cub3d->side == 0 || cub3d->side == 1)
-		cub3d->wall_dist
+	if (cub3d->dda3d.side == 0 || cub3d->dda3d.side == 1)
+		cub3d->dda3d.wall_dist
 			= (cub3d->dda2d.map_x - cub3d->player.pos_x
 				+ (1 - cub3d->dda2d.step_x) / 2) / cub3d->dda2d.raydir_x;
-	else if (cub3d->side == 2 || cub3d->side == 3)
-		cub3d->wall_dist
+	else if (cub3d->dda3d.side == 2 || cub3d->dda3d.side == 3)
+		cub3d->dda3d.wall_dist
 			= (cub3d->dda2d.map_y - cub3d->player.pos_y
 				+ (1 - cub3d->dda2d.step_y) / 2) / cub3d->dda2d.raydir_y;
-	cub3d->line_h = (int)(cub3d->scr_h / cub3d->wall_dist);
-	cub3d->draw_start = -cub3d->line_h / 2 + cub3d->scr_h / 2;
-	if (cub3d->draw_start < 0)
-		cub3d->draw_start = 0;
-	cub3d->draw_end = cub3d->line_h / 2 + cub3d->scr_h / 2;
-	if (cub3d->draw_end >= cub3d->scr_h)
-		cub3d->draw_end = cub3d->scr_h - 1;
+	cub3d->dda3d.line_h = (int)(cub3d->scr_h / cub3d->dda3d.wall_dist);
+	cub3d->dda3d.draw_start = -cub3d->dda3d.line_h / 2 + cub3d->scr_h / 2;
+	if (cub3d->dda3d.draw_start < 0)
+		cub3d->dda3d.draw_start = 0;
+	cub3d->dda3d.draw_end = cub3d->dda3d.line_h / 2 + cub3d->scr_h / 2;
+	if (cub3d->dda3d.draw_end >= cub3d->scr_h)
+		cub3d->dda3d.draw_end = cub3d->scr_h - 1;
 }
 
 void	raycasting(t_cub3d *cub3d)
@@ -99,7 +99,7 @@ void	raycasting(t_cub3d *cub3d)
 		ft_found_walls(cub3d);
 		ft_calc_distance(cub3d);
 		draw_all(cub3d, x);
-		cub3d->spr.distbuf[x] = cub3d->wall_dist;
+		cub3d->spr.distbuf[x] = cub3d->dda3d.wall_dist;
 		x++;
 	}
 	 ft_draw_sprites(cub3d);

@@ -18,13 +18,6 @@ int	key_press(int key, t_cub3d *cub3d)
 		cub3d->act.m_speed = 0.20;
 	if (key == KEY_ESC)
 		 exit(0);
-	if (key == KEY_H)
-	{
-		if (cub3d->act.hud == 0)
-			cub3d->act.hud = 1;
-		else
-			cub3d->act.hud = 0;
-	}
 	return (0);
 }
 

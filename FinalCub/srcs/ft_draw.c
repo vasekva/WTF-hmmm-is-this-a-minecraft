@@ -6,7 +6,7 @@ void	ft_draw_sky(t_cub3d *cub3d, int x)
 	int	skytex;
 
 	y = 0;
-	while (y < cub3d->draw_start)
+	while (y < cub3d->dda3d.draw_start)
 	{
 		skytex
 			= abs((int)(x - cub3d->tex[5].width * (M_PI / 2)
@@ -25,7 +25,7 @@ void	ft_draw_ceiling(t_cub3d *cub3d, int x)
 	int	y;
 
 	y = 0;
-	while (y < cub3d->draw_start)
+	while (y < cub3d->dda3d.draw_start)
 	{
 		cub3d->flr.cur_dist = -cub3d->scr_h / (2.0 * y - cub3d->scr_h);
 		if (cub3d->tex[5].texture == 1)

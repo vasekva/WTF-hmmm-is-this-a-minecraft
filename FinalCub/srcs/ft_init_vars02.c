@@ -10,7 +10,6 @@ static void	init_cub(t_cub3d *cub3d)
 	cub3d->act.m_right = 0;
 	cub3d->act.m_speed = 0.10;
 	cub3d->act.r_speed = 0.10;
-	cub3d->act.hud = 1;
 	cub3d->spr.distbuf = malloc(sizeof(int *) * cub3d->scr_w);
 	if (!cub3d->spr.distbuf)
 		exception(cub3d, TWENTYTWO);

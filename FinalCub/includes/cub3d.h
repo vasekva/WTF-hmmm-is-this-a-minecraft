@@ -15,10 +15,6 @@
 # define KEY_D 2
 # define KEY_W 13
 
-# define KEY_H 4
-
-# define KEY_TAB 48
-# define KEY_SPACE 49
 # define KEY_ESC 53
 # define KEY_SHIFT 257
 
@@ -48,7 +44,6 @@ typedef	struct	s_action
 	int			m_right;
 	double		m_speed;
 	double		r_speed;
-	int			hud;	
 }				t_action;
 
 typedef struct	s_tex
@@ -142,12 +137,22 @@ typedef struct	s_dda2d
 	int			step_y;
 }				t_dda2d;
 
+typedef struct	s_dda3d
+{
+	int			side;
+	double		wall_dist;
+	int			line_h;
+	int			draw_start;
+	int			draw_end;
+}				t_dda3d;
+
 typedef	struct	s_cub3d
 {
 	t_mlx		*mlx;
 	t_player	player;
 	t_dda2d		dda2d;
-
+	t_dda3d		dda3d;
+	
 	char		*path;
 	t_buf		buf; // структура с прочитанным файлом
 	char		**map;
@@ -160,12 +165,6 @@ typedef	struct	s_cub3d
 	t_coor		*c_spr; // координаты спрайтов
 	int			scr_w; // ширина экрана
 	int			scr_h; // высота экрана
-
-	int			side;
-	double		wall_dist;
-	int			line_h;
-	int			draw_start;
-	int			draw_end;
 
 	double		olddir_x;
 	double		oldplane_x;
@@ -206,7 +205,6 @@ int		ft_parse_color(char *line, int ind, t_cub3d *cub3d);
 	int 	is_map_symbol(char c);
 	int 	is_map_line(t_cub3d *cub3d, char *line);
 
-void	print_structs(t_cub3d *cub3d);
 void	ft_found_and_fill_map(t_cub3d *cub3d);
 
 
@@ -247,11 +245,6 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 	void 	ft_draw_walls(t_cub3d *cub3d, int x);
 
 /*
-**	FT_FREE_ALL.C
-*/
-	void	ft_free_all(t_cub3d *cub);
-
-/*
 **	EVENT_HANDLE.C
 */
 	int		key_press(int key, t_cub3d *cub3d);
@@ -261,11 +254,6 @@ void	ft_found_and_fill_map(t_cub3d *cub3d);
 **	EXCEPTION.C
 */
 	void	exception(t_cub3d *cub3d, char *str);
-
-/*
-**	EXIT.C
-*/
-	int		exit_prog(t_cub3d *cub);
 
 /*
 **	FT_CHECK_FILE.C
