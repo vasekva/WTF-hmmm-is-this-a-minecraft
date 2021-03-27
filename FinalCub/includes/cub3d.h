@@ -29,7 +29,6 @@
 
 typedef	struct	s_buf
 {
-	char		*content;
 	char		**buffer;
 }				t_buf;
 
@@ -114,7 +113,7 @@ typedef struct		s_mlx
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	 char			*addr;
+//	 char			*addr;
 	void			*image;
 	void			*img_ptr;
 	int				bit_pix;
@@ -122,14 +121,22 @@ typedef struct		s_mlx
 	int				endian;
 }					t_mlx;
 
+typedef struct	s_player
+{
+	double		pos_x; // поз-я персонажа по иксу
+	double		pos_y; // поз-я персонажа по игрику
+	double		dir_x; // направление перса по иксу
+	double		dir_y; // направление перса по игрику		
+}				t_player;
 
 typedef	struct	s_cub3d
 {
 	t_mlx		*mlx;
-
+	t_player	player;
+	
 	char		*path;
 
-	int			bits_pix;
+//	int			bits_pix;
 	t_buf		buf; // структура с прочитанным файлом
 	char		**map;
 	int			map_h; // кол-во строк карты
@@ -139,39 +146,32 @@ typedef	struct	s_cub3d
 	t_floor		flr; // структура пола
 	t_sprite	spr; // структура спрайтов
 	t_coor		*c_spr; // координаты спрайтов
-	int			res_x; // ширина экрана
-	int			res_y; // высота экрана
+	int			scr_w; // ширина экрана
+	int			scr_h; // высота экрана
 
-	double		pos_x; // поз-я персонажа по иксу
-	double		pos_y; // поз-я персонажа по игрику
-	double		dir_x; // направление перса по иксу
-	double		dir_y; // направление перса по игрику
-	// плоскости камеры(FOV)
-	double		plane_x;
-	double		plane_y;
-	double		olddir_x;
-	double		oldplane_x;
-	double		cam_plane;
 	double		raydir_x;
 	double		raydir_y;
-	int			map_x;
-	int			map_y;
+
 	double		delta_dx;
 	double		delta_dy;
+	int			map_x;
+	int			map_y;
 	int			step_x;
 	int			step_y;
 	double		side_dx;
 	double		side_dy;
-	int			wall_hit;
 	int			side;
 	double		wall_dist;
 	int			line_h;
 	int			draw_start;
 	int			draw_end;
 
+	double		olddir_x;
+	double		oldplane_x;
+	double		plane_x;
+	double		plane_y;
+
 	double		wall_x;
-	int			x_coor;
-	int			y_coor;
 
 	int			screenshot;
 	t_clr		color;

@@ -37,7 +37,7 @@ int	ft_read_width(char *str, int c, t_cub3d *cub3d)
 	if (len > 4)
 		exception(cub3d, THIRTYSEVEN);
 	tmp = ft_substr(str, c - len, len);
-	cub3d->res_x = ft_parse_int(tmp);
+	cub3d->scr_w = ft_parse_int(tmp);
 	free(tmp);
 	return (c);
 }
@@ -73,7 +73,7 @@ int	ft_read_height(char *str, int c, t_cub3d *cub3d)
 	if (len > 4)
 		exception(cub3d, THIRTYSEVEN);
 	tmp = ft_substr(str, c - len, len);
-	cub3d->res_y = ft_parse_int(tmp);
+	cub3d->scr_h = ft_parse_int(tmp);
 	free(tmp);
 	return (c);
 }
@@ -96,10 +96,10 @@ void	ft_read_screen_size(t_cub3d *cub3d)
 	c = ft_read_width(cub3d->buf.buffer[i], c, cub3d);
 	c = ft_read_height(cub3d->buf.buffer[i], c, cub3d);
 	mlx_get_screen_size(&screen_w, &screen_h);
-	if (cub3d->res_x > screen_w)
-		cub3d->res_x = screen_w;
-	if (cub3d->res_y > screen_h)
-		cub3d->res_y = screen_h;
-	if (cub3d->res_x <= 0 || cub3d->res_y <= 0)
+	if (cub3d->scr_w > screen_w)
+		cub3d->scr_w = screen_w;
+	if (cub3d->scr_h > screen_h)
+		cub3d->scr_h = screen_h;
+	if (cub3d->scr_w <= 0 || cub3d->scr_h <= 0)
 		exception(cub3d, SIX);
 }

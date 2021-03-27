@@ -64,8 +64,8 @@ void 	ft_def_spr_dist(t_cub3d *cub3d)
 	{
 		cub3d->spr.sp_order[i] = i;
 		cub3d->spr.sp_dist[i]
-			= ft_power(cub3d->pos_x - cub3d->c_spr[i].x, 2)
-			+ ft_power(cub3d->pos_y - cub3d->c_spr[i].y, 2);
+			= ft_power(cub3d->player.pos_x - cub3d->c_spr[i].x, 2)
+			+ ft_power(cub3d->player.pos_y - cub3d->c_spr[i].y, 2);
 		i++;
 	}
 }

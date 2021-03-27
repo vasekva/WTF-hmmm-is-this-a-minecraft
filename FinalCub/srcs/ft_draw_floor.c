@@ -30,11 +30,11 @@ void	ft_draw_floor(t_cub3d *cub3d, int x)
 
 	ft_def_coord_texfloor(cub3d);
 	if (cub3d->draw_end < 0)
-		cub3d->draw_end = cub3d->res_y;
+		cub3d->draw_end = cub3d->scr_h;
 	y = cub3d->draw_end;
-	while (y < cub3d->res_y)
+	while (y < cub3d->scr_h)
 	{
-		cub3d->flr.cur_dist = cub3d->res_y / (2.0 * y - cub3d->res_y);
+		cub3d->flr.cur_dist = cub3d->scr_h / (2.0 * y - cub3d->scr_h);
 		if (cub3d->tex[4].texture == 1)
 		{
 			ft_set_tex_coor(cub3d, 4);

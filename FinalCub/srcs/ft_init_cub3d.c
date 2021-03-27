@@ -57,7 +57,7 @@ void	ft_init_vars01(t_cub3d *cub3d)
 	cub3d->mlx->win_ptr = NULL;
 	cub3d->mlx->image = NULL;
 	cub3d->mlx->img_ptr = NULL;
-	cub3d->mlx->addr = NULL;
+	// cub3d->mlx->addr = NULL;
 	cub3d->mlx->bit_pix = 0;
 	cub3d->mlx->size_line = 0;
 	cub3d->mlx->endian = 0;

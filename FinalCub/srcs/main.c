@@ -25,7 +25,7 @@ static int	create_window(t_cub3d *cub3d)
 		return (0);
 	ft_read_textures(cub3d);
 	cub3d->mlx->image
-		= mlx_new_image(cub3d->mlx->mlx_ptr, cub3d->res_x, cub3d->res_y);
+		= mlx_new_image(cub3d->mlx->mlx_ptr, cub3d->scr_w, cub3d->scr_h);
 	if (!cub3d->mlx->image)
 		return (0);
 	cub3d->mlx->img_ptr
@@ -39,8 +39,8 @@ static int	create_window(t_cub3d *cub3d)
 		exit(0);
 	}
 	cub3d->mlx->win_ptr
-		= mlx_new_window(cub3d->mlx->mlx_ptr, cub3d->res_x,
-			cub3d->res_y, "cub3d");
+		= mlx_new_window(cub3d->mlx->mlx_ptr, cub3d->scr_w,
+			cub3d->scr_h, "cub3d");
 	if (!cub3d->mlx->win_ptr)
 		return (0);
 	return (1);

@@ -5,10 +5,10 @@ void	ft_set_tex_coor(t_cub3d *cub3d, int i)
 	cub3d->flr.weight = cub3d->flr.cur_dist / cub3d->wall_dist;
 	cub3d->flr.cur_fl_x
 		= cub3d->flr.weight * cub3d->flr.fl_x_wall
-		+ (1.0 - cub3d->flr.weight) * cub3d->pos_x;
+		+ (1.0 - cub3d->flr.weight) * cub3d->player.pos_x;
 	cub3d->flr.cur_fl_y
 		= cub3d->flr.weight * cub3d->flr.fl_y_wall
-		+ (1.0 - cub3d->flr.weight) * cub3d->pos_y;
+		+ (1.0 - cub3d->flr.weight) * cub3d->player.pos_y;
 	cub3d->flr.fl_tex_x
 		= (int)(cub3d->flr.cur_fl_x * cub3d->tex[5].width)
 		% cub3d->tex[5].width;
@@ -16,17 +16,17 @@ void	ft_set_tex_coor(t_cub3d *cub3d, int i)
 		% cub3d->tex[5].height;
 }
 
-void	get_color(t_cub3d *cub, int ind, int x, int y)
+void	get_color(t_cub3d *cub3d, int ind, int x, int y)
 {
-	if (x >= 0 && x < cub->tex[ind].width && y >= 0 && y < cub->tex[ind].height)
+	if (x >= 0 && x < cub3d->tex[ind].width && y >= 0 && y < cub3d->tex[ind].height)
 	{
-		cub->tex[ind].color
-			= *(int *)(cub->tex[ind].tex_ptr
-				+ (x * cub->tex[ind].bit_pix
-					/ 8 + y * cub->tex[ind].size_line));
+		cub3d->tex[ind].color
+			= *(int *)(cub3d->tex[ind].tex_ptr
+				+ (x * cub3d->tex[ind].bit_pix
+					/ 8 + y * cub3d->tex[ind].size_line));
 	}
 	else
-		cub->tex[ind].color = 0x0;
+		cub3d->tex[ind].color = 0x0;
 }
 
 void	color_dist(t_cub3d *cub, int ind, double dis)
@@ -49,8 +49,8 @@ void	color_dist(t_cub3d *cub, int ind, double dis)
 
 void	draw_pix(t_cub3d *cub3d, int ind, int x, int y)
 {
-	if (x >= 0 && x < cub3d->res_x && y >= 0 && y < cub3d->res_y)
-		*(int *)(cub3d->mlx->img_ptr + (cub3d->res_x * y + x)
+	if (x >= 0 && x < cub3d->scr_w && y >= 0 && y < cub3d->scr_h)
+		*(int *)(cub3d->mlx->img_ptr + (cub3d->scr_w * y + x)
 				* cub3d->mlx->bit_pix / 8)
 			= cub3d->tex[ind].color;
 }

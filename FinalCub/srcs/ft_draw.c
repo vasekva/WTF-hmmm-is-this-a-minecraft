@@ -10,7 +10,7 @@ void	ft_draw_sky(t_cub3d *cub3d, int x)
 	{
 		skytex
 			= abs((int)(x - cub3d->tex[5].width * (M_PI / 2)
-					* atan(cub3d->dir_y / (cub3d->dir_x + 0.01)))
+					* atan(cub3d->player.dir_y / (cub3d->player.dir_x + 0.01)))
 				*cub3d->tex[5].bit_pix / 8 + y * cub3d->tex[5].size_line);
 		cub3d->tex[5].color = *(int *)(cub3d->tex[5].tex_ptr + skytex);
 		{
@@ -27,7 +27,7 @@ void	ft_draw_ceiling(t_cub3d *cub3d, int x)
 	y = 0;
 	while (y < cub3d->draw_start)
 	{
-		cub3d->flr.cur_dist = -cub3d->res_y / (2.0 * y - cub3d->res_y);
+		cub3d->flr.cur_dist = -cub3d->scr_h / (2.0 * y - cub3d->scr_h);
 		if (cub3d->tex[5].texture == 1)
 		{
 			ft_set_tex_coor(cub3d, 5);
