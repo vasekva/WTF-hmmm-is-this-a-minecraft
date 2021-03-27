@@ -113,7 +113,6 @@ typedef struct		s_mlx
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-//	 char			*addr;
 	void			*image;
 	void			*img_ptr;
 	int				bit_pix;
@@ -129,14 +128,27 @@ typedef struct	s_player
 	double		dir_y; // направление перса по игрику		
 }				t_player;
 
+typedef struct	s_dda2d
+{
+	double		raydir_x;
+	double		raydir_y;
+	double		delta_dx;
+	double		delta_dy;
+	int			map_x;
+	int			map_y;
+	double		side_dx;
+	double		side_dy;
+	int			step_x;
+	int			step_y;
+}				t_dda2d;
+
 typedef	struct	s_cub3d
 {
 	t_mlx		*mlx;
 	t_player	player;
-	
-	char		*path;
+	t_dda2d		dda2d;
 
-//	int			bits_pix;
+	char		*path;
 	t_buf		buf; // структура с прочитанным файлом
 	char		**map;
 	int			map_h; // кол-во строк карты
@@ -149,17 +161,6 @@ typedef	struct	s_cub3d
 	int			scr_w; // ширина экрана
 	int			scr_h; // высота экрана
 
-	double		raydir_x;
-	double		raydir_y;
-
-	double		delta_dx;
-	double		delta_dy;
-	int			map_x;
-	int			map_y;
-	int			step_x;
-	int			step_y;
-	double		side_dx;
-	double		side_dy;
 	int			side;
 	double		wall_dist;
 	int			line_h;

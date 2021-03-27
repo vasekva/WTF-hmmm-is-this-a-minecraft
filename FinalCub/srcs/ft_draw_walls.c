@@ -22,9 +22,9 @@ void	ft_texturing_wall(t_cub3d *cub3d, int x, int i)
 	int coord_y;
 
 	coord_x = (int)(cub3d->wall_x * (double)(cub3d->tex[i].width));
-	if ((cub3d->side == 0 || cub3d->side == 1) && cub3d->raydir_x > 0)
+	if ((cub3d->side == 0 || cub3d->side == 1) && cub3d->dda2d.raydir_x > 0)
 		coord_x = cub3d->tex[i].width - coord_x - 1;
-	if ((cub3d->side == 2 || cub3d->side == 3) && cub3d->raydir_y < 0)
+	if ((cub3d->side == 2 || cub3d->side == 3) && cub3d->dda2d.raydir_y < 0)
 		coord_x = cub3d->tex[i].width - coord_x - 1;
 	coord_x = abs(coord_x);
 	y = cub3d->draw_start;
@@ -47,9 +47,9 @@ void 	ft_draw_walls(t_cub3d *cub3d, int x)
 
 	ind = ft_def_wall_for_tex(cub3d);
 	if (cub3d->side == 0 || cub3d->side == 1)
-		cub3d->wall_x = cub3d->player.pos_y + cub3d->wall_dist * cub3d->raydir_y;
+		cub3d->wall_x = cub3d->player.pos_y + cub3d->wall_dist * cub3d->dda2d.raydir_y;
 	else if (cub3d->side == 2 || cub3d->side == 3)
-		cub3d->wall_x = cub3d->player.pos_x + cub3d->wall_dist * cub3d->raydir_x;
+		cub3d->wall_x = cub3d->player.pos_x + cub3d->wall_dist * cub3d->dda2d.raydir_x;
 	cub3d->wall_x = cub3d->wall_x - floor(cub3d->wall_x);
 	if (cub3d->tex[ind].texture == 1)
 	{

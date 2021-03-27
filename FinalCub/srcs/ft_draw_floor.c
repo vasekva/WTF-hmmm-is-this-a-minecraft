@@ -4,23 +4,23 @@ void	ft_def_coord_texfloor(t_cub3d *cub3d)
 {
 	if (cub3d->side == 0)
 	{
-		cub3d->flr.fl_x_wall = cub3d->map_x;
-		cub3d->flr.fl_y_wall = cub3d->map_y + cub3d->wall_x;
+		cub3d->flr.fl_x_wall = cub3d->dda2d.map_x;
+		cub3d->flr.fl_y_wall = cub3d->dda2d.map_y + cub3d->wall_x;
 	}
 	else if (cub3d->side == 1)
 	{
-		cub3d->flr.fl_x_wall = cub3d->map_x + 1.0;
-		cub3d->flr.fl_y_wall = cub3d->map_y + cub3d->wall_x;
+		cub3d->flr.fl_x_wall = cub3d->dda2d.map_x + 1.0;
+		cub3d->flr.fl_y_wall = cub3d->dda2d.map_y + cub3d->wall_x;
 	}
 	else if (cub3d->side == 2)
 	{
-		cub3d->flr.fl_x_wall = cub3d->map_x + cub3d->wall_x;
-		cub3d->flr.fl_y_wall = cub3d->map_y;
+		cub3d->flr.fl_x_wall = cub3d->dda2d.map_x + cub3d->wall_x;
+		cub3d->flr.fl_y_wall = cub3d->dda2d.map_y;
 	}
 	else if (cub3d->side == 3)
 	{
-		cub3d->flr.fl_x_wall = cub3d->map_x + cub3d->wall_x;
-		cub3d->flr.fl_y_wall = cub3d->map_y + 1.0;
+		cub3d->flr.fl_x_wall = cub3d->dda2d.map_x + cub3d->wall_x;
+		cub3d->flr.fl_y_wall = cub3d->dda2d.map_y + 1.0;
 	}
 }
 
