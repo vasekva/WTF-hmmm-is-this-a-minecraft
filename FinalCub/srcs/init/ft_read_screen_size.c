@@ -72,6 +72,7 @@ static int	ft_read_height(char *str, int c, t_cub3d *cub3d)
 	len = ft_numlen(str, &c);
 	if (len > 4)
 		exception(THIRTYSEVEN);
+	ft_check_end_of_str(cub3d, str, c);
 	tmp = ft_substr(str, c - len, len);
 	cub3d->scr_h = ft_parse_int(tmp);
 	free(tmp);

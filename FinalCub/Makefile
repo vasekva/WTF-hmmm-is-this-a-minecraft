@@ -10,6 +10,7 @@ LIBFT_DIR		=	./libft/
 LIBRARY			=	./libft/libft.a
 MLX_DIR			=	./mlx/
 MLX_LIB			=	./mlx/libmlx.a
+SCREEN			=	YourScreenshot.bmp
 
 SRCS_NAME		=	main.c					\
 					exception.c				\
@@ -23,6 +24,7 @@ SRCS_NAME		=	main.c					\
 					ft_convert_bmp.c		\
 					ft_draw_sprites.c		\
 					start_raycast.c			\
+					ft_exit.c				\
 
 INIT_SRCS		=	ft_init_cub3d.c			\
 					ft_init_map.c			\
@@ -62,21 +64,24 @@ $(NAME):			$(OBJS)
 					@echo
 
 $(OBJS):			$(SRCS)
+					@(mkdir -p				$(OBJS_DIR))
 					@($(CC)	$(INCLUDES)	-c	$(SRCS))
 					@(mv	$(OBJS_NAME)	$(OBJS_DIR))
 clean:
 					@(make	clean -C	$(LIBFT_DIR))
 					@(make	clean -C	$(MLX_DIR))
-					@(rm -rf			$(OBJS))
+					@(rm 	-rf			$(OBJS))
 					@echo	"\033[33m===	CUB3D ./OBJS/ CLEANED	===\033[0m"
 
 fclean:				clean
 					@(rm	-rf	$(NAME))
-					@(rm	-rf	$(LIBRARY))
+					@(rm    -rf $(LIBRARY))
+					@(rm	-rf	objs)
+					@(rm	-f $(SCREEN))
 					@echo	"\033[33m===	LIBRARY LIBFT CLEANED	===\033[0m"
 					@echo	"\033[31m\033[1m${RED}===	ВСЕ СОЗДАННЫЕ ФАЙЛЫ УСПЕШНО УДАЛЕНЫ	===\033[0m"
 					@echo
 
 re:					fclean all
 
-.PHONY:				all, clean, fclean, re
+.PHONY:				all, clean, fclean, re, create

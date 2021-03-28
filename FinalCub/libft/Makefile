@@ -36,7 +36,8 @@ $(NAME):				$(OBJS)
 						@echo
 
 $(OBJS):				$(SRCS)
-						($(CC)		$(INCLUDES) -c	$(SRCS))
+						@($(CC)		$(INCLUDES) -c	$(SRCS))
+						@(mkdir 	-p 				$(OBJS_DIR))
 						@(mv 		$(OBJS_NAME)	$(OBJS_DIR))
 
 clean:
@@ -45,6 +46,7 @@ clean:
 
 fclean:					clean
 						@(rm -rf	$(NAME))
+						@(rm -rf	objs)
 						@echo "\033[33m===	LIBRARY LIBFT CLEANED	===\033[0m"
 
 re:						fclean all

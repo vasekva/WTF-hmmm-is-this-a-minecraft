@@ -253,6 +253,7 @@ void	ft_draw_floor(t_cub3d *cub3d, int x);
 void	ft_draw_sprites(t_cub3d *cub);
 void	ft_draw_walls(t_cub3d *cub3d, int x);
 void	draw_all(t_cub3d *cub3d, int x);
+int		ft_exit(int key, t_cub3d *cub3d);
 void	ft_move_forw_bacw(t_cub3d *cub3d);
 void	ft_move_side(t_cub3d *cub3d);
 int		get_next_line(int fd, char **line);
