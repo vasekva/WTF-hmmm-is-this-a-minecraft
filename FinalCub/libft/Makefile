@@ -14,6 +14,8 @@ SRCS_NAME			=	ft_memset.c			\
 						ft_power.c			\
 						ft_isdigit.c		\
 						ft_substr.c			\
+						ft_strchr.c			\
+						ft_strjoin.c		\
 
 OBJS_NAME			=	$(SRCS_NAME:.c=.o)
 
@@ -34,7 +36,7 @@ $(NAME):				$(OBJS)
 						@echo
 
 $(OBJS):				$(SRCS)
-						@($(CC)		$(INCLUDES) -c	$(SRCS))
+						($(CC)		$(INCLUDES) -c	$(SRCS))
 						@(mv 		$(OBJS_NAME)	$(OBJS_DIR))
 
 clean:

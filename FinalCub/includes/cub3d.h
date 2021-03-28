@@ -23,6 +23,8 @@
 # define ESC 53
 # define SHIFT 257
 
+# define BUFFER_SIZE 21
+
 typedef struct s_crds
 {
 	double		x;
@@ -150,6 +152,7 @@ typedef struct s_move
 typedef struct s_cub3d
 {
 	char		**buff;
+	int			flag_buff;
 	t_mlx		*mlx;
 	t_crds		*spr_crds;
 	t_sprite	sprite;

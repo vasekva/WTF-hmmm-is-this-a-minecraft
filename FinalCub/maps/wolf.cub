@@ -1,9 +1,9 @@
-R 1200 900
+R 5000 5000
 
-SO textures/wolf/mossy.xpm
-NO textures/wolf/redbrick.xpm
-EA textures/wolf/wood.xpm
-WE textures/wolf/bluestone.xpm
+SO textures/wolf/w_mossy.xpm
+NO textures/wolf/w_redbrick.xpm
+EA textures/wolf/w_wood.xpm
+WE textures/wolf/w_bluestone.xpm
 
 S textures/wolf/s_dog.xpm
 
