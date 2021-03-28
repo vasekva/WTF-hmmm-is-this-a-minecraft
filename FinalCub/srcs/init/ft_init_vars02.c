@@ -96,7 +96,3 @@ void	ft_init_vars02(t_cub3d *cub3d)
 	init_plane(cub3d);
 	ft_count_sprites(cub3d);
 }
-
-/*
-** (M_PI * 33 / 180) rad = (66 / 2) deg
-*/

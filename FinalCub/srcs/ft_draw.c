@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_draw_sky(t_cub3d *cub3d, int x)
+static void	ft_draw_sky(t_cub3d *cub3d, int x)
 {
 	int	y;
 	int	skytex;
@@ -20,7 +20,7 @@ void	ft_draw_sky(t_cub3d *cub3d, int x)
 	}
 }
 
-void	ft_draw_ceiling(t_cub3d *cub3d, int x)
+static void	ft_draw_ceiling(t_cub3d *cub3d, int x)
 {
 	int	y;
 

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_fill_buff(t_cub3d *cub3d)
+static void	ft_fill_buff(t_cub3d *cub3d)
 {
 	int		i;
 	int		fd;
@@ -29,7 +29,7 @@ void	ft_fill_buff(t_cub3d *cub3d)
 	close(fd);
 }
 
-void	ft_set_buffer(int fd, t_cub3d *cub3d)
+static void	ft_set_buffer(int fd, t_cub3d *cub3d)
 {
 	char	*line;
 	char	*check;
@@ -52,7 +52,7 @@ void	ft_set_buffer(int fd, t_cub3d *cub3d)
 	ft_fill_buff(cub3d);
 }
 
-void	ft_init_vars01(t_cub3d *cub3d)
+static void	ft_init_vars01(t_cub3d *cub3d)
 {
 	cub3d->mlx = malloc(sizeof(t_mlx));
 	if (!cub3d->mlx)
@@ -70,6 +70,24 @@ void	ft_init_vars01(t_cub3d *cub3d)
 	ft_memset(&cub3d->texture, 0, sizeof(t_texture) * 7);
 	ft_memset(&cub3d->floor, 0, sizeof(t_floor));
 	ft_memset(&cub3d->sprite, 0, sizeof(t_sprite));
+}
+
+static int	ft_check_fileformat(char *argument)
+{
+	int	i;
+	int	pos;
+
+	i = 0;
+	pos = 0;
+	while (argument[i])
+	{
+		if (argument[i] == '.')
+			pos = i;
+		i++;
+	}
+	if (!ft_strncmp(&argument[pos], ".cub", ft_strlen(&argument[pos])))
+		return (-1);
+	return (0);
 }
 
 void	ft_init_cub3d(t_cub3d *cub3d)

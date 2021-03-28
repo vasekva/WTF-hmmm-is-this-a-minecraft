@@ -13,9 +13,6 @@ static int	ft_pow(int num, int i)
 	return (num);
 }
 
-/*
-* Используется парсером в ft_parse_screen_size
-*/
 int	ft_parse_int(char *str)
 {
 	int	i;

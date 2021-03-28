@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	assign_path_tex(t_cub3d *cub3d, char *line, int ind)
+static void	ft_def_path_texture(t_cub3d *cub3d, char *line, int ind)
 {
 	int	i;
 
@@ -26,9 +26,9 @@ static void	assign_path_tex(t_cub3d *cub3d, char *line, int ind)
 	}
 }
 
-static void	assign_tex(t_cub3d *cub3d, char *line, int i)
+static void	put_texture(t_cub3d *cub3d, char *line, int i)
 {
-	assign_path_tex(cub3d, line, i);
+	ft_def_path_texture(cub3d, line, i);
 	if (cub3d->texture[i].texture == 1)
 	{
 		cub3d->texture[i].image
@@ -53,20 +53,20 @@ void	ft_read_textures(t_cub3d *cub3d)
 	i = 0;
 	while (cub3d->buff[i])
 	{
-		if (cub3d->buff[i][0] == 'S' && cub3d->buff[i][1] == 'O')
-			assign_tex(cub3d, cub3d->buff[i], 0);
-		if (cub3d->buff[i][0] == 'N' && cub3d->buff[i][1] == 'O')
-			assign_tex(cub3d, cub3d->buff[i], 1);
-		if (cub3d->buff[i][0] == 'E' && cub3d->buff[i][1] == 'A')
-			assign_tex(cub3d, cub3d->buff[i], 2);
-		if (cub3d->buff[i][0] == 'W' && cub3d->buff[i][1] == 'E')
-			assign_tex(cub3d, cub3d->buff[i], 3);
-		if (cub3d->buff[i][0] == 'F' && cub3d->buff[i][1] == ' ')
-			assign_tex(cub3d, cub3d->buff[i], 4);
-		if (cub3d->buff[i][0] == 'C' && cub3d->buff[i][1] == ' ')
-			assign_tex(cub3d, cub3d->buff[i], 5);
 		if (cub3d->buff[i][0] == 'S' && cub3d->buff[i][1] == ' ')
-			assign_tex(cub3d, cub3d->buff[i], 6);
+			put_texture(cub3d, cub3d->buff[i], 6);
+		if (cub3d->buff[i][0] == 'S' && cub3d->buff[i][1] == 'O')
+			put_texture(cub3d, cub3d->buff[i], 0);
+		if (cub3d->buff[i][0] == 'N' && cub3d->buff[i][1] == 'O')
+			put_texture(cub3d, cub3d->buff[i], 1);
+		if (cub3d->buff[i][0] == 'W' && cub3d->buff[i][1] == 'E')
+			put_texture(cub3d, cub3d->buff[i], 3);
+		if (cub3d->buff[i][0] == 'E' && cub3d->buff[i][1] == 'A')
+			put_texture(cub3d, cub3d->buff[i], 2);
+		if (cub3d->buff[i][0] == 'F' && cub3d->buff[i][1] == ' ')
+			put_texture(cub3d, cub3d->buff[i], 4);
+		if (cub3d->buff[i][0] == 'C' && cub3d->buff[i][1] == ' ')
+			put_texture(cub3d, cub3d->buff[i], 5);
 		i++;
 	}
 }

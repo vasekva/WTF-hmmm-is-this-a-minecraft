@@ -34,7 +34,7 @@ int 	is_map_line(t_cub3d *cub3d, char *line)
 	return (0);
 }
 
-int	ft_add_mapsize(t_cub3d *cub3d, char *line, int i)
+static int	ft_add_mapsize(t_cub3d *cub3d, char *line, int i)
 {
 	char	c;
 	int		size;
@@ -59,7 +59,7 @@ int	ft_add_mapsize(t_cub3d *cub3d, char *line, int i)
 	return (0);
 }
 
-int 	ft_count_mapline(t_cub3d *cub3d, int size, int i, char c)
+static int 	ft_count_mapline(t_cub3d *cub3d, int size, int i, char c)
 {
 	int		has_map;
 	int		has_empty_line;

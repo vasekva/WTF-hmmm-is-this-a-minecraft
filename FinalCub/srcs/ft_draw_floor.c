@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_def_coord_texfloor(t_cub3d *cub3d)
+static void	ft_def_coord_texfloor(t_cub3d *cub3d)
 {
 	if (cub3d->dda3d.side == 0)
 	{

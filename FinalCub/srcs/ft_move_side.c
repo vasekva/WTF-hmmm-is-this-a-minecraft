@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void 	ft_move_left(t_cub3d *cub3d)
+static void 	ft_move_left(t_cub3d *cub3d)
 {
 	if (cub3d->map
 		[(int)(cub3d->player.pos_x - cub3d->player.dir_y * cub3d->keys.m_speed)]
@@ -12,7 +12,7 @@ void 	ft_move_left(t_cub3d *cub3d)
 		cub3d->player.pos_y += cub3d->player.dir_x * cub3d->keys.m_speed;
 }
 
-void 	ft_move_right(t_cub3d *cub3d)
+static void 	ft_move_right(t_cub3d *cub3d)
 {
 	if (cub3d->map
 		[(int)(cub3d->player.pos_x + cub3d->player.dir_y * cub3d->keys.m_speed)]
@@ -24,7 +24,7 @@ void 	ft_move_right(t_cub3d *cub3d)
 		cub3d->player.pos_y -= cub3d->player.dir_x * cub3d->keys.m_speed;
 }
 
-void 	ft_turn_left(t_cub3d *cub3d)
+static void 	ft_turn_left(t_cub3d *cub3d)
 {
 	if (cub3d->keys.left == 1)
 	{
@@ -45,7 +45,7 @@ void 	ft_turn_left(t_cub3d *cub3d)
 	}
 }
 
-void 	ft_turn_right(t_cub3d *cub3d)
+static void 	ft_turn_right(t_cub3d *cub3d)
 {
 	if (cub3d->keys.right == 1)
 	{
@@ -69,19 +69,11 @@ void 	ft_turn_right(t_cub3d *cub3d)
 void	ft_move_side(t_cub3d *cub3d)
 {
 	if (cub3d->keys.key_a == 1)
-	{
 		ft_move_left(cub3d);
-	}
 	if (cub3d->keys.key_d == 1)
-	{
 		ft_move_right(cub3d);
-	}
 	if (cub3d->keys.left == 1)
-	{
 		ft_turn_left(cub3d);
-	}
 	if (cub3d->keys.right == 1)
-	{
 		ft_turn_right(cub3d);
-	}
 }

@@ -1,23 +1,5 @@
 #include "cub3d.h"
 
-int	ft_check_fileformat(char *argument)
-{
-	int	i;
-	int	pos;
-
-	i = 0;
-	pos = 0;
-	while (argument[i])
-	{
-		if (argument[i] == '.')
-			pos = i;
-		i++;
-	}
-	if (!ft_strncmp(&argument[pos], ".cub", ft_strlen(&argument[pos])))
-		return (-1);
-	return (0);
-}
-
 static int	create_window(t_cub3d *cub3d)
 {
 	cub3d->mlx->p_mlx = mlx_init();
@@ -46,7 +28,7 @@ static int	create_window(t_cub3d *cub3d)
 	return (1);
 }
 
-void	ft_has_screen(t_cub3d *cub3d, char *arg, int argc, int flag)
+static void	ft_has_screen(t_cub3d *cub3d, char *arg, int argc, int flag)
 {
 	if (argc == 3)
 	{
@@ -55,6 +37,19 @@ void	ft_has_screen(t_cub3d *cub3d, char *arg, int argc, int flag)
 			exception(THIRTYSIX);
 		cub3d->screenshot = 1;
 	}
+}
+
+static int	ft_start_game(t_cub3d *cub3d)
+{
+	if (cub3d->keys.up == 1 || cub3d->keys.down == 1)
+		ft_move_forw_bacw(cub3d);
+	if (cub3d->keys.key_a == 1 || cub3d->keys.key_d == 1
+		|| cub3d->keys.left == 1 || cub3d->keys.right == 1)
+		ft_move_side(cub3d);
+	start_raycast(cub3d);
+	mlx_put_image_to_window(cub3d->mlx->p_mlx,
+		cub3d->mlx->p_win, cub3d->mlx->image, 0, 0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -79,6 +74,8 @@ int	main(int argc, char **argv)
 		mlx_loop(cub3d.mlx->p_mlx);
 	}
 	else
-		ft_putstr("Вы не передали аргументы в программу!\n");
+	{
+		exception(FORTY);
+	}
 	return (0);
 }

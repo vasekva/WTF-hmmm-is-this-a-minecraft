@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int 	ft_def_wall_for_tex(t_cub3d *cub3d)
+static int 	ft_def_wall_for_tex(t_cub3d *cub3d)
 {
 	int	i;
 
@@ -15,7 +15,7 @@ int 	ft_def_wall_for_tex(t_cub3d *cub3d)
 	return (i);
 }
 
-void	ft_texturing_wall(t_cub3d *cub3d, int x, int i)
+static void	ft_texturing_wall(t_cub3d *cub3d, int x, int i)
 {
 	int	y;
 	int	coord_x;

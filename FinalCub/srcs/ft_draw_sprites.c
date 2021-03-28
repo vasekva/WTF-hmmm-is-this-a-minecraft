@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_def_spr_pos(t_cub3d *cub3d, int i)
+static void	ft_def_spr_pos(t_cub3d *cub3d, int i)
 {
 	double	dir_x;
 	double	dir_y;
@@ -28,7 +28,7 @@ void	ft_def_spr_pos(t_cub3d *cub3d, int i)
 			* (1.0 + cub3d->sprite.trans_form_x / cub3d->sprite.trans_form_y));
 }
 
-void 	ft_def_spr_size(t_cub3d *cub3d)
+static void 	ft_def_spr_size(t_cub3d *cub3d)
 {
 	cub3d->sprite.height
 		= abs((int)(cub3d->scr_h / cub3d->sprite.trans_form_y));
@@ -49,7 +49,7 @@ void 	ft_def_spr_size(t_cub3d *cub3d)
 		cub3d->sprite.end_draw_x = cub3d->scr_w - 1;
 }
 
-void 	ft_spr_draw(t_cub3d *cub3d, int x, int i)
+static void 	ft_spr_draw(t_cub3d *cub3d, int x, int i)
 {
 	int	y;
 	int	d;
@@ -72,7 +72,7 @@ void 	ft_spr_draw(t_cub3d *cub3d, int x, int i)
 	}
 }
 
-void	ft_spr_init(t_cub3d *cub3d)
+static void	ft_spr_init(t_cub3d *cub3d)
 {
 	int	i;
 	int	x;

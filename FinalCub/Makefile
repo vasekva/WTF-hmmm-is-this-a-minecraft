@@ -15,7 +15,6 @@ SRCS_NAME		=	main.c					\
 					exception.c				\
 					get_next_line.c			\
 					event_handle.c			\
-					ft_start_game.c			\
 					ft_draw.c				\
 					ft_draw_walls.c			\
 					ft_draw_floor.c			\
@@ -37,7 +36,7 @@ INIT_SRCS		=	ft_init_cub3d.c			\
 					ft_read_textures.c		\
 					ft_def_sprites.c		\
 
-UTILS_SRCS		= 	ft_utils_for_sprites.c	\
+UTILS_SRCS		= 	ft_count_sprites.c		\
 					ft_utils_for_draw.c		\
 					ft_utils_for_color.c	\
 

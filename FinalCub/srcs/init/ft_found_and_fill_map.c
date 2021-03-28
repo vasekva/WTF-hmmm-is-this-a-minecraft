@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-char	*ft_add_spaces(char *str, int add)
+static char	*ft_add_spaces(char *str, int add)
 {
 	char	*dst;
 	int		i;
@@ -26,7 +26,7 @@ char	*ft_add_spaces(char *str, int add)
 	return (dst);
 }
 
-int	ft_skiplines(t_cub3d *cub3d, char *line, int i)
+static int	ft_skiplines(t_cub3d *cub3d, char *line, int i)
 {
 	while (cub3d->buff[i][0] != '0' && cub3d->buff[i][0] != '1'
 		&& cub3d->buff[i][0] != '2')
@@ -39,7 +39,7 @@ int	ft_skiplines(t_cub3d *cub3d, char *line, int i)
 	return (i);
 }
 
-void	ft_fill_map(t_cub3d *cub3d, int i, int len, int ind)
+static void	ft_fill_map(t_cub3d *cub3d, int i, int len, int ind)
 {
 	int		diff;
 	char	*tmp;

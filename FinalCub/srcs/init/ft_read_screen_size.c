@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	ft_numlen(char *str, int *c)
+static int	ft_numlen(char *str, int *c)
 {
 	int	len;
 	int	i;
@@ -16,7 +16,7 @@ int	ft_numlen(char *str, int *c)
 	return (len);
 }
 
-int	ft_read_width(char *str, int c, t_cub3d *cub3d)
+static int	ft_read_width(char *str, int c, t_cub3d *cub3d)
 {
 	int		len;
 	char	*tmp;
@@ -42,7 +42,7 @@ int	ft_read_width(char *str, int c, t_cub3d *cub3d)
 	return (c);
 }
 
-void	ft_check_end_of_str(t_cub3d *cub3d, char *str, int c)
+static void	ft_check_end_of_str(t_cub3d *cub3d, char *str, int c)
 {
 	while (str[c])
 	{
@@ -52,7 +52,7 @@ void	ft_check_end_of_str(t_cub3d *cub3d, char *str, int c)
 	}
 }
 
-int	ft_read_height(char *str, int c, t_cub3d *cub3d)
+static int	ft_read_height(char *str, int c, t_cub3d *cub3d)
 {
 	int		len;
 	char	*tmp;

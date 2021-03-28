@@ -2,7 +2,7 @@
 
 static int	check_symbol(char const *s, char c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])

@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-/*
-* Проверка запятых в строке
-*/
 static int	ft_check_comma(char *str)
 {
 	int	i;
@@ -21,11 +18,6 @@ static int	ft_check_comma(char *str)
 	return (0);
 }
 
-/*
-* Считывает параметры цветов из входной строки
-* и в зависимости от флага (F, C) записывает
-* результат в нужную структуру
-*/
 static int	ft_write_color(int color,
 	char symb_of_color, t_cub3d *cub3d)
 {
