@@ -1,7 +1,7 @@
-# cub3D (42 project)
+# cub3D
 
-![Cub1](./FinalCub/readmeFiles/screen.bmp)
-![Cub1](./FinalCub//readmeFiles/screen1.bmp)
+![Cub_bmp](./Cub3D/readmeFiles/screen.bmp)
+![Cub_bmp](./Cub3D/readmeFiles/screen1.bmp)
 
 ## Summary
 This project is inspired by the world-famous 90’s game Wolfenstein 3D, which
@@ -10,11 +10,18 @@ make a dynamic view inside a maze, using colors, textures and sprites.
 ## Compilation
 Use the ```make``` command to compile using the Makefile.
 ## Execution
-```./cub3D [map_path]```: play the game.
+play the game:
+```./cub3D [map_path]```
+```
+./cub3D maps/standart.cub
+```
+save the first rendered image in a bmp format:
+```./cub3D [map_path] --save```
+```
+./cub3D maps/standart.cub --save
+```
 
-```./cub3D [map_path] --save```: save the first rendered image in a bmp format.
-
-<img src="./FinalCub/readmeFiles/compile.gif" width=100% height=100%/>
+<img src="./Cub3D/readmeFiles/compile.gif" width=100% height=100%/>
 
 ## Recommendations
 The map file must be in *.cub format.
